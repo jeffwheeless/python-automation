@@ -88,7 +88,7 @@ def mouseMove(coordKeyPrime, coordKeySecond, startRandInt, endRandInt, endPoint)
         current = pyautogui.position()
         # left off here, thinking i need to make the next set of randoms have a range of the difference of current and end point divided by a number
         randIntFromDifference = current[coordKeySecond] - loc2[coordKeySecond]
-        realignCoordBeforePlot(coord, diffMethod, endpoint, randInt)
+        # realignCoordBeforePlot(coord, diffMethod, endpoint, randInt)
         if (coordKeySecond == 1):
             y = realignCoordBeforePlot(current[coordKeySecond], ydiff,
                                        endPoint[coordKeySecond], randIntFromDifference)
@@ -149,16 +149,16 @@ def moveThere(total):
         moveThere(total)
 
 
-# foo = input("Mouse over first position ")
-# loc1 = pyautogui.position()
 # loc1 = [932, 216] # top right
-loc1 = [862, 581]  # left mid
+# loc1 = [862, 581]  # left mid
+foo = input("Mouse over first position ")
+loc1 = pyautogui.position()
 print(loc1)
 
-# foo = input("Mouse over second position ")
-# loc2 = pyautogui.position()
 # loc2 = [1616, 909] # bottom right
-loc2 = [1696, 577]  # right mid
+# loc2 = [1696, 577]  # right mid
+foo = input("Mouse over second position ")
+loc2 = pyautogui.position()
 print(loc2)
 
 xdiff = 'add'

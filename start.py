@@ -71,7 +71,10 @@ def drawLine(x, y, linearX, LinearY):
 
 
 def realignCoordBeforePlot(coord, diffMethod, endpoint, randInts):
-    randInt = random.randint(randInts[0], randInts[1])
+    if (randInts[1] < randInts[0]):
+        randInt = random.randint(randInts[1], randInts[0])
+    else:
+        randInt = random.randint(randInts[0], randInts[1])
     frameinfo = getframeinfo(currentframe())
     print("(" + str(frameinfo.lineno) + ") randInt: " + str(randInt))
     if (diffMethod == 'add' and coord <= endpoint):
@@ -223,8 +226,8 @@ def moveThere(loc1, loc2, total):
     current = pyautogui.position()
     if (
         (
-            (current[0] <= (loc2[0]+10) and current[0] >= (loc2[0]-10)) and
-            (current[1] <= (loc2[1]+10) and current[1] >= (loc2[1]-10))
+            (current[0] <= (loc2[0]+20) and current[0] >= (loc2[0]-20)) and
+            (current[1] <= (loc2[1]+10) and current[1] >= (loc2[1]-20))
         ) or total <= 1
     ):
         pyautogui.dragTo(loc2[0], loc2[1], button='left')

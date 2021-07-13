@@ -10,12 +10,14 @@ def performLeftClickSleep():
 
 def sleepRandom(smallInt, largeInt):
     sleep = random.uniform(smallInt, largeInt)
-    print(sleep)
-    if (sleep > 10):
+    print("Sleeping for: " + str(sleep))
+    if (sleep > 3):
         time.sleep(sleep-3)
-        for i in range(0, 3):
+        for i in range(3, 1):
             time.sleep(1)
-            print(" " + str(i) + " ")
+            print(" " + str(i) + " ", end=""),
+    else:
+        time.sleep(sleep)
 
 
 runs = input("How many locations ")
@@ -32,21 +34,20 @@ for x in range(0, int(runs)):
                int(wait), int(waitVariation)])
 
 # loc.remove([pyautogui.position(), 0, 5, 1])
-loc.pop(0E)
+loc.pop(0)
 print(str(loc))
 for a in range(1, 1200):
+    print("\n ============ Run: " + str(a) + " ============ ")
     current = pyautogui.position()
     for x in loc:
         currentLoc = x
         print(str(x))
         currentLocX = currentLoc[0][0]
         currentLocY = currentLoc[0][1]
-        print("Sleeping")
         sleepRandom(
             round(currentLoc[2]-(currentLoc[3]/2)),
             round(currentLoc[2]+(currentLoc[3]/2))
         )
-        print("Sleeping stopping")
         pyautogui.moveTo(
             random.randint(
                 round(currentLocX-(currentLoc[1]/2)),

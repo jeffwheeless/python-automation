@@ -57,17 +57,17 @@ def getPartialPoint(coord, current, total):
 def drawLine(x, y, linearX, LinearY):
     current = pyautogui.position()
     pyautogui.press('x')
-    pyautogui.moveTo(linearX, LinearY)
-    pyautogui.leftClick(linearX, LinearY, 0, 0.05)
-    pyautogui.press('x')
+    # pyautogui.moveTo(linearX, LinearY)
+    # pyautogui.leftClick(linearX, LinearY, 0, 0.0005)
+    # pyautogui.press('x')
     pyautogui.moveTo(current[0], current[1])
     # pyautogui.leftClick(x, y, 0, 0.05)
     pyautogui.dragTo(x, y, button='left')
-    pyautogui.moveTo(x, y)
+    # pyautogui.moveTo(x, y)
     frameinfo = getframeinfo(currentframe())
     print("(" + str(frameinfo.lineno) + ") current Location: " +
           str(x) + ', ' + str(y))
-    pyautogui.leftClick(x, y, 0, 0.05)
+    pyautogui.leftClick(x, y, 0, 0.0005)
 
 
 def realignCoordBeforePlot(coord, diffMethod, endpoint, randInts):
@@ -148,9 +148,21 @@ def mouseMove(loc1, loc2, coordKeyPrime, coordKeySecond, startRandInt, endRandIn
                   ")randIntFromDifference is negative, error")
         randIntBase = differenceY / 2
         if(randIntBase >= 25):
-            randInts = [10, 25]
+            randomDistributionNumber = random.randint(1, 10)
+            if(randomDistributionNumber <= 5):
+                randInts = [10, 15]
+            elif(randomDistributionNumber > 5 and randomDistributionNumber <= 8):
+                randInts = [15, 20]
+            else:
+                randInts = [20, 25]
         elif(randIntBase <= -25):
-            randInts = [-25, -10]
+            randomDistributionNumber = random.randint(1, 10)
+            if(randomDistributionNumber <= 5):
+                randInts = [-10, -15]
+            elif(randomDistributionNumber > 5 and randomDistributionNumber <= 8):
+                randInts = [-15, -20]
+            else:
+                randInts = [-20, -25]
         # if (differenceY <= 5):
         #     randInts = [-3, 3]
         # elif (differenceY <= 10):
@@ -231,7 +243,7 @@ def moveThere(loc1, loc2, total):
         ) or total <= 1
     ):
         pyautogui.dragTo(loc2[0], loc2[1], button='left')
-        pyautogui.moveTo(loc2[0], loc2[1], 0.05, pyautogui.easeInElastic)
+        pyautogui.moveTo(loc2[0], loc2[1], 0.0005, pyautogui.easeInElastic)
         frameinfo = getframeinfo(currentframe())
         print("(" + str(frameinfo.lineno) + ") Current Pos: " +
               str(pyautogui.position()))
@@ -243,24 +255,60 @@ def moveThere(loc1, loc2, total):
 
 
 # loc1 = [932, 216] # top right
-# loc1 = [862, 581]  # left mid
-foo = input("Mouse over first position ")
-loc1 = pyautogui.position()
+loc1 = [1027, 797]  # left mid
+# foo = input("Mouse over first position ")
+# loc1 = pyautogui.position()
 print(loc1)
 
 # loc2 = [1616, 909] # bottom right
-# loc2 = [1696, 577]  # right mid
-foo = input("Mouse over second position ")
-loc2 = pyautogui.position()
+loc2 = [1570, 892]  # right mid
+# foo = input("Mouse over second position ")
+# loc2 = pyautogui.position()
 print(loc2)
 
 runs = input("Runs: ")
+
 pyautogui.moveTo(loc1[0], loc1[1])
 pyautogui.leftClick(loc1[0], loc1[1])
+pyautogui.press('delete')
+pyautogui.press('x')
+for x in range(1, 20, 5):
+    pyautogui.moveTo(loc1[0]-x, loc1[1]-x)
+    pyautogui.dragTo(loc1[0]-x, loc1[1]+x, button='left')
+    pyautogui.dragTo(loc1[0]+x, loc1[1]+x, button='left')
+    pyautogui.dragTo(loc1[0]+x, loc1[1]-x, button='left')
+    pyautogui.dragTo(loc1[0]-x, loc1[1]-x, button='left')
+
+    pyautogui.moveTo(loc2[0]-x, loc2[1]-x)
+    pyautogui.dragTo(loc2[0]-x, loc2[1]+x, button='left')
+    pyautogui.dragTo(loc2[0]+x, loc2[1]+x, button='left')
+    pyautogui.dragTo(loc2[0]+x, loc2[1]-x, button='left')
+    pyautogui.dragTo(loc2[0]-x, loc2[1]-x, button='left')
+    
+    pyautogui.moveTo(loc1[0]+(x*10), loc1[1]+(x*10))
+    pyautogui.dragTo(loc1[0]+(x*10), loc1[1]+(x*10), button='left')
+    pyautogui.dragTo(loc1[0]+(x*10), loc1[1]-(x*10), button='left')
+    
+    pyautogui.moveTo(loc2[0]-(x*10), loc2[1]-(x*10))
+    pyautogui.dragTo(loc2[0]-(x*10), loc2[1]+(x*10), button='left')
+    pyautogui.dragTo(loc2[0]-(x*10), loc2[1]-(x*10), button='left')
+    pyautogui.press('x')
+# pyautogui.leftClick(x, y, 0, 0.05)
+# pyautogui.dragTo(x, y, button='left')
 # pyautogui.dragTo(loc2[0], loc2[1], button='left')
 
-pyautogui.press('delete')
+pyautogui.moveTo(loc1[0], loc1[1])
+pyautogui.leftClick(loc1[0], loc1[1])
 
+loc1 = [
+    loc1[0] + random.randint(-5, 5),
+    loc1[1] + random.randint(-5, 5)
+]
+
+loc2 = [
+    loc2[0] + random.randint(-5, 5),
+    loc2[1] + random.randint(-5, 5)
+]
 
 for one in range(0, int(runs)):
     total = 10

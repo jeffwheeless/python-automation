@@ -1,0 +1,1 @@
+watch -n 120 "rm .screenshot*"

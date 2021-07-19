@@ -27,12 +27,14 @@ def sleepRandom(smallInt, largeInt):
     sleep = round(random.uniform(smallInt, largeInt), 10)
     totalTime = totalTime + sleep
     print(sleep, end=" -> ")
-    if (random.randint(1, 100) > 97):
+    if (random.randint(1, 100) > 80):
         # if (dryRun == False):
         # pyautogui.press(['alt', 'tab'])
         # pyautogui.moveTo(
         # altWindowXY[0], altWindowXY[1], random.uniform(0.1, 0.2))
         sleepRandom(5, 20)
+        if (random.randint(1, 100) > 75):
+            sleepRandom(5, 20)
     if (dryRun == False):
         if (sleep > 3):
             time.sleep(sleep-3)
@@ -44,15 +46,15 @@ def sleepRandom(smallInt, largeInt):
 
 
 def castSpell(current, spell):
-    sleepRandom(0.3-(0.5/2), 0.3+(0.5/2))
+    sleepRandom(0.3-(0.5/2), 0.9+(0.5/2))
     if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
         pyautogui.moveTo(spell[0], spell[1], random.uniform(0.3, 0.7))
-        sleepRandom(0.7-(0.3/2), 0.7+(0.3/2))
+        sleepRandom(0.7-(0.3/2), 0.8+(0.3/2))
     performLeftClick()
-    sleepRandom(0.3-(0.3/2), 0.3+(0.3/2))
+    sleepRandom(1.5-(0.3/2), 2.0+(0.3/2))
     if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
         pyautogui.moveTo(spell[0], spell[1], random.uniform(0.3, 0.7))
-        sleepRandom(0.7-(0.3/2), 0.7+(0.3/2))
+        sleepRandom(0.7-(0.3/2), 0.8+(0.3/2))
     performLeftClick()
 
 
@@ -101,7 +103,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
             ):
                 castSpell(current, spell)
             else:
-                sleepRandom(0.7-(0.3/2), 0.7+(0.3/2))
+                sleepRandom(1.3-(0.3/2), 2.7+(0.3/2))
                 frameinfo = getframeinfo(currentframe())
                 fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
                 dt = datetime.datetime.now()
@@ -120,7 +122,12 @@ def clickLocations(spell, item, pixelColorItem, iterations):
                     print("wrong color return false")
                     print(str(pixelColorCurrentItem) +
                           " != " + str(pixelColorItem))
-                    return False
+                    
+                    restart = input("continue (y|n)")
+                    if (restart == 'y' or restart == 'Y'):
+                        continue
+                    else:
+                        return False
 
     return True
 

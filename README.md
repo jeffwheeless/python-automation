@@ -1,2 +1,3 @@
-# python-automation
-collection of python scripts with the intention of automating various actions in ways that wont be seen as using a bot to perform them
+scripts to run in python that automate things, hopefully its kinda cool.
+
+recommended to run the scripts using something like `cp clickTime.py helloWorld.py && python3 helloWorld.py`

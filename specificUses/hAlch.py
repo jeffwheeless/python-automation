@@ -4,6 +4,7 @@ import pyautogui
 import random
 from inspect import currentframe, getframeinfo
 import re
+import os
 
 # foo = input("Hover over alternative window")
 # altWindowXY = pyautogui.position()
@@ -26,15 +27,17 @@ def sleepRandom(smallInt, largeInt):
     # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
     totalTime = totalTime + sleep
-    print(sleep, end=" -> ")
-    if (random.randint(1, 100) > 80):
-        # if (dryRun == False):
-        # pyautogui.press(['alt', 'tab'])
-        # pyautogui.moveTo(
-        # altWindowXY[0], altWindowXY[1], random.uniform(0.1, 0.2))
-        sleepRandom(5, 20)
-        if (random.randint(1, 100) > 75):
-            sleepRandom(5, 20)
+    print(sleep)
+
+    if (random.randint(1, 1000) > 999):
+        sleepRandom(10, 20)
+    elif (random.randint(1, 1000) > 980):
+        sleepRandom(5, 10)
+    elif (random.randint(1, 1000) > 900):
+        sleepRandom(2, 5)
+    elif (random.randint(1, 1000) > 850):
+        sleepRandom(1, 2)
+
     if (dryRun == False):
         if (sleep > 3):
             time.sleep(sleep-3)
@@ -46,15 +49,35 @@ def sleepRandom(smallInt, largeInt):
 
 
 def castSpell(current, spell):
-    sleepRandom(0.3-(0.5/2), 0.9+(0.5/2))
-    if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
-        pyautogui.moveTo(spell[0], spell[1], random.uniform(0.3, 0.7))
-        sleepRandom(0.7-(0.3/2), 0.8+(0.3/2))
+    sleepRandom(
+        random.uniform(0.3, 0.4)-(0.3/2),
+        random.uniform(0.8, 1) + (0.3/2)
+    )
+    if (current[0] >= spell[0]+7 or current[0] <= spell[0]-7):
+        pyautogui.moveTo(
+            spell[0] + random.randint(-5, 5),
+            spell[1] + random.randint(-5, 5),
+            random.uniform(0.3, 0.7)
+        )
+        sleepRandom(
+            random.uniform(0.7, 1)-(0.3/2),
+            random.uniform(1, 1.5) + (0.3/2)
+        )
     performLeftClick()
-    sleepRandom(1.5-(0.3/2), 2.0+(0.3/2))
-    if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
-        pyautogui.moveTo(spell[0], spell[1], random.uniform(0.3, 0.7))
-        sleepRandom(0.7-(0.3/2), 0.8+(0.3/2))
+    sleepRandom(
+        random.uniform(0.7, 1)-(0.3/2),
+        random.uniform(1, 1.5) + (0.3/2)
+    )
+    if (current[0] >= spell[0]+5 or current[0] <= spell[0]-7):
+        pyautogui.moveTo(
+            spell[0] + random.randint(-5, 5),
+            spell[1] + random.randint(-5, 5),
+            random.uniform(0.3, 0.7)
+        )
+        sleepRandom(
+            random.uniform(0.4, 0.6)-(0.3/2),
+            random.uniform(0.6, 0.8) + (0.3/2)
+        )
     performLeftClick()
 
 
@@ -83,7 +106,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
             print("==== Time Left: " + timeLeft + " ====")
             if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
                 pyautogui.moveTo(spell[0], spell[1], random.uniform(0.3, 0.7))
-                sleepRandom(0.7-(0.3/2), 0.7+(0.3/2))
+                sleepRandom(0.4-(0.3/2), 0.7+(0.3/2))
                 current = pyautogui.position()
 
             dt = datetime.datetime.now()
@@ -91,8 +114,10 @@ def clickLocations(spell, item, pixelColorItem, iterations):
                 dt.year, dt.month, dt.day, dt.hour, dt.minute)
             frameinfo = getframeinfo(currentframe())
             fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
+            # sleepRandom(5, 10)
             pixelColorCurrentItem = pyautogui.screenshot(
-                imageFilename=".screenshot" + fileName + str(dt) + ".png",
+                imageFilename=".screenshot" + fileName +
+                str(frameinfo.lineno) + ".png",
                 region=(
                     item[0], item[1], 1, 1
                 )
@@ -111,7 +136,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
                     dt.year, dt.month, dt.day, dt.hour, dt.minute)
                 pixelColorCurrentItem = pyautogui.screenshot(
                     imageFilename=".screenshot" +
-                    str(fileName) + str(dt) + ".png",
+                    str(fileName) + str(frameinfo.lineno) + ".png",
                     region=(
                         item[0], item[1], 1, 1
                     )
@@ -122,7 +147,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
                     print("wrong color return false")
                     print(str(pixelColorCurrentItem) +
                           " != " + str(pixelColorItem))
-                    
+
                     restart = input("continue (y|n)")
                     if (restart == 'y' or restart == 'Y'):
                         continue
@@ -175,7 +200,8 @@ while True == True:
     dt = datetime.datetime.now()
     dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
     pixelColorItem = pyautogui.screenshot(
-        imageFilename=".screenshot" + str(fileName) + str(dt) + ".png",
+        imageFilename=".screenshot" +
+        str(fileName) + str(frameinfo.lineno) + ".png",
         region=(item[0], item[1], 1, 1)
     ).getcolors()
 

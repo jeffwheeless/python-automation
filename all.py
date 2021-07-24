@@ -5,6 +5,7 @@ import time
 from scipy import interpolate
 import math
 
+
 def performLeftClick(loc):
     pyautogui.leftClick(
         None,
@@ -22,34 +23,47 @@ def sleepRandom(smallInt, largeInt):
 
 def shuffleRandomize(loc, type, max):
     foo = 0
+    min = 3
+    if (max < min):
+        foo = max
+        max = min
+        min = max
     if (type == 'add'):
         # print("("+str(loc)+"+"+str(time.time())[-1:], end="")
         # print(")+"+str(random.randint(3, max)), end="")
-        foo = (loc+int(str(time.time())[-1:]))+(random.randint(3, max)*1)
+        # foo = (loc+int(str(time.time())[-1:]))+(random.randint(min, max)*1)
+        foo = (loc+int(str(time.time())[-1:]))+random.randint(min, max)
         # print("=" + str(foo))
     else:
         # print("("+str(loc)+"-"+str(time.time())[-1:], end="")
         # print(")-"+str(random.randint(3, max)), end="")
-        foo = (loc-int(str(time.time())[-1:]))-(random.randint(3, max)*1)
+        # foo = (loc-int(str(time.time())[-1:]))-(random.randint(min, max)*1)
+        foo = (loc-int(str(time.time())[-1:]))-random.randint(min, max)
         # print("=" + str(foo))
 
     return foo
 
 
 def clickRandom(loc, max, clickSpeed, offset1, offset2):
-    randLoc = 0 #random.randint(0, 2)
+    # randLoc = 0  # random.randint(0, 2)
+    current = pyautogui.position()
+    xA = shuffleRandomize(loc[0]+offset1, 'sub', max)
+    xB = shuffleRandomize(loc[0]+offset1, 'add', max)
+    yA = shuffleRandomize(loc[1]+offset2, 'sub', max)
+    yB = shuffleRandomize(loc[1]+offset2, 'add', max)
+    mouseMoveSmooth(
+        current[0],
+        random.randint(xA, xB),
+        current[1],
+        random.randint(yA, yB),
+    )
     pyautogui.click(
-        random.randint(
-            shuffleRandomize(loc[randLoc][0]+offset1, 'sub', max),
-            shuffleRandomize(loc[randLoc][0]+offset1, 'add', max)
-        ),
-        random.randint(
-            shuffleRandomize(loc[randLoc][1]+offset2, 'sub', max),
-            shuffleRandomize(loc[randLoc][1]+offset2, 'add', max)
-        ),
+        random.randint(xA, xB),
+        random.randint(yA, yB),
         _pause=False,
         duration=clickSpeed
     )
+
 
 def drawArea(loc):
     max = 10
@@ -57,11 +71,11 @@ def drawArea(loc):
     # pyautogui.press('[')
     # pyautogui.press('[')
     for x in range(0, max, 25):
-        pyautogui.click(loc[0]+(max*1), loc[1]+(max*1), _pause=False)
-        pyautogui.dragTo(loc[0]-(max*1), loc[1]+(max*1), _pause=False)
-        pyautogui.dragTo(loc[0]-(max*1), loc[1]-(max*1), _pause=False)
-        pyautogui.dragTo(loc[0]+(max*1), loc[1]-(max*1), _pause=False)
-        pyautogui.dragTo(loc[0]+(max*1), loc[1]+(max*1), _pause=False)
+        pyautogui.click(loc[0]+(max*1), loc[1]+(max*1))
+        pyautogui.dragTo(loc[0]-(max*1), loc[1]+(max*1))
+        pyautogui.dragTo(loc[0]-(max*1), loc[1]-(max*1))
+        pyautogui.dragTo(loc[0]+(max*1), loc[1]-(max*1))
+        pyautogui.dragTo(loc[0]+(max*1), loc[1]+(max*1))
         # pyautogui.dragTo(loc[randLoc][0]-x, loc[randLoc][1]+x)
         # pyautogui.dragTo(loc[randLoc][0]+x, loc[randLoc][1]+x, button='left')
         # pyautogui.dragTo(loc[randLoc][0]+x, loc[randLoc][1]-x, button='left')
@@ -69,16 +83,19 @@ def drawArea(loc):
     pyautogui.press('x')
     # pyautogui.press(']')
     # pyautogui.press(']')
-    
+
+
 def point_dist(x1, y1, x2, y2):
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+
 
 def getDiff(locA, locB):
     diff = locA - locB
     if(locA < locB):
         diff = locB - locA
-    
+
     return diff
+
 
 def mouseMoveSmooth(x1, x2, y1, y2):
     # Distribute control points between start and destination evenly.
@@ -101,7 +118,7 @@ def mouseMoveSmooth(x1, x2, y1, y2):
     # Must be less than number of control points.
     tck, u = interpolate.splprep([x, y], k=degree)
     # Move upto a certain number of points
-    numMade = random.randint(3, 15)
+    numMade = random.randint(1, 4)
     u = np.linspace(0, 1, num=numMade + int(point_dist(x1, y1, x2, y2)/50.0))
     points = interpolate.splev(u, tck)
 
@@ -110,19 +127,21 @@ def mouseMoveSmooth(x1, x2, y1, y2):
     timeout = duration / len(points[0])
     point_list = zip(*(i.astype(int) for i in points))
     for point in point_list:
-        pyautogui.dragTo(*point, _pause=False)
+        pyautogui.moveTo(*point, _pause=False)
         time.sleep(timeout)
+        currentLoc = pyautogui.position()
+        pyautogui.press('x')
+        pyautogui.click(currentLoc, duration=clickSpeed, _pause=False)
+        pyautogui.press('x')
 
 
-max = 3  # input("Max pixels to go out to ")
+max = 8  # input("Max pixels to go out to ")
 go = "y"
 clickSpeed = 0.125
 total = 0
-offsetLoc = [3, 5, 2]
+offsetLoc = [2, 4, 1]
 cp = random.randint(3, 5)  # Number of control points. Must be at least 2.
 loc = []
-loc.append([556, 504])
-loc.append([1044, 852])
 foo = input("Mouse over start position ")
 loc.append(pyautogui.position())
 foo = input("Mouse over end position ")
@@ -131,65 +150,104 @@ pyautogui.click(loc[0][0], loc[0][1], _pause=False)
 pyautogui.press('delete')
 
 print(loc)
-drawArea(loc[0])
-drawArea(loc[1])
 
-for temp in range(0, 10):
-    # # loc[0][0] = loc[0][0] + (temp * 10)
-    # loc[0][1] = loc[0][1] + (temp * 10)
-    # # loc[1][0] = loc[1][0] + (temp * 10)
-    # loc[1][1] = loc[1][1] + (temp * 10)
-    sections = random.randint(2, 5)
-    
-    randNumber = random.randint(1, 4)
-    pyautogui.click(loc[0][0], loc[0][1], _pause=False)
-    if(randNumber == 1):
-        clickRandom(loc, max, clickSpeed, 0, 0)
-    elif(randNumber == 2):
-        clickRandom(loc, max, clickSpeed, -offsetLoc[0], -offsetLoc[1])
-    elif(randNumber == 3):
-        clickRandom(loc, max, clickSpeed, offsetLoc[1], offsetLoc[2])
-    elif(randNumber == 4):
-        clickRandom(loc, max, clickSpeed, offsetLoc[2], offsetLoc[0])
-    
-    loc[0] = pyautogui.position()
-    pyautogui.click(loc[0][0], loc[0][1], _pause=False)
-    diffX = getDiff(loc[0][0], loc[1][0])
-    xIncrement = round(diffX/sections)
-    diffY = getDiff(loc[0][1], loc[1][1])
-    yIncrement = round(diffY/sections)
 
-    for i in range(0, sections):
+for index in range(0, len(loc)-1, 2):
+    pyautogui.click(loc[index][0], loc[index+1][1], _pause=False)
+    # drawArea(loc[index])
+    # drawArea(loc[index+1])
+    for temp in range(0, 25):
+
+        diffX = 0
+        xIncrement = 0
+        diffY = 0
+        yIncrement = 0
+        # # loc[index][0] = loc[index][0] + (temp * 10)
+        # loc[index][1] = loc[index][1] + (temp * 10)
+        # # loc[index+1][0] = loc[index+1][0] + (temp * 10)
+        # loc[index+1][1] = loc[index+1][1] + (temp * 10)
+        sections = random.randint(2, 5)
+
+        randNumber = random.randint(2, 4)
+        pyautogui.moveTo(loc[index][0], loc[index][1], _pause=False)
+        # if(randNumber == 1):
+        #     clickRandom(loc[index], max, clickSpeed, 0, 0)
+        if(randNumber == 2):
+            clickRandom(loc[index], max, clickSpeed, -
+                        offsetLoc[0], -offsetLoc[1])
+        elif(randNumber == 3):
+            clickRandom(loc[index], max, clickSpeed,
+                        offsetLoc[1], offsetLoc[2])
+        elif(randNumber == 4):
+            clickRandom(loc[index], max, clickSpeed,
+                        offsetLoc[2], offsetLoc[0])
+
         currentLoc = pyautogui.position()
-        diffX = getDiff(currentLoc[0], loc[1][0])
-        xIncrement = round(diffX/(sections-i))
-        diffY = getDiff(currentLoc[1], loc[1][1])
-        yIncrement = round(diffY/(sections-i))
+        pyautogui.click(currentLoc, duration=clickSpeed, _pause=False)
+        # loc[index] = pyautogui.position()
+        # pyautogui.click(loc[index][0], loc[index][1], _pause=False)
+        diffX = getDiff(loc[index][0], loc[index+1][0])
+        xIncrement = round(diffX/sections)
+        diffY = getDiff(loc[index][1], loc[index+1][1])
+        yIncrement = round(diffY/sections)
+        baseMove = 2
+
+        if (abs(diffX) < 75 or abs(diffY) < 75):
+            mouseMoveSmooth(
+                loc[index][0],
+                loc[index+1][0]+random.randint(-5, 5),
+                loc[index][1],
+                loc[index+1][1]+random.randint(-5, 5),
+            )
+            continue
+
+        for i in range(0, sections):
+            currentLoc = pyautogui.position()
+            diffX = getDiff(currentLoc[0], loc[index+1][0])
+            xIncrement = round(diffX/(sections-i))
+            diffY = getDiff(currentLoc[1], loc[index+1][1])
+            yIncrement = round(diffY/(sections-i))
+            mouseMoveSmooth(
+                currentLoc[0],
+                currentLoc[0]+xIncrement+random.randint(-baseMove, baseMove),
+                currentLoc[1],
+                currentLoc[1]+yIncrement+random.randint(-baseMove, baseMove)
+            )
+            pyautogui.press('x')
+            currentLoc = pyautogui.position()
+            pyautogui.click(currentLoc, duration=clickSpeed, _pause=False)
+
+        if(random.randint(1, 10) > 8):
+            currentLoc = pyautogui.position()
+            mouseMoveSmooth(
+                currentLoc[0],
+                currentLoc[0]+random.randint(-baseMove, baseMove),
+                currentLoc[1],
+                currentLoc[1]+random.randint(-baseMove, baseMove)
+            )
+
+        randNumber = random.randint(2, 4)
+        # pyautogui.moveTo(loc[index+1][0], loc[index+1][1], _pause=False)
+        # if(randNumber == 1):
+        #     clickRandom(loc[index], max, clickSpeed, 0, 0)
+        if(randNumber == 2):
+            clickRandom(loc[index+1], max, clickSpeed, -
+                        offsetLoc[0], -offsetLoc[1])
+        elif(randNumber == 3):
+            clickRandom(loc[index+1], max, clickSpeed,
+                        offsetLoc[1], offsetLoc[2])
+        elif(randNumber == 4):
+            clickRandom(loc[index+1], max, clickSpeed,
+                        offsetLoc[2], offsetLoc[0])
+        currentLoc = pyautogui.position()
         mouseMoveSmooth(
             currentLoc[0],
-            currentLoc[0]+xIncrement+random.randint(-10, 10),
+            loc[index+1][0]+random.randint(-5, 5),
             currentLoc[1],
-            currentLoc[1]+yIncrement+random.randint(-10, 10)
+            loc[index+1][1]+random.randint(-5, 5),
         )
-        pyautogui.press('x')
-        
-    if(random.randint(1, 10) > 8):
+        # pyautogui.dragTo(loc[index][0], loc[index+1][1], _pause=False)
         currentLoc = pyautogui.position()
-        mouseMoveSmooth(
-            currentLoc[0],
-            currentLoc[0]+random.randint(-10, 10),
-            currentLoc[1],
-            currentLoc[1]+random.randint(-10, 10)
-        )
-        
-    currentLoc = pyautogui.position()
-    # mouseMoveSmooth(
-    #     currentLoc[0],
-    #     loc[1][0]+random.randint(-5, 5),
-    #     currentLoc[1],
-    #     loc[1][1]+random.randint(-5, 5),
-    # )
-    # pyautogui.dragTo(loc[1][0], loc[1][1], _pause=False)
-    # pyautogui.click(loc[0][0], loc[0][1], _pause=False)
-pyautogui.press('[')
-# pyautogui.dragTo(loc[0][0], loc[0][1], _pause=False)
+        pyautogui.click(currentLoc, duration=clickSpeed, _pause=False)
+    # pyautogui.press('[')
+    # pyautogui.dragTo(loc[0][0], loc[index][1], _pause=False)

@@ -48,27 +48,10 @@ def sleepRandom(smallInt, largeInt):
             time.sleep(sleep)
 
 
-def castSpell(current, spell):
-    sleepRandom(
-        random.uniform(0.3, 0.4)-(0.3/2),
-        random.uniform(0.8, 1) + (0.3/2)
-    )
-    if (current[0] >= spell[0]+7 or current[0] <= spell[0]-7):
-        pyautogui.moveTo(
-            spell[0] + random.randint(-5, 5),
-            spell[1] + random.randint(-5, 5),
-            random.uniform(0.3, 0.7)
-        )
-        sleepRandom(
-            random.uniform(0.7, 1)-(0.3/2),
-            random.uniform(1, 1.5) + (0.3/2)
-        )
-    performLeftClick()
-    sleepRandom(
-        random.uniform(0.7, 1)-(0.3/2),
-        random.uniform(1, 1.5) + (0.3/2)
-    )
-    if (current[0] >= spell[0]+5 or current[0] <= spell[0]-7):
+def mouseOutOfRange(mainLoc):
+    current = pyautogui.position()
+    if (current[0] >= mainLoc[0]+7 or current[0] <= mainLoc[0]-7):
+        foo = input("Move out of zone, get close and hit enter")
         pyautogui.moveTo(
             spell[0] + random.randint(-5, 5),
             spell[1] + random.randint(-5, 5),
@@ -78,6 +61,20 @@ def castSpell(current, spell):
             random.uniform(0.4, 0.6)-(0.3/2),
             random.uniform(0.6, 0.8) + (0.3/2)
         )
+
+
+def castSpell(current, spell):
+    sleepRandom(
+        random.uniform(0.3, 0.4)-(0.3/2),
+        random.uniform(0.8, 1) + (0.3/2)
+    )
+    mouseOutOfRange(spell)
+    performLeftClick()
+    sleepRandom(
+        random.uniform(0.7, 1)-(0.3/2),
+        random.uniform(1, 1.5) + (0.3/2)
+    )
+    mouseOutOfRange(spell)
     performLeftClick()
 
 
@@ -91,35 +88,24 @@ def clickLocations(spell, item, pixelColorItem, iterations):
             pixelColorCurrentItem = pixelColorItem
             castSpell(pyautogui.position(), spell)
         elif (dryRun == False):
-            print("\n============ Run: " + str(i) +
+            print("\n============ Run: " + str(i + 1) +
                   " of " + str(iterations) + " ============")
-            current = pyautogui.position()
             timeLeft = averageTime * (iterations - i)
             if (timeLeft > 60):
                 timeLeft = round(timeLeft/60, 2)
                 timeLeftMin = str(timeLeft).split('.')[0]
                 timeLeftSec = (int(str(timeLeft).split('.')[1]) * 60) / 100
+                if (timeLeftSec < 10):
+                    timeLeftSec = "0" + str(timeLeftSec)
                 timeLeft = timeLeftMin + ":" + str(timeLeftSec)
             else:
                 timeLeft = str(round(timeLeft, 0)) + " sec"
 
             print("==== Time Left: " + timeLeft + " ====")
-            if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
-                foo = input("Move out of zone, get close and hit enter")
-                pyautogui.moveTo(
-                    spell[0] + random.randint(-5, 5),
-                    spell[1] + random.randint(-5, 5),
-                    random.uniform(0.3, 0.7)
-                )
-                sleepRandom(0.4-(0.3/2), 0.7+(0.3/2))
-                current = pyautogui.position()
-
-            dt = datetime.datetime.now()
-            dt = datetime.datetime(
-                dt.year, dt.month, dt.day, dt.hour, dt.minute)
+            mouseOutOfRange(spell)
+            current = pyautogui.position()
             frameinfo = getframeinfo(currentframe())
             fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
-            # sleepRandom(5, 10)
             pixelColorCurrentItem = pyautogui.screenshot(
                 imageFilename=".screenshot" + fileName +
                 str(frameinfo.lineno) + ".png",
@@ -136,9 +122,6 @@ def clickLocations(spell, item, pixelColorItem, iterations):
                 sleepRandom(1.3-(0.3/2), 2.7+(0.3/2))
                 frameinfo = getframeinfo(currentframe())
                 fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
-                dt = datetime.datetime.now()
-                dt = datetime.datetime(
-                    dt.year, dt.month, dt.day, dt.hour, dt.minute)
                 pixelColorCurrentItem = pyautogui.screenshot(
                     imageFilename=".screenshot" +
                     str(fileName) + str(frameinfo.lineno) + ".png",

@@ -105,7 +105,12 @@ def clickLocations(spell, item, pixelColorItem, iterations):
 
             print("==== Time Left: " + timeLeft + " ====")
             if (current[0] >= spell[0]+5 or current[0] <= spell[0]-5):
-                pyautogui.moveTo(spell[0], spell[1], random.uniform(0.3, 0.7))
+                foo = input("Move out of zone, get close and hit enter")
+                pyautogui.moveTo(
+                    spell[0] + random.randint(-5, 5),
+                    spell[1] + random.randint(-5, 5),
+                    random.uniform(0.3, 0.7)
+                )
                 sleepRandom(0.4-(0.3/2), 0.7+(0.3/2))
                 current = pyautogui.position()
 

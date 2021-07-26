@@ -16,8 +16,8 @@ dryRun = True
 
 def performLeftClick():
     global dryRun
-    print("Clicking")
     if (dryRun == False):
+        print("Clicking")
         pyautogui.leftClick(None, None, 0, random.uniform(0.3, 0.7))
 
 
@@ -149,31 +149,6 @@ def run(spell, item, pixelColorItem, itemCount):
     return clickLocations(spell, item, pixelColorItem, itemCount)
 
 
-# foo = input("Hover over spell location")
-# spell = pyautogui.position()
-# itemCount = input("Hover over item location, how many are there? ")
-# if (type(itemCount) != int):
-#     itemCount = int(itemCount)
-
-# item = pyautogui.position()
-# dt = datetime.datetime.now()
-# dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
-# pixelColorItem = pyautogui.screenshot(
-#     imageFilename=".screenshot" + str(dt) + ".png",
-#     region=(item[0], item[1], 1, 1)
-
-
-# ).getcolors()
-
-# dryRun = True
-# success = clickLocations(spell, item, pixelColorItem, itemCount*10)
-# averageTime = totalTime/total
-# print("\n\nAverage Time: " + str(averageTime))
-# dryRun = False
-# print("Spell" + str(spell))
-# print("Item" + str(item))
-foo = input("Hover over spell location")
-spell = pyautogui.position()
 while True == True:
     # run(spell, item, pixelColorItem, itemCount)
     itemCount = input("Hover over item location, how many are there? ")
@@ -182,6 +157,7 @@ while True == True:
     if (itemCount <= 0):
         itemCount = 140
 
+    spell = pyautogui.position()  # intention is to make two diff locations and mouse move
     item = pyautogui.position()
     frameinfo = getframeinfo(currentframe())
     fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))

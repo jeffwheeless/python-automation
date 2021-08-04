@@ -29,14 +29,14 @@ def sleepRandom(smallInt, largeInt):
     totalTime = totalTime + sleep
     print(sleep)
 
-    if (random.randint(1, 1000) > 999):
+    if (random.randint(1, 1000) > 995):
         sleepRandom(10, 20)
     elif (random.randint(1, 1000) > 980):
-        sleepRandom(5, 10)
-    elif (random.randint(1, 1000) > 900):
         sleepRandom(2, 5)
+    elif (random.randint(1, 1000) > 900):
+        sleepRandom(1, 3)
     elif (random.randint(1, 1000) > 850):
-        sleepRandom(1, 2)
+        sleepRandom(0, 2)
 
     if (dryRun == False):
         if (sleep > 3):

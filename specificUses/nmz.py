@@ -17,7 +17,7 @@ def performLeftClick(loc1):
 
 
 def sleepRandom(smallInt, largeInt):
-    sleep = random.uniform(smallInt, largeInt)
+    sleep = random.uniform(smallInt, largeInt) + 60
     print(sleep)
     time.sleep(sleep)
 

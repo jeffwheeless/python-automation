@@ -27,9 +27,20 @@ def sleepRandom(smallInt, largeInt):
     # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
     totalTime = totalTime + sleep
+    # sleep = 60 + sleep
     print(sleep)
 
-    if (random.randint(1, 1000) > 995):
+    if (random.randint(1, 1000) > 999):
+        if (dryRun == False and random.randint(1, 10) > 4):
+            pyautogui.keyDown('alt')
+            pyautogui.press('tab', interval=random.uniform(0.6, 0.8) + (0.3/2))
+            pyautogui.keyUp('alt')
+        sleepRandom(30, 90)
+    elif (random.randint(1, 1000) > 990):
+        if (dryRun == False and random.randint(1, 10) > 4):
+            pyautogui.keyDown('alt')
+            pyautogui.press('tab', interval=random.uniform(0.6, 0.8) + (0.3/2))
+            pyautogui.keyUp('alt')
         sleepRandom(10, 20)
     elif (random.randint(1, 1000) > 980):
         sleepRandom(2, 5)
@@ -170,7 +181,10 @@ while True == True:
     ).getcolors()
 
     dryRun = True
-    success = clickLocations(spell, item, pixelColorItem, itemCount*10)
+    dryRunItemCount = 1000
+    # if (itemCount < 100):
+    #     dryRunItemCount = itemCount*10
+    success = clickLocations(spell, item, pixelColorItem, dryRunItemCount)
     averageTime = totalTime/total
     print("\n\nAverage Time: " + str(averageTime))
     dryRun = False

@@ -26,7 +26,6 @@ def performLeftClick(x, y):
 def sleepRandom(smallInt, largeInt):
     global totalTime
     global dryRun
-    # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
     totalTime = totalTime + sleep
     print(sleep)

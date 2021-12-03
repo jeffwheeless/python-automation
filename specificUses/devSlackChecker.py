@@ -54,7 +54,7 @@ def castSpell(current, spell):
     performLeftClick(current[0], current[1])
 
 
-def clickLocations(spell, item, pixelColorItem, iterations):
+def clickLocations(spell, item, iterations):
     global total
     global averageTime
     global dryRun
@@ -83,12 +83,12 @@ def clickLocations(spell, item, pixelColorItem, iterations):
     return True
 
 
-def run(spell, item, pixelColorItem, itemCount):
-    return clickLocations(spell, item, pixelColorItem, itemCount)
+def run(spell, item, itemCount):
+    return clickLocations(spell, item, itemCount)
 
 
 while True == True:
-    # run(spell, item, pixelColorItem, itemCount)
+    # run(spell, item, itemCount)
     itemCount = input("Hover over item location, how many are there? ")
     if (type(itemCount) == str):
         itemCount = int(itemCount)
@@ -97,22 +97,13 @@ while True == True:
 
     spell = pyautogui.position()  # intention is to make two diff locations and mouse move
     item = pyautogui.position()
-    frameinfo = getframeinfo(currentframe())
-    fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
-    dt = datetime.datetime.now()
-    dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
-    pixelColorItem = pyautogui.screenshot(
-        imageFilename=".screenshot" +
-        str(fileName) + str(frameinfo.lineno) + ".png",
-        region=(item[0], item[1], 1, 1)
-    ).getcolors()
 
     dryRun = True
     dryRunItemCount = 500
-    success = clickLocations(spell, item, pixelColorItem, dryRunItemCount)
+    success = clickLocations(spell, item, dryRunItemCount)
     averageTime = totalTime/total
     print("\n\nAverage Time: " + str(averageTime))
     dryRun = False
     print("Spell" + str(spell))
     print("Item" + str(item))
-    running = run(spell, item, pixelColorItem, itemCount)
+    running = run(spell, item, itemCount)

@@ -26,37 +26,18 @@ def sleepRandom(smallInt, largeInt):
     global dryRun
     # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
+    # sleep = sleep + round(random.uniform(3, 5), 10)
     totalTime = totalTime + sleep
     # sleep = 60 + sleep
     print(sleep)
 
-    if (random.randint(1, 1000) > 999):
-        if (dryRun == False and random.randint(1, 10) > 4):
-            pyautogui.keyDown('alt')
-            pyautogui.press('tab', interval=random.uniform(0.6, 0.8) + (0.3/2))
-            pyautogui.keyUp('alt')
-        sleepRandom(30, 90)
-    elif (random.randint(1, 1000) > 990):
-        if (dryRun == False and random.randint(1, 10) > 4):
-            pyautogui.keyDown('alt')
-            pyautogui.press('tab', interval=random.uniform(0.6, 0.8) + (0.3/2))
-            pyautogui.keyUp('alt')
-        sleepRandom(10, 20)
-    elif (random.randint(1, 1000) > 980):
-        sleepRandom(2, 5)
-    elif (random.randint(1, 1000) > 900):
-        sleepRandom(1, 3)
-    elif (random.randint(1, 1000) > 850):
-        sleepRandom(0, 2)
+    if (random.randint(1, 1000) > 965):
+        sleepRandom(0, 1)
+    elif (random.randint(1, 1000) > 975):
+        sleepRandom(1, 2)
 
     if (dryRun == False):
-        if (sleep > 3):
-            time.sleep(sleep-3)
-            for i in range(3, 1):
-                time.sleep(1)
-                print(" " + str(i) + " ", end=""),
-        else:
-            time.sleep(sleep)
+        time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):
@@ -99,8 +80,8 @@ def clickLocations(spell, item, pixelColorItem, iterations):
             pixelColorCurrentItem = pixelColorItem
             castSpell(pyautogui.position(), spell)
         elif (dryRun == False):
-            print("\n============ Run: " + str(i + 1) +
-                  " of " + str(iterations) + " ============")
+            print("\n==== Run: " + str(i + 1) +
+                  " of " + str(iterations) + " ==== " + str(iterations - (i + 1)) + " left =====")
             timeLeft = averageTime * (iterations - i)
             if (timeLeft > 60):
                 timeLeft = round(timeLeft/60, 2)
@@ -112,7 +93,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
             else:
                 timeLeft = str(round(timeLeft, 0)) + " sec"
 
-            print("==== Time Left: " + timeLeft + " ====")
+            print("======== Time Left: " + timeLeft + " ========")
             mouseOutOfRange(spell)
             current = pyautogui.position()
             frameinfo = getframeinfo(currentframe())

@@ -2,15 +2,9 @@ from datetime import datetime
 import time
 import pyautogui
 import random
-import math
-from inspect import currentframe, getframeinfo
-import re
-import os
 
-# foo = input("Hover over alternative window")
-# altWindowXY = pyautogui.position()
-
-latestDaysHour = 8
+latestDaysHour = 20
+earliestDaysHour = 7
 
 
 def performLeftClick(x, y):
@@ -33,25 +27,21 @@ def clickIcon(current):
     performLeftClick(current[0], current[1])
 
 
-def clickLocations(clickableIcon, stopTime):
+def clickLocations(clickableIcon):
     global latestDaysHour
+    global earliestDaysHour
     now = datetime.now()
     current_time_hour = int(now.strftime("%H"))
     print("\n=== Currently: \t" + now.strftime("%H:%M") + "\t =====")
-    if ((current_time_hour > stopTime and current_time_hour >= latestDaysHour)):
-        print("Stop time entered has passed and isn't within working hours")
-        return False
-
-    while (current_time_hour > stopTime and current_time_hour < latestDaysHour):
+    while (current_time_hour < earliestDaysHour or current_time_hour > latestDaysHour):
         print("XXXX Out of office hours XXXXX")
         sleepRandom(1800, 3600)
         current_time_hour = int(now.strftime("%H"))
         print("\n=== Currently: \t" + now.strftime("%H:%M") + "\t =====")
 
-    while (current_time_hour <= stopTime and current_time_hour >= latestDaysHour):
-        print("=== Stop At: \t" + (str(stopTime) if (stopTime <= 12)
-              else str(stopTime - 12)) + ":00\t =====")
-        remaining_time = (stopTime * 60) - \
+    while (current_time_hour >= earliestDaysHour and current_time_hour <= latestDaysHour):
+        print("=== Stop At: \t" + str(latestDaysHour-12) + ":00\t =====")
+        remaining_time = (latestDaysHour * 60) - \
             (current_time_hour*60 + int(now.strftime("%M")))
         remaining_time_display = str(
             remaining_time // 60) + ":" + ("0" if (remaining_time % 60) < 10 else "") + str(remaining_time % 60)
@@ -61,21 +51,14 @@ def clickLocations(clickableIcon, stopTime):
         current_time_hour = int(now.strftime("%H"))
         print("\n=== Currently: \t" + now.strftime("%H:%M") + "\t =====")
 
+    print("EOD detected, restarting to go tomorrow")
     return True
 
 
-def run(clickableIcon, stopTime):
-    global latestDaysHour
-    if (int(stopTime) < latestDaysHour):  # should be 12 but changed to 8 to rep hours that are workable
-        stopTime = int(stopTime) + 12
-    return clickLocations(clickableIcon, stopTime)
-
-
 while True == True:
-    # run(clickableIcon, item, itemCount)
-    stopTime = input("Hover over item location, what time pm to stop: \t")
+    stopTime = input("Hover over item location and press enter ")
     clickableIcon = pyautogui.position()
-    print("Icon" + str(clickableIcon))
+    print("Mouse Location: " + str(clickableIcon))
     running = True
     while (running == True):
-        running = run(clickableIcon, int(stopTime))
+        running = clickLocations(clickableIcon)

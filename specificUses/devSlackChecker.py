@@ -22,7 +22,8 @@ def performLeftClick(x, y):
 
 def sleepRandom(smallInt, largeInt):
     sleep = round(random.randint(smallInt, largeInt), 0)
-    print("Sleeping for: " + str(sleep // 60) + ":" + str(sleep % 60))
+    print("Sleeping for: " + str(sleep // 60) + ":" +
+          ("0" if (sleep % 60) < 10 else "") + str(sleep % 60))
     time.sleep(sleep)
 
 
@@ -53,7 +54,8 @@ def clickLocations(clickableIcon, stopTime):
         remaining_time = (stopTime * 60) - \
             (current_time_hour*60 + int(now.strftime("%M")))
         remaining_time_display = str(
-            remaining_time // 60) + ":" + str(remaining_time % 60)
+            remaining_time // 60) + ":" + ("0" if (remaining_time % 60) < 10 else "") + str(remaining_time % 60)
+
         print("=== Remaining: \t" + remaining_time_display + "\t =====")
         clickIcon(clickableIcon)
         current_time_hour = int(now.strftime("%H"))

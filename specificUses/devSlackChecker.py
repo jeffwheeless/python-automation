@@ -31,25 +31,28 @@ def clickLocations(clickableIcon):
     global latestDaysHour
     global earliestDaysHour
     now = datetime.now()
-    current_time_hour = int(now.strftime("%H"))
-    print("\n=== Currently: \t" + now.strftime("%H:%M") + "\t =====")
+    current_time_hour = int(datetime.now().strftime("%H"))
+    print("\n=== Currently: \t" + datetime.now().strftime("%H:%M") + "\t =====")
     while (current_time_hour < earliestDaysHour or current_time_hour > latestDaysHour):
         print("XXXX Out of office hours XXXXX")
         sleepRandom(1800, 3600)
-        current_time_hour = int(now.strftime("%H"))
-        print("\n=== Currently: \t" + now.strftime("%H:%M") + "\t =====")
+        current_time_hour = int(datetime.now().strftime("%H"))
+        print("\n=== Currently: \t" +
+              datetime.now().strftime("%H:%M") + "\t =====")
 
     while (current_time_hour >= earliestDaysHour and current_time_hour <= latestDaysHour):
         print("=== Stop At: \t" + str(latestDaysHour-12) + ":00\t =====")
         remaining_time = (latestDaysHour * 60) - \
-            (current_time_hour*60 + int(now.strftime("%M")))
+            (current_time_hour*60 + int(datetime.now().strftime("%M")))
         remaining_time_display = str(
             remaining_time // 60) + ":" + ("0" if (remaining_time % 60) < 10 else "") + str(remaining_time % 60)
 
         print("=== Remaining: \t" + remaining_time_display + "\t =====")
         clickIcon(clickableIcon)
-        current_time_hour = int(now.strftime("%H"))
-        print("\n=== Currently: \t" + now.strftime("%H:%M") + "\t =====")
+        current_time_hour = int(datetime.now().strftime("%H"))
+        print(current_time_hour)
+        print("\n=== Currently: \t" +
+              datetime.now().strftime("%H:%M") + "\t =====")
 
     print("EOD detected, restarting to go tomorrow")
     return True

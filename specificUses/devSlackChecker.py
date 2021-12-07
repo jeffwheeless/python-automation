@@ -32,13 +32,13 @@ def clickLocations(clickableIcon):
     global earliestDaysHour
     now = datetime.now()
     current_time_hour = int(datetime.now().strftime("%H"))
-    print("\n=== Currently: \t" + datetime.now().strftime("%H:%M") + "\t =====")
+    print("\n=== Currently: \t" + datetime.now().strftime("%I:%M") + "\t =====")
     while (current_time_hour < earliestDaysHour or current_time_hour > latestDaysHour):
         print("XXXX Out of office hours XXXXX")
         sleepRandom(1800, 3600)
         current_time_hour = int(datetime.now().strftime("%H"))
         print("\n=== Currently: \t" +
-              datetime.now().strftime("%H:%M") + "\t =====")
+              datetime.now().strftime("%I:%M") + "\t =====")
 
     while (current_time_hour >= earliestDaysHour and current_time_hour <= latestDaysHour):
         print("=== Stop At: \t" + str(latestDaysHour-12) + ":00\t =====")
@@ -52,7 +52,7 @@ def clickLocations(clickableIcon):
         current_time_hour = int(datetime.now().strftime("%H"))
         print(current_time_hour)
         print("\n=== Currently: \t" +
-              datetime.now().strftime("%H:%M") + "\t =====")
+              datetime.now().strftime("%I:%M") + "\t =====")
 
     print("EOD detected, restarting to go tomorrow")
     return True

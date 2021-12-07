@@ -29,6 +29,7 @@ def sleepRandom(smallInt, largeInt):
 def clickIcon(current):
     sleepRandom(60, 120)
     performLeftClick(current[0], current[1])
+    performLeftClick(current[0], current[1])
 
 
 def clickLocations(clickableIcon, stopTime):

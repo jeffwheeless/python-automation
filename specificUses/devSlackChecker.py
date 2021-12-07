@@ -19,7 +19,7 @@ def performLeftClick(x, y):
 
 def sleepRandom(smallInt, largeInt):
     sleep = round(random.uniform(smallInt, largeInt), 10)
-    print(sleep)
+    print("Sleep for: " + str(sleep))
     time.sleep(sleep)
 
 
@@ -33,19 +33,19 @@ def clickLocations(clickableIcon, stopTime):
     current_time_hour = now.strftime("%H")
     current_time = now.strftime("%H:%M:%S")
     while (int(current_time_hour) <= (stopTime + 12) and int(current_time_hour) >= 8):
-        print("\n=== Currently: " + current_time + "===")
-        print("=== Stop At: " + str(stopTime + 12) + ":00 ===")
+        print("\n=== Currently: \t" + current_time + " =====")
+        print("=== Stop At: \t" + str(stopTime + 12) + ":00:00 =====")
         current_time_combined = int(now.strftime(
             "%H"))*60 + int(now.strftime("%M"))
         remaining_time = ((stopTime + 12) * 60) - int(current_time_combined)
         if (remaining_time > 60):
-            remaining_time = round(remaining_time/60, 2)
-            timeLeftHour = str(remaining_time).split('.')[0]
-            timeLeftMin = (int(str(remaining_time).split('.')[1]) * 60) / 100
+            (timeLeftHour, timeLeftMin) = str(
+                round(remaining_time/60, 2)).split('.')
+            timeLeftMin = (int(timeLeftMin) * 60) / 100
             if (timeLeftMin < 10):
                 timeLeftMin = "0" + str(timeLeftMin)
             timeLeft = timeLeftHour + ":" + str(timeLeftMin)
-        print("=== " + timeLeft + " Remainiing ===")
+        print("=== Remaining: \t" + timeLeft + " =======")
         current = pyautogui.position()
         clickIcon(clickableIcon)
 

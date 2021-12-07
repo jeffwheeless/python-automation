@@ -32,7 +32,13 @@ def clickLocations(clickableIcon, stopTime):
     now = datetime.now()
     current_time_hour = now.strftime("%H")
     current_time = now.strftime("%H:%M:%S")
-    while (int(current_time_hour) <= (stopTime + 12) and int(current_time_hour) >= 8):
+    if (stopTime < 8):
+        stopTime = stopTime + 12
+    while (int(current_time_hour) > stopTime and int(current_time_hour) < 8):
+        print("\n============ \nOut of office hours \n============")
+        sleepRandom(1800, 3600)
+
+    while (int(current_time_hour) <= stopTime and int(current_time_hour) >= 8):
         print("\n=== Currently: \t" + current_time + " =====")
         print("=== Stop At: \t" + str(stopTime + 12) + ":00:00 =====")
         current_time_combined = int(now.strftime(
@@ -49,8 +55,6 @@ def clickLocations(clickableIcon, stopTime):
         current = pyautogui.position()
         clickIcon(clickableIcon)
 
-    print("\n============ \nOut of office hours \n============")
-
     return True
 
 
@@ -63,4 +67,6 @@ while True == True:
     stopTime = input("Hover over item location, what time pm to stop? ")
     clickableIcon = pyautogui.position()
     print("Icon" + str(clickableIcon))
-    running = run(clickableIcon, int(stopTime))
+    running = True
+    while (running == True):
+        running = run(clickableIcon, int(stopTime))

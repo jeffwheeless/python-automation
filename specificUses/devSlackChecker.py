@@ -32,7 +32,7 @@ def clickLocations(clickableIcon, stopTime):
     now = datetime.now()
     current_time_hour = now.strftime("%H")
     current_time = now.strftime("%H:%M:%S")
-    if (stopTime < 8):
+    if (stopTime < 12):
         stopTime = stopTime + 12
     while (int(current_time_hour) > stopTime and int(current_time_hour) < 8):
         print("\n============ \nOut of office hours \n============")

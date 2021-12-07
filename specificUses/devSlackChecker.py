@@ -32,7 +32,7 @@ def clickLocations(clickableIcon, stopTime):
     now = datetime.now()
     current_time_hour = now.strftime("%H")
     current_time = now.strftime("%H:%M:%S")
-    if (stopTime < 12):
+    if (stopTime <= 12):
         stopTime = stopTime + 12
     while (int(current_time_hour) > stopTime and int(current_time_hour) < 8):
         print("\n============ \nOut of office hours \n============")
@@ -40,18 +40,18 @@ def clickLocations(clickableIcon, stopTime):
 
     while (int(current_time_hour) <= stopTime and int(current_time_hour) >= 8):
         print("\n=== Currently: \t" + current_time + " =====")
-        print("=== Stop At: \t" + str(stopTime + 12) + ":00:00 =====")
+        print("=== Stop At: \t" + str(stopTime) + ":00:00 =====")
         current_time_combined = int(now.strftime(
             "%H"))*60 + int(now.strftime("%M"))
-        remaining_time = ((stopTime + 12) * 60) - int(current_time_combined)
+        remaining_time = (stopTime * 60) - int(current_time_combined)
         if (remaining_time > 60):
-            (timeLeftHour, timeLeftMin) = str(
-                round(remaining_time/60, 2)).split('.')
-            timeLeftMin = (int(timeLeftMin) * 60) / 100
+            remaining_time = round(remaining_time/60, 2)
+            timeLeftHour = str(remaining_time).split('.')[0]
+            timeLeftMin = (int(str(remaining_time).split('.')[1]) * 60) / 100
             if (timeLeftMin < 10):
                 timeLeftMin = "0" + str(timeLeftMin)
-            timeLeft = timeLeftHour + ":" + str(timeLeftMin)
-        print("=== Remaining: \t" + timeLeft + " =======")
+            remaining_time = timeLeftHour + ":" + str(timeLeftMin)
+        print("=== Remaining: \t" + remaining_time + " =======")
         current = pyautogui.position()
         clickIcon(clickableIcon)
 

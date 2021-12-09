@@ -141,7 +141,7 @@ def run(mainLocation, item, itemCount):
 while True == True:
     # run(mainLocation, item, itemCount)
     itemCount = input(
-        "Hover over item location, how many min for run (62 recommended)? ")
+        "Hover over item location, how many min for run (80 prob. max)? ")
     if (type(itemCount) == str):
         itemCount = int(itemCount)
     if (itemCount <= 0):

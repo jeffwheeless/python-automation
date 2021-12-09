@@ -35,6 +35,7 @@ def sleepRandom(smallInt, largeInt):
     # print(sleep)
     if (dryRun == False):
         print(sleep)
+        time.sleep(sleep)
 
     if (sleep >= 60):
         maxClick = random.randint(1, int((sleep/2)/10))
@@ -44,9 +45,6 @@ def sleepRandom(smallInt, largeInt):
         maxClick = random.randint(1, 2)
         for i in range(0, maxClick):
             performLeftClick(pyautogui.position())
-
-    if (dryRun == False):
-        time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):

@@ -18,10 +18,10 @@ def performLeftClick(mainLocation):
     global dryRun
     if (dryRun == False):
         sleep = round(random.uniform(0, 1), 10)
-        # time.sleep(sleep)
+        time.sleep(sleep)
         print("Clicking")
-        # pyautogui.leftClick(
-        #     mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
+        pyautogui.leftClick(
+            mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
 
 
 def sleepRandom(smallInt, largeInt):
@@ -45,8 +45,8 @@ def sleepRandom(smallInt, largeInt):
         for i in range(0, maxClick):
             performLeftClick(pyautogui.position())
 
-    # if (dryRun == False):
-        # time.sleep(sleep)
+    if (dryRun == False):
+        time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):

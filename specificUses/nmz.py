@@ -18,10 +18,10 @@ def performLeftClick(mainLocation):
     global dryRun
     if (dryRun == False):
         sleep = round(random.uniform(0, 1), 10)
-        time.sleep(sleep)
+        # time.sleep(sleep)
         print("Clicking")
-        pyautogui.leftClick(
-            mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
+        # pyautogui.leftClick(
+        #     mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
 
 
 def sleepRandom(smallInt, largeInt):
@@ -36,13 +36,13 @@ def sleepRandom(smallInt, largeInt):
     if (dryRun == False):
         print(sleep)
 
-    if (random.randint(1, 1000) > 920):
+    if (random.randint(1, 1000) > 960 or sleep >= 60):
         maxClick = random.randint(1, 5)
         for i in range(0, maxClick):
             performLeftClick(pyautogui.position())
 
-    if (dryRun == False):
-        time.sleep(sleep)
+    # if (dryRun == False):
+        # time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):
@@ -68,16 +68,29 @@ def performClick(current, mainLocation):
     while (totalTimeClicking <= 55):
         smallTime = 1
         largeTime = 2
-        timeSlot = random.randint(1, 3)
-        if (timeSlot == 3 and totalTimeClicking+30 < 55):
+        timeSlot = random.randint(1, 4)
+        if (timeSlot == 4 and totalTimeClicking+30 < 55):
             smallTime = random.uniform(15, 20)
             largeTime = random.uniform(21, 30)
-        elif (timeSlot == 2 and totalTimeClicking+15 < 55):
+            if (random.randint(1, 10) > 7):
+                mainLocation = mouseOutOfRange(mainLocation)
+                performLeftClick(mainLocation)
+                smallTime = random.uniform(45, 60)
+                largeTime = random.uniform(75, 90)
+            elif (random.randint(1, 10) > 7):
+                mainLocation = mouseOutOfRange(mainLocation)
+                performLeftClick(mainLocation)
+                smallTime = random.uniform(60, 90)
+                largeTime = random.uniform(110, 140)
+        elif (timeSlot == 3 and totalTimeClicking+15 < 55):
             smallTime = random.uniform(7, 12)
             largeTime = random.uniform(13, 15)
-        elif (timeSlot == 1 and totalTimeClicking+10 < 55):
+        elif (timeSlot == 2 and totalTimeClicking+10 < 55):
             smallTime = random.uniform(5, 7)
             largeTime = random.uniform(8, 10)
+        elif (timeSlot == 0):
+            smallTime = random.uniform(0, 0.9)
+            largeTime = random.uniform(1, 2)
         elif (totalTimeClicking < 55):
             smallTime = (55-totalTimeClicking)/2
             largeTime = 55-totalTimeClicking

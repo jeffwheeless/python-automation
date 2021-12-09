@@ -14,10 +14,10 @@ total = 0
 dryRun = True
 
 
-def performLeftClick():
+def performLeftClick(mainLocation):
     global dryRun
     if (dryRun == False):
-        print("Clicking")
+        print("Clicking at " + str(mainLocation))
         pyautogui.leftClick(None, None, 0, random.uniform(0.3, 0.7))
 
 
@@ -26,10 +26,11 @@ def sleepRandom(smallInt, largeInt):
     global dryRun
     # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
-    # sleep = sleep + round(random.uniform(3, 5), 10)
+    # sleep = sleep + round(random.uniform(0.5, 1.2), 10) # enable if on virtual machine
     totalTime = totalTime + sleep
     # sleep = 60 + sleep
-    print(sleep)
+    if (dryRun == False):
+        print(sleep)
 
     if (random.randint(1, 1000) > 965):
         sleepRandom(0, 1)
@@ -43,42 +44,44 @@ def sleepRandom(smallInt, largeInt):
 def mouseOutOfRange(mainLoc):
     current = pyautogui.position()
     if (current[0] >= mainLoc[0]+7 or current[0] <= mainLoc[0]-7):
-        foo = input("Move out of zone, get close and hit enter")
+        # foo = input("Move out of zone, get close and hit enter")
         pyautogui.moveTo(
-            spell[0] + random.randint(-5, 5),
-            spell[1] + random.randint(-5, 5),
+            mainLoc[0] + random.randint(-5, 5),
+            mainLoc[1] + random.randint(-5, 5),
             random.uniform(0.3, 0.7)
         )
         sleepRandom(
             random.uniform(0.4, 0.6)-(0.3/2),
             random.uniform(0.6, 0.8) + (0.3/2)
         )
+        current = pyautogui.position()
+
+    return current
 
 
-def castSpell(current, spell):
+def castSpell(current, mainLocation):
     sleepRandom(
         random.uniform(0.3, 0.4)-(0.3/2),
         random.uniform(0.8, 1) + (0.3/2)
     )
-    mouseOutOfRange(spell)
-    performLeftClick()
+    mainLocation = mouseOutOfRange(mainLocation)
+    performLeftClick(mainLocation)
     sleepRandom(
         random.uniform(0.7, 1)-(0.3/2),
         random.uniform(1, 1.5) + (0.3/2)
     )
-    mouseOutOfRange(spell)
-    performLeftClick()
+    mainLocation = mouseOutOfRange(mainLocation)
+    performLeftClick(mainLocation)
 
 
-def clickLocations(spell, item, pixelColorItem, iterations):
-    global total
-    global averageTime
+def clickLocations(mainLocation, item, pixelColorItem, iterations):
+    global total, averageTime
     global dryRun
     for i in range(0, iterations):
         if (dryRun == True):
             total = total + 1
             pixelColorCurrentItem = pixelColorItem
-            castSpell(pyautogui.position(), spell)
+            castSpell(pyautogui.position(), mainLocation)
         elif (dryRun == False):
             print("\n==== Run: " + str(i + 1) +
                   " of " + str(iterations) + " ==== " + str(iterations - (i + 1)) + " left =====")
@@ -94,7 +97,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
                 timeLeft = str(round(timeLeft, 0)) + " sec"
 
             print("======== Time Left: " + timeLeft + " ========")
-            mouseOutOfRange(spell)
+            mouseOutOfRange(mainLocation)
             current = pyautogui.position()
             frameinfo = getframeinfo(currentframe())
             fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
@@ -109,7 +112,7 @@ def clickLocations(spell, item, pixelColorItem, iterations):
             if (
                 str(pixelColorCurrentItem) == str(pixelColorItem)
             ):
-                castSpell(current, spell)
+                castSpell(current, mainLocation)
             else:
                 sleepRandom(1.3-(0.3/2), 2.7+(0.3/2))
                 frameinfo = getframeinfo(currentframe())
@@ -137,19 +140,20 @@ def clickLocations(spell, item, pixelColorItem, iterations):
     return True
 
 
-def run(spell, item, pixelColorItem, itemCount):
-    return clickLocations(spell, item, pixelColorItem, itemCount)
+def run(mainLocation, item, pixelColorItem, itemCount):
+    return clickLocations(mainLocation, item, pixelColorItem, itemCount)
 
 
 while True == True:
-    # run(spell, item, pixelColorItem, itemCount)
+    # run(mainLocation, item, pixelColorItem, itemCount)
     itemCount = input("Hover over item location, how many are there? ")
     if (type(itemCount) == str):
         itemCount = int(itemCount)
     if (itemCount <= 0):
         itemCount = 140
 
-    spell = pyautogui.position()  # intention is to make two diff locations and mouse move
+    # intention is to make two diff locations and mouse move
+    mainLocation = pyautogui.position()
     item = pyautogui.position()
     frameinfo = getframeinfo(currentframe())
     fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
@@ -165,10 +169,12 @@ while True == True:
     dryRunItemCount = 1000
     # if (itemCount < 100):
     #     dryRunItemCount = itemCount*10
-    success = clickLocations(spell, item, pixelColorItem, dryRunItemCount)
+    print("Running dry run test to assess total time")
+    success = clickLocations(
+        mainLocation, item, pixelColorItem, dryRunItemCount)
     averageTime = totalTime/total
     print("\n\nAverage Time: " + str(averageTime))
     dryRun = False
-    print("Spell" + str(spell))
+    print("Spell" + str(mainLocation))
     print("Item" + str(item))
-    running = run(spell, item, pixelColorItem, itemCount)
+    running = run(mainLocation, item, pixelColorItem, itemCount)

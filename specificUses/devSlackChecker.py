@@ -33,14 +33,14 @@ def clickLocations(clickableIcon):
     now = datetime.now()
     current_time_hour = int(datetime.now().strftime("%H"))
     print("\n=== Currently: \t" + datetime.now().strftime("%I:%M") + "\t =====")
-    while (current_time_hour < earliestDaysHour or current_time_hour > latestDaysHour):
+    while (current_time_hour < earliestDaysHour or current_time_hour >= latestDaysHour):
         print("XXXX Out of office hours XXXXX")
         sleepRandom(1800, 3600)
         current_time_hour = int(datetime.now().strftime("%H"))
         print("\n=== Currently: \t" +
               datetime.now().strftime("%I:%M") + "\t =====")
 
-    while (current_time_hour >= earliestDaysHour and current_time_hour <= latestDaysHour):
+    while (current_time_hour >= earliestDaysHour and current_time_hour < latestDaysHour):
         print("=== Stop At: \t" + str(latestDaysHour-12) + ":00\t =====")
         remaining_time = (latestDaysHour * 60) - \
             (current_time_hour*60 + int(datetime.now().strftime("%M")))

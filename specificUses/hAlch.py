@@ -105,7 +105,7 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
                 imageFilename=".screenshot" + fileName +
                 str(frameinfo.lineno) + ".png",
                 region=(
-                    item[0], item[1], 1, 1
+                    item[0], item[1], 10, 10
                 )
             ).getcolors()
 
@@ -121,7 +121,7 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
                     imageFilename=".screenshot" +
                     str(fileName) + str(frameinfo.lineno) + ".png",
                     region=(
-                        item[0], item[1], 1, 1
+                        item[0], item[1], 10, 10
                     )
                 ).getcolors()
                 if (
@@ -162,7 +162,7 @@ while True == True:
     pixelColorItem = pyautogui.screenshot(
         imageFilename=".screenshot" +
         str(fileName) + str(frameinfo.lineno) + ".png",
-        region=(item[0], item[1], 1, 1)
+        region=(item[0], item[1], 10, 10)
     ).getcolors()
 
     dryRun = True

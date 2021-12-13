@@ -16,6 +16,7 @@ dryRun = True
 
 def performLeftClick(mainLocation):
     global dryRun
+    mainLocation = mouseOutOfRange(mainLocation)
     if (dryRun == False):
         sleep = round(random.uniform(0, 1), 10)
         time.sleep(sleep)
@@ -83,12 +84,12 @@ def performClick(current, mainLocation):
         if (timeSlot == 4 and totalTimeClicking+30 < 55):
             smallTime = random.uniform(15, 20)
             largeTime = random.uniform(21, 30)
-            if (random.randint(1, 10) > 7):
+            if (random.randint(1, 10) > 8):
                 mainLocation = mouseOutOfRange(mainLocation)
                 performLeftClick(mainLocation)
-                smallTime = random.uniform(45, 60)
-                largeTime = random.uniform(75, 90)
-            elif (random.randint(1, 10) > 7):
+                smallTime = random.uniform(30, 45)
+                largeTime = random.uniform(60, 82)
+            elif (random.randint(1, 10) > 9):
                 mainLocation = mouseOutOfRange(mainLocation)
                 performLeftClick(mainLocation)
                 smallTime = random.uniform(60, 90)

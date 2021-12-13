@@ -96,7 +96,7 @@ def performClick(current, mainLocation):
                 largeTime = random.uniform(110, 140)
         elif (timeSlot == 3 and totalTimeClicking+15 < 55):
             smallTime = random.uniform(7, 12)
-            largeTime = random.uniform(13, 15)
+            largeTime = random.uniform(15, 20)
         elif (timeSlot == 2 and totalTimeClicking+10 < 55):
             smallTime = random.uniform(5, 7)
             largeTime = random.uniform(8, 10)

@@ -43,11 +43,11 @@ def sleepRandom(smallInt, largeInt):
 
 def mouseOutOfRange(mainLoc):
     current = pyautogui.position()
-    if (current[0] >= mainLoc[0]+7 or current[0] <= mainLoc[0]-7):
+    if (current[0] >= mainLoc[0]+4 or current[0] <= mainLoc[0]-4):
         # foo = input("Move out of zone, get close and hit enter")
         pyautogui.moveTo(
-            mainLoc[0] + random.randint(-5, 5),
-            mainLoc[1] + random.randint(-5, 5),
+            mainLoc[0] + random.randint(-3, 3),
+            mainLoc[1] + random.randint(-3, 3),
             random.uniform(0.3, 0.7)
         )
         sleepRandom(
@@ -169,6 +169,9 @@ while True == True:
     dryRunItemCount = 1000
     # if (itemCount < 100):
     #     dryRunItemCount = itemCount*10
+
+    sleepRandom(5, 6)
+    mouseOutOfRange(mainLocation)
     print("Running dry run test to assess total time")
     success = clickLocations(
         mainLocation, item, pixelColorItem, dryRunItemCount)

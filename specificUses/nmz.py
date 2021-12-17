@@ -80,7 +80,7 @@ def performClick(current, mainLocation):
     while (totalTimeClicking <= 55):
         smallTime = 1
         largeTime = 2
-        timeSlot = random.randint(1, 4)
+        timeSlot = random.randint(0, 5)
         if (timeSlot == 4 and totalTimeClicking+30 < 55):
             smallTime = random.uniform(15, 20)
             largeTime = random.uniform(21, 30)

@@ -24,6 +24,9 @@ def performLeftClick(mainLocation, repeatedWord=""):
         pyautogui.leftClick(
             mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
         if (repeatedWord != ""):
+            if (random.randint(1, 10) > 5):
+                pyautogui.write("+bank")
+                pyautogui.press('enter')
             pyautogui.write(str(repeatedWord))
             pyautogui.press('enter')
 

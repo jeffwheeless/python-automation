@@ -66,18 +66,18 @@ def mouseOutOfRange(mainLoc):
 def performClick(current, mainLocation, repeatedWord=""):
     totalTimeClicking = 0
     while (totalTimeClicking <= 55):
-        smallTime = random.uniform(32*1*1, 34*1*1)
-        largeTime = random.uniform(36*1*1, 40*1*1)
+        smallTime = random.uniform(32*60, 34*60)
+        largeTime = random.uniform(36*60, 40*60)
         if (random.randint(1, 10) > 8):
             mainLocation = mouseOutOfRange(mainLocation)
             performLeftClick(mainLocation)
-            smallTime = random.uniform(36*1*1, 40*1*1)
-            largeTime = random.uniform(42*1*1, 47*1*1)
+            smallTime = random.uniform(36*60, 40*60)
+            largeTime = random.uniform(42*60, 47*60)
         elif (random.randint(1, 10) > 9):
             mainLocation = mouseOutOfRange(mainLocation)
             performLeftClick(mainLocation)
-            smallTime = random.uniform(36*1*1, 40*1*1)
-            largeTime = random.uniform(45*1*1, 65*1*1)
+            smallTime = random.uniform(36*60, 40*60)
+            largeTime = random.uniform(45*60, 65*60)
 
         totalTimeClicking = totalTimeClicking + largeTime
         sleepRandom(smallTime, largeTime)

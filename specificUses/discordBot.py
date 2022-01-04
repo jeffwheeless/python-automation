@@ -27,6 +27,7 @@ def performLeftClick(mainLocation, repeatedWord=""):
             if (random.randint(1, 10) > 5):
                 pyautogui.write("+bank")
                 pyautogui.press('enter')
+                sleepRandom(5, 22)
             pyautogui.write(str(repeatedWord))
             pyautogui.press('enter')
 
@@ -36,31 +37,12 @@ def sleepRandom(smallInt, largeInt):
     global dryRun
     # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
-    sleep = sleep + round(random.uniform(3, 5), 10)
     totalTime = totalTime + sleep
     # sleep = 60 + sleep
     # print(sleep)
-    if (sleep >= 60):
-        maxClick = random.randint(1, int((sleep/2)/10))
-        for i in range(0, maxClick):
-            performLeftClick(pyautogui.position())
-    elif (random.randint(1, 1000) > 960):
-        maxClick = random.randint(1, 2)
-        for i in range(0, maxClick):
-            performLeftClick(pyautogui.position())
-
     if (dryRun == False):
-        print(sleep)
+        print(formatHumanTimeString(sleep))
         time.sleep(sleep)
-
-    if (sleep >= 60):
-        maxClick = random.randint(1, int((sleep/2)/10))
-        for i in range(0, maxClick):
-            performLeftClick(pyautogui.position())
-    elif (random.randint(1, 1000) > 960):
-        maxClick = random.randint(1, 2)
-        for i in range(0, maxClick):
-            performLeftClick(pyautogui.position())
 
 
 def mouseOutOfRange(mainLoc):
@@ -84,28 +66,30 @@ def mouseOutOfRange(mainLoc):
 def performClick(current, mainLocation, repeatedWord=""):
     totalTimeClicking = 0
     while (totalTimeClicking <= 55):
-        smallTime = 1
-        largeTime = 2
-        smallTime = random.uniform(32*1*1, 45*1*1)
-        largeTime = random.uniform(60*1*1, 72*1*1)
+        smallTime = random.uniform(32*1*1, 34*1*1)
+        largeTime = random.uniform(36*1*1, 40*1*1)
         if (random.randint(1, 10) > 8):
             mainLocation = mouseOutOfRange(mainLocation)
             performLeftClick(mainLocation)
-            smallTime = random.uniform(45*1*1, 55*1*1)
-            largeTime = random.uniform(65*1*1, 80*1*1)
+            smallTime = random.uniform(36*1*1, 40*1*1)
+            largeTime = random.uniform(42*1*1, 47*1*1)
         elif (random.randint(1, 10) > 9):
             mainLocation = mouseOutOfRange(mainLocation)
             performLeftClick(mainLocation)
-            smallTime = random.uniform(55*1*1, 65*1*1)
-            largeTime = random.uniform(72*1*1, 90*1*1)
+            smallTime = random.uniform(36*1*1, 40*1*1)
+            largeTime = random.uniform(45*1*1, 65*1*1)
 
         totalTimeClicking = totalTimeClicking + largeTime
-        sleepRandom(
-            smallTime,
-            largeTime
-        )
+        sleepRandom(smallTime, largeTime)
         mainLocation = mouseOutOfRange(mainLocation)
         performLeftClick(mainLocation, repeatedWord)
+
+
+def formatHumanTimeString(seconds):
+    timeLeftMin = round((seconds) // 60)
+    timeLeftSec = ("0" if ((seconds) % 60) <
+                   10 else "") + str(round(seconds % 60, 5))
+    return str(timeLeftMin) + ":" + str(timeLeftSec)
 
 
 def clickLocations(mainLocation, repeatedWord, iterations):
@@ -119,12 +103,8 @@ def clickLocations(mainLocation, repeatedWord, iterations):
         elif (dryRun == False):
             print("\n============ Run: " + str(i + 1) +
                   " of " + str(iterations) + " ============")
-            timeLeft = averageTime * (iterations - i)
-            timeLeftMin = round((timeLeft) // 60)
-            timeLeftSec = ("0" if ((timeLeft) % 60) <
-                           10 else "") + str(round(timeLeft % 60, 5))
-            timeLeftStr = str(timeLeftMin) + ":" + str(timeLeftSec)
-            print("==== Time Left: " + timeLeftStr + " ====")
+            timeLeft = formatHumanTimeString(averageTime * (iterations - i))
+            print("==== Time Left: " + timeLeft + " ====")
             mainLocation = mouseOutOfRange(mainLocation)
             current = pyautogui.position()
             performClick(current, mainLocation, repeatedWord)
@@ -148,19 +128,16 @@ while True == True:
     # intention is to make two diff locations and mouse move
     mainLocation = pyautogui.position()
     dryRun = True
-    dryRunItemCount = 5
+    dryRunItemCount = 50
     # if (itemCount < 100):
     #     dryRunItemCount = itemCount*10
     success = clickLocations(
         mainLocation, repeatedWord, dryRunItemCount)
-    averageTime = totalTime/total
-    print("\n\nAverage Time: " + str(averageTime))
+    averageTimeLeftStr = formatHumanTimeString(totalTime/total)
+    print("\n\nAverage Time: " + str(averageTimeLeftStr))
     dryRun = False
     print("Main Location " + str(mainLocation))
     print("Item " + str(repeatedWord))
+    performLeftClick(mainLocation, repeatedWord)
     running = run(mainLocation, repeatedWord, itemCount)
-    print("\nTotal Time: " +
-          str(int((itemCount*averageTime) // 60)) + ":" +
-          ("0" if ((itemCount*averageTime) % 60) < 10 else "") +
-          str(round((itemCount*averageTime) % 60, 5))
-          )
+    print("\nTotal Time: " + formatHumanTimeString((itemCount*averageTime)))

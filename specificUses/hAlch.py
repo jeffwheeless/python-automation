@@ -170,7 +170,7 @@ while True == True:
     # if (itemCount < 100):
     #     dryRunItemCount = itemCount*10
 
-    sleepRandom(5, 6)
+    placeHolder = input("Ready?")
     mouseOutOfRange(mainLocation)
     print("Running dry run test to assess total time")
     success = clickLocations(

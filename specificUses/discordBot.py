@@ -24,11 +24,13 @@ def performLeftClick(mainLocation, repeatedWord=""):
         pyautogui.leftClick(
             mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
         if (repeatedWord != ""):
-            if (random.randint(1, 10) > 5):
+            if (random.randint(1, 10) > 9):
                 pyautogui.write("+bank")
+                time.sleep(sleep)
                 pyautogui.press('enter')
-                sleepRandom(5, 22)
+                sleepRandom(2, 4)
             pyautogui.write(str(repeatedWord))
+            time.sleep(sleep)
             pyautogui.press('enter')
 
 
@@ -55,7 +57,7 @@ def mouseOutOfRange(mainLoc):
             random.uniform(0.3, 0.7)
         )
         sleepRandom(
-            random.uniform(0.4, 0.6)-(0.3/2),
+            random.uniform(0.4, 0.6) - (0.3/2),
             random.uniform(0.6, 0.8) + (0.3/2)
         )
         current = pyautogui.position()
@@ -64,25 +66,18 @@ def mouseOutOfRange(mainLoc):
 
 
 def performClick(current, mainLocation, repeatedWord=""):
-    totalTimeClicking = 0
-    while (totalTimeClicking <= 55):
-        smallTime = random.uniform(32*60, 34*60)
-        largeTime = random.uniform(36*60, 40*60)
-        if (random.randint(1, 10) > 8):
-            mainLocation = mouseOutOfRange(mainLocation)
-            performLeftClick(mainLocation)
-            smallTime = random.uniform(36*60, 40*60)
-            largeTime = random.uniform(42*60, 47*60)
-        elif (random.randint(1, 10) > 9):
-            mainLocation = mouseOutOfRange(mainLocation)
-            performLeftClick(mainLocation)
-            smallTime = random.uniform(36*60, 40*60)
-            largeTime = random.uniform(45*60, 65*60)
+    smallTime = random.uniform(32*60, 33*60)
+    largeTime = random.uniform(34*60, 36*60)
+    if (random.randint(1, 10) > 9):
+        smallTime = random.uniform(32*60, 36*60)
+        largeTime = random.uniform(38*60, 40*60)
+    elif (random.randint(1, 10) > 9):
+        smallTime = random.uniform(32*60, 36*60)
+        largeTime = random.uniform(40*60, 45*60)
 
-        totalTimeClicking = totalTimeClicking + largeTime
-        sleepRandom(smallTime, largeTime)
-        mainLocation = mouseOutOfRange(mainLocation)
-        performLeftClick(mainLocation, repeatedWord)
+    mainLocation = mouseOutOfRange(mainLocation)
+    performLeftClick(mainLocation, repeatedWord)
+    sleepRandom(smallTime, largeTime)
 
 
 def formatHumanTimeString(seconds):
@@ -92,38 +87,49 @@ def formatHumanTimeString(seconds):
     return str(timeLeftMin) + ":" + str(timeLeftSec)
 
 
-def clickLocations(mainLocation, repeatedWord, iterations):
+def clickLocations(mainLocation, repeatedWords, iterations, wordCount):
     global total
     global averageTime
     global dryRun
     for i in range(0, iterations):
-        if (dryRun == True):
-            total = total + 1
-            performClick(pyautogui.position(), mainLocation)
-        elif (dryRun == False):
-            print("\n============ Run: " + str(i + 1) +
-                  " of " + str(iterations) + " ============")
-            timeLeft = formatHumanTimeString(averageTime * (iterations - i))
-            print("==== Time Left: " + timeLeft + " ====")
-            mainLocation = mouseOutOfRange(mainLocation)
-            current = pyautogui.position()
-            performClick(current, mainLocation, repeatedWord)
+        for word in range(0, wordCount):
+            if (dryRun == True):
+                total = total + 1
+                performClick(pyautogui.position(), mainLocation)
+            elif (dryRun == False):
+                print("\n============ Run: " + str(i + 1) +
+                      " of " + str(iterations) + " ============")
+                timeLeft = formatHumanTimeString(
+                    averageTime * (iterations - i))
+                print("==== Time Left: " + str(timeLeft) + " ====")
+                mainLocation = mouseOutOfRange(mainLocation)
+                current = pyautogui.position()
+                # print("word " + str(word))
+                # print("repeatedWords " + repeatedWords[word])
+                performClick(current, mainLocation, repeatedWords[word])
     return True
 
 
-def run(mainLocation, repeatedWord, itemCount):
-    return clickLocations(mainLocation, repeatedWord, itemCount)
+def run(mainLocation, repeatedWords, iterations, wordCount):
+    return clickLocations(mainLocation, repeatedWords, iterations, wordCount)
 
 
 while True == True:
     # run(mainLocation, item, itemCount)
-    itemCount = input(
-        "Hover over item location, how many min for run (~2 run/hr)? ")
+    iterations = 2
+    wordCount = input("How many commands ")
     repeatedWord = input("Repeat what command? ")
-    if (type(itemCount) == str):
-        itemCount = int(itemCount)
-    if (itemCount <= 0):
-        itemCount = 140
+    repeatedWords = [repeatedWord]
+
+    for x in range(0, int(wordCount)-1):
+        print("Run number " + str(x))
+        repeatedWord = input("Repeat what command? ")
+        repeatedWords.append(repeatedWord)
+
+    if (type(iterations) == str):
+        iterations = int(iterations)
+    if (iterations <= 0):
+        iterations = 140
 
     # intention is to make two diff locations and mouse move
     mainLocation = pyautogui.position()
@@ -132,12 +138,11 @@ while True == True:
     # if (itemCount < 100):
     #     dryRunItemCount = itemCount*10
     success = clickLocations(
-        mainLocation, repeatedWord, dryRunItemCount)
+        mainLocation, repeatedWord, dryRunItemCount, 1)
+    averageTime = totalTime/total
     averageTimeLeftStr = formatHumanTimeString(totalTime/total)
     print("\n\nAverage Time: " + str(averageTimeLeftStr))
     dryRun = False
-    print("Main Location " + str(mainLocation))
-    print("Item " + str(repeatedWord))
-    performLeftClick(mainLocation, repeatedWord)
-    running = run(mainLocation, repeatedWord, itemCount)
-    print("\nTotal Time: " + formatHumanTimeString((itemCount*averageTime)))
+    # performLeftClick(mainLocation, repeatedWords)
+    running = run(mainLocation, repeatedWords, iterations, int(wordCount))
+    print("\nTotal Time: " + formatHumanTimeString((iterations*averageTime)))

@@ -42,6 +42,13 @@ def badCommand():
         writeSleepEnter("+m stats")
     elif (random.randint(1, 10) > 7):
         writeSleepEnter("+q")
+        sleepRandom(31, 35)
+    elif (random.randint(1, 10) > 8):
+        writeSleepEnter("+offer bones")
+        sleepRandom(31, 35)
+    elif (random.randint(1, 10) > 8):
+        writeSleepEnter("+mine coal")
+        sleepRandom(31, 35)
     sleepRandom(2, 4)
 
 

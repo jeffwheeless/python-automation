@@ -124,7 +124,7 @@ while True == True:
     # run(mainLocation, item, itemCount)
     # iterations = 2
     wordCount = input("How many commands ")
-    iterations = 720 / (int(wordCount) * 30)
+    iterations = int(round(720 / (int(wordCount) * 30), 0))
     repeatedWord = input("Repeat what command? ")
     repeatedWords = [repeatedWord]
 

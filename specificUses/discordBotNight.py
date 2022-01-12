@@ -25,13 +25,28 @@ def performLeftClick(mainLocation, repeatedWord=""):
             mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
         if (repeatedWord != ""):
             if (random.randint(1, 10) > 9):
-                pyautogui.write("+bank")
-                time.sleep(sleep)
-                pyautogui.press('enter')
-                sleepRandom(2, 4)
-            pyautogui.write(str(repeatedWord))
-            time.sleep(sleep)
-            pyautogui.press('enter')
+                badCommand()
+            print("Giving command: " + repeatedWord)
+            writeSleepEnter(repeatedWord)
+
+
+def badCommand():
+    sleep = round(random.uniform(0, 1), 10)
+    if (random.randint(1, 10) > 8):
+        if (random.randint(1, 10) > 9):
+            writeSleepEnter("+bak")
+        if (random.randint(1, 10) > 9):
+            writeSleepEnter("+bnak")
+        writeSleepEnter("+bank")
+    elif (random.randint(1, 10) > 7):
+        writeSleepEnter("+m stats")
+    sleepRandom(2, 4)
+
+
+def writeSleepEnter(typedString):
+    pyautogui.write(typedString)
+    time.sleep(round(random.uniform(0, 1), 10))
+    pyautogui.press('enter')
 
 
 def sleepRandom(smallInt, largeInt):
@@ -66,15 +81,8 @@ def mouseOutOfRange(mainLoc):
 
 
 def performClick(current, mainLocation, repeatedWord=""):
-    smallTime = random.uniform(32*60, 33*60)
-    largeTime = random.uniform(34*60, 36*60)
-    if (random.randint(1, 10) > 9):
-        smallTime = random.uniform(32*60, 36*60)
-        largeTime = random.uniform(38*60, 40*60)
-    elif (random.randint(1, 10) > 9):
-        smallTime = random.uniform(32*60, 36*60)
-        largeTime = random.uniform(40*60, 45*60)
-
+    smallTime = random.uniform(50*60, 60*60)
+    largeTime = random.uniform(90.6*60, 200*60)
     mainLocation = mouseOutOfRange(mainLocation)
     performLeftClick(mainLocation, repeatedWord)
     sleepRandom(smallTime, largeTime)
@@ -104,8 +112,6 @@ def clickLocations(mainLocation, repeatedWords, iterations, wordCount):
                 print("==== Time Left: " + str(timeLeft) + " ====")
                 mainLocation = mouseOutOfRange(mainLocation)
                 current = pyautogui.position()
-                # print("word " + str(word))
-                # print("repeatedWords " + repeatedWords[word])
                 performClick(current, mainLocation, repeatedWords[word])
     return True
 
@@ -116,8 +122,9 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
 
 while True == True:
     # run(mainLocation, item, itemCount)
-    iterations = 2
+    # iterations = 2
     wordCount = input("How many commands ")
+    iteration = 720 / (int(wordCount) * 30)
     repeatedWord = input("Repeat what command? ")
     repeatedWords = [repeatedWord]
 

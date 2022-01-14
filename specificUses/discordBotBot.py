@@ -1,5 +1,6 @@
-import datetime
+
 import time
+from datetime import datetime
 import pyautogui
 import random
 from inspect import currentframe, getframeinfo
@@ -12,6 +13,8 @@ totalTime = 0.0
 averageTime = 0.0
 total = 0
 dryRun = True
+latestDaysHour = 0
+earliestDaysHour = 6
 
 
 def performLeftClick(mainLocation, repeatedWord=""):
@@ -40,14 +43,19 @@ def badCommand():
         writeSleepEnter("+bank")
     elif (random.randint(1, 10) > 7):
         writeSleepEnter("+m stats")
-    elif (random.randint(1, 10) > 7):
+    elif (random.randint(1, 10) > 9):
         writeSleepEnter("+q")
         sleepRandom(31, 35)
     elif (random.randint(1, 10) > 8):
         writeSleepEnter("+offer bones")
         sleepRandom(31, 35)
-    elif (random.randint(1, 10) > 8):
+    elif (random.randint(1, 10) > 7):
         writeSleepEnter("+mine coal")
+        sleepRandom(31, 35)
+    elif (random.randint(1, 10) > 5):
+        writeSleepEnter("+fish swordfish")
+        sleepRandom(31, 35)
+        writeSleepEnter("+cook swordfish")
         sleepRandom(31, 35)
     sleepRandom(2, 4)
 
@@ -90,14 +98,23 @@ def mouseOutOfRange(mainLoc):
 
 
 def performClick(current, mainLocation, repeatedWord=""):
+
+    global latestDaysHour
+    global earliestDaysHour
+    now = datetime.now()
+    current_time_hour = int(datetime.now().strftime("%H"))
     smallTime = random.uniform(32*60, 32.5*60)
     largeTime = random.uniform(32.6*60, 35*60)
-    if (random.randint(1, 10) > 9):
-        smallTime = random.uniform(32*60, 34*60)
-        largeTime = random.uniform(34.1*60, 39.9*60)
-    elif (random.randint(1, 10) > 9):
-        smallTime = random.uniform(32*60, 35*60)
-        largeTime = random.uniform(36*60, 42*60)
+    if (current_time_hour < earliestDaysHour or current_time_hour >= latestDaysHour):
+        smallTime = random.uniform(30*60, 60*60)
+        largeTime = random.uniform(70*60, 200*60)
+    if (current_time_hour >= earliestDaysHour and current_time_hour < latestDaysHour):
+        if (random.randint(1, 10) > 9):
+            smallTime = random.uniform(32*60, 34*60)
+            largeTime = random.uniform(34.1*60, 39.9*60)
+        elif (random.randint(1, 10) > 9):
+            smallTime = random.uniform(32*60, 35*60)
+            largeTime = random.uniform(36*60, 42*60)
 
     mainLocation = mouseOutOfRange(mainLocation)
     performLeftClick(mainLocation, repeatedWord)
@@ -128,6 +145,7 @@ def clickLocations(mainLocation, repeatedWords, iterations, wordCount):
                 print("==== Time Left: " + str(timeLeft) + " ====")
                 mainLocation = mouseOutOfRange(mainLocation)
                 current = pyautogui.position()
+                random.shuffle(repeatedWords)
                 performClick(current, mainLocation, repeatedWords[word])
     return True
 
@@ -145,7 +163,7 @@ while True == True:
     repeatedWords = [repeatedWord]
 
     for x in range(0, int(wordCount)-1):
-        print("Run number " + str(x))
+        print("That was run number " + str(x+1))
         repeatedWord = input("Repeat what command? ")
         repeatedWords.append(repeatedWord)
 

@@ -4,8 +4,6 @@ from datetime import datetime
 import pyautogui
 import random
 from inspect import currentframe, getframeinfo
-import re
-import os
 
 # foo = input("Hover over alternative window")
 # altWindowXY = pyautogui.position()
@@ -35,12 +33,41 @@ def performLeftClick(mainLocation, repeatedWord=""):
 
 def badCommand(currentCommand):
     sleep = round(random.uniform(0, 1), 10)
-    fastActions = ['bank', 'm stats']
-    slowActions = ['q', 'mine coal', 'fish swordfish', 'laps Canifis Rooftop Course', 'chop logs']
+    fastActions = [
+        'm train magic',
+        'm train ranged',
+        'm train shared'
+        'st vannaka',  # 40 cmb
+        # 'st konar', # 75 cmb
+    ]
+
+    medActions = [
+        'm af',
+        'm clue elite',
+        'm clue hard',
+        'm clue master',
+        'm clue medium',
+    ]
+
+    slowActions = [
+        'as',
+        'chop mahogany logs',  # 50 wc
+        'fish swordfish',  # 50
+        'mine coal',  # 30 mining
+        'mine pure essence',  # 30 mining
+    ]
+    if (random.randint(1, 100) > 60):
+        writeSleepEnter(
+            fastActions[random.randint(0, int(len(fastActions)-1))])
+        sleepRandom(2, 4)
+
+    if (random.randint(1, 100) > 50):
+        writeSleepEnter(slowActions[random.randint(0, int(len(medActions)-1))])
+        sleepRandom(13*60, 16*60)
+
     if (random.randint(1, 100) > 75):
-        writeSleepEnter(fastActions[random.randint(0, int(len(fastActions)))])
-    elif (random.randint(1, 100) > 75):
-        writeSleepEnter(slowActions[random.randint(0, int(len(slowActions)))])
+        writeSleepEnter(
+            slowActions[random.randint(0, int(len(slowActions)-1))])
         sleepRandom(33*60, 37*60)
     elif (random.randint(1, 100) > 75):
         writeSleepEnter(currentCommand)
@@ -57,35 +84,24 @@ def writeSleepEnter(typedString):
 def sleepRandom(smallInt, largeInt):
     global totalTime
     global dryRun
-    # global altWindowXY
     sleep = round(random.uniform(smallInt, largeInt), 10)
     totalTime = totalTime + sleep
-    # sleep = 60 + sleep
-    # print(sleep)
     if (dryRun == False):
         print(formatHumanTimeString(sleep))
-        time.sleep(0.3) # time.sleep(sleep)
+        time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):
     current = pyautogui.position()
     if (current[0] >= mainLoc[0]+7 or current[0] <= mainLoc[0]-7):
-        # foo = input("Move out of zone, get close and hit enter")
-        pyautogui.moveTo(
-            mainLoc[0] + random.randint(-5, 5),
-            mainLoc[1] + random.randint(-5, 5),
-            random.uniform(0.3, 0.7)
-        )
-        sleepRandom(
-            random.uniform(0.4, 0.6) - (0.3/2),
-            random.uniform(0.6, 0.8) + (0.3/2)
-        )
+        pyautogui.moveTo(mainLoc[0], mainLoc[1], random.uniform(0.3, 0.7))
+        sleepRandom(random.uniform(0.4, 0.6), random.uniform(0.6, 0.8))
         current = pyautogui.position()
 
     return current
 
 
-def performClick(current, mainLocation, repeatedWord=""):
+def performClick(mainLocation, repeatedWord=""):
 
     global latestDaysHour
     global earliestDaysHour
@@ -94,12 +110,10 @@ def performClick(current, mainLocation, repeatedWord=""):
     smallTime = random.uniform(32*60, 32.5*60)
     largeTime = random.uniform(32.6*60, 35*60)
     if (current_time_hour >= earliestDaysHour and current_time_hour < latestDaysHour):
-        print("slow")
-        smallTime = random.uniform(30*60, 60*60)
+        smallTime = random.uniform(33*60, 60*60)
         largeTime = random.uniform(70*60, 200*60)
 
     if (current_time_hour < earliestDaysHour or current_time_hour >= latestDaysHour):
-        print("fast")
         if (random.randint(1, 10) > 9):
             largeTime = random.uniform(34.1*60, 39.9*60)
         elif (random.randint(1, 10) > 9):
@@ -132,12 +146,11 @@ def clickLocations(mainLocation, repeatedWords, iterations, wordCount):
         for word in range(0, wordCount):
             if (dryRun == True):
                 total = total + 1
-                performClick(pyautogui.position(), mainLocation)
+                performClick(mainLocation)
             elif (dryRun == False):
                 mainLocation = mouseOutOfRange(mainLocation)
-                current = pyautogui.position()
                 random.shuffle(repeatedWords)
-                performClick(current, mainLocation, repeatedWords[word])
+                performClick(mainLocation, repeatedWords[word])
     return True
 
 
@@ -147,22 +160,24 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
 
 while True == True:
     repeatedWords = [
-        "sell 55 Bronze bolts", 
-        "sell 14 Bronze arrow", 
-        "sell 273 Bronze platebody", 
-        "sell 5 Bronze spear", 
-        "sell 1 Bronze axe", 
-        "sell 4 Bronze bar", 
-        "sell 10 Dwarven stout", 
-        "sell 2 Cabbage", 
-        "sell 1 Iron full helm", 
-        "sell 167 Iron platebody", 
-        "sell 3 Iron sword", 
-        "sell 8 Purple firelighter", 
-        "sell 2 Black bead", 
-        "sell 3 Red bead", 
-        "sell 6 White bead", 
-        "sell 5 Yellow bead",
+        # 'as',
+        # 'chop mahogany logs',  # 50 wc
+        # 'chop maple logs',  # 45 wc
+        # 'chop willow logs',  # 30 wc
+        # 'fish swordfish',  # 50
+        # 'k barrows',
+        # 'k chaos druid',
+        # 'k green dragon',
+        # 'laps canifis rooftop course',  # 40 agility
+        # 'laps falador rooftop course',  # 50 agility
+        # 'laps seers\' village rooftop course',  # 60 agility
+        # 'mine coal',  # 30 mining
+        # 'mine gem rock',  # 40 mining
+        # 'mine iron',  # 15 mining
+        # 'mine pure essence',  # 30 mining
+        # 'pickpicket Male H.A.M. member',  # 20 Thieving
+        # 'pickpicket master farmer',  # 38 Thieving
+        'q',
     ]
     wordCount = len(repeatedWords)
     iterations = int(round(720 / (int(wordCount) * 30), 0))
@@ -181,7 +196,7 @@ while True == True:
     averageTimeLeftStr = formatHumanTimeString(totalTime/total)
     print("\n\nAverage Time: " + str(averageTimeLeftStr))
     dryRun = False
-    # performLeftClick(mainLocation, repeatedWords)
+    # sleepRandom(32*60, 40*60)
     running = run(mainLocation, repeatedWords, iterations, int(wordCount))
     print("\nTotal Time: " + formatHumanTimeString((iterations*averageTime)))
     quit()

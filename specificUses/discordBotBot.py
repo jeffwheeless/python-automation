@@ -11,7 +11,7 @@ totalTime = 0.0
 averageTime = 0.0
 total = 0
 dryRun = True
-latestDaysHour = 20
+latestDaysHour = 2
 earliestDaysHour = 7
 
 
@@ -20,15 +20,17 @@ def performLeftClick(mainLocation, repeatedWord=""):
     mainLocation = mouseOutOfRange(mainLocation)
     if (dryRun == False):
         sleep = round(random.uniform(0, 1), 10)
-        # time.sleep(sleep)
+        time.sleep(sleep)
         print("Clicking")
-        # pyautogui.leftClick(
-        #     mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
+        pyautogui.leftClick(
+            mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
         if (repeatedWord != ""):
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('m af')
+                sleepRandom(2, 4)
             if (random.randint(1, 10) > 7):
                 altCommand(repeatedWord)
+                time.sleep(round(random.uniform(5, 10), 10))
             writeSleepEnter(repeatedWord)
 
 
@@ -78,13 +80,13 @@ def sleepRandom(smallInt, largeInt):
     totalTime = totalTime + sleep
     if (dryRun == False):
         print(formatHumanTimeString(sleep))
-        # time.sleep(sleep)
+        time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):
     current = pyautogui.position()
     if (current[0] >= mainLoc[0]+7 or current[0] <= mainLoc[0]-7):
-        # pyautogui.moveTo(mainLoc[0], mainLoc[1], random.uniform(0.3, 0.7))
+        pyautogui.moveTo(mainLoc[0], mainLoc[1], random.uniform(0.3, 0.7))
         sleepRandom(random.uniform(0.4, 0.6), random.uniform(0.6, 0.8))
         current = pyautogui.position()
 
@@ -104,7 +106,6 @@ def performClick(mainLocation, repeatedWord=""):
         smallTime = random.uniform(33*60, 60*60)
         largeTime = random.uniform(70*60, 200*60)
 
-    # during the day
     if (current_time_hour < earliestDaysHour or current_time_hour >= latestDaysHour):
         if (random.randint(1, 10) > 9):
             largeTime = random.uniform(34.1*60, 39.9*60)
@@ -150,60 +151,59 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
     return clickLocations(mainLocation, repeatedWords, iterations, wordCount)
 
 
-# while True == True:
-repeatedWords = [
-    'as',
-    # 'bf mithril bar', 'bf gold bar',
-    # 'chop mahogany logs',  # 50 wc
-    # 'chop maple logs',  # 45 wc
-    # 'chop willow logs',  # 30 wc
-    # 'fish monkfish',  'cook monkfish',  # 62
-    # 'fish raw karambwan', 'cook karambwan',  # 65
-    # 'fish raw shark', 'cook shark',  # 65
-    # 'fish swordfish', 'cook swordfish',  # 50
-    # 'k barrows',
-    # 'k chaos druid',
-    # 'k dagannoth prime', 'k dagannoth rex', 'k dagannoth supreme',
-    # 'k green dragon', 'k blue dragon',
-    # 'k lizardman shaman',
-    # 'k sarachnis', 'k vorkath', 'zulrah',
-    # 'laps canifis rooftop course',  # 40 agility
-    # 'laps falador rooftop course',  # 50 agility
-    # 'laps seers\' village rooftop course',  # 60 agility
-    # 'mine coal', 'mine coal', 'mine coal', 'mine coal',  # 30 mining
-    # 'mine gem rock',  # 40 mining
-    # 'mine gold', 'mine mithril',
-    # 'mine pure essence',  # 30 mining
-    # 'offer big bones',
-    # 'offer dagannoth bones',
-    # 'offer dragon bones',
-    # 'pickpicket master farmer',  # 38 thieving
-    # 'q',
-    # 'sawmill mahogany logs',
-    # 'tithefarm',
-]
-wordCount = len(repeatedWords)
-print(wordCount)
-iterations = int(round(720 / (int(wordCount) * 30), 0))
-print(iterations)
-# quit()
-while (True == True):
-    # for foo in range(0, iterations+5000):
-    if (type(iterations) == str):
-        iterations = int(iterations)
-    if (iterations <= 0):
-        iterations = 140
-
-    mainLocation = pyautogui.position()
-    dryRun = True
-    dryRunItemCount = 50
-    success = clickLocations(
-        mainLocation, repeatedWords[0], dryRunItemCount, 1)
-    averageTime = totalTime/total
-    averageTimeLeftStr = formatHumanTimeString(totalTime/total)
-    print("\n\nAverage Time: " + str(averageTimeLeftStr))
-    dryRun = False
-    # sleepRandom(32*60, 40*60)
-    running = run(mainLocation, repeatedWords, iterations, int(wordCount))
-    print("\nTotal Time: " + formatHumanTimeString((iterations*averageTime)))
+while True == True:
+    repeatedWords = [
+        'as',
+        # 'bf mithril bar', 'bf gold bar',
+        # 'chop mahogany logs',  # 50 wc
+        # 'chop maple logs',  # 45 wc
+        # 'chop willow logs',  # 30 wc
+        # 'fish monkfish',  'cook monkfish',  # 62
+        # 'fish raw karambwan', 'cook karambwan',  # 65
+        # 'fish raw shark', 'cook shark',  # 65
+        # 'fish swordfish', 'cook swordfish',  # 50
+        # 'k barrows',
+        # 'k chaos druid',
+        # 'k dagannoth prime', 'k dagannoth rex', 'k dagannoth supreme',
+        # 'k green dragon', 'k blue dragon',
+        # 'k lizardman shaman',
+        # 'k sarachnis', 'k vorkath', 'zulrah',
+        # 'laps canifis rooftop course',  # 40 agility
+        # 'laps falador rooftop course',  # 50 agility
+        # 'laps seers\' village rooftop course',  # 60 agility
+        # 'mine coal', 'mine coal', 'mine coal', 'mine coal',  # 30 mining
+        # 'mine gem rock',  # 40 mining
+        # 'mine gold', 'mine mithril',
+        # 'mine pure essence',  # 30 mining
+        # 'offer big bones',
+        # 'offer dagannoth bones',
+        # 'offer dragon bones',
+        # 'pickpicket master farmer',  # 38 thieving
+        # 'q',
+        # 'sawmill mahogany logs',
+        # 'tithefarm',
+    ]
+    wordCount = len(repeatedWords)
+    print(wordCount)
+    iterations = int(round(720 / (int(wordCount) * 30), 0))
+    print(iterations)
     # quit()
+    for foo in range(0, iterations+5000):
+        if (type(iterations) == str):
+            iterations = int(iterations)
+        if (iterations <= 0):
+            iterations = 140
+
+        mainLocation = pyautogui.position()
+        dryRun = True
+        dryRunItemCount = 50
+        success = clickLocations(
+            mainLocation, repeatedWords[0], dryRunItemCount, 1)
+        averageTime = totalTime/total
+        averageTimeLeftStr = formatHumanTimeString(totalTime/total)
+        print("\n\nAverage Time: " + str(averageTimeLeftStr))
+        dryRun = False
+        # sleepRandom(32*60, 40*60)
+        running = run(mainLocation, repeatedWords, iterations, int(wordCount))
+        print("\nTotal Time: " + formatHumanTimeString((iterations*averageTime)))
+        # quit()

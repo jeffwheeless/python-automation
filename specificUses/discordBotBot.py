@@ -11,8 +11,8 @@ totalTime = 0.0
 averageTime = 0.0
 total = 0
 dryRun = True
-latestDaysHour = 0
-earliestDaysHour = 6
+latestDaysHour = 20
+earliestDaysHour = 7
 
 
 def performLeftClick(mainLocation, repeatedWord=""):
@@ -20,62 +20,52 @@ def performLeftClick(mainLocation, repeatedWord=""):
     mainLocation = mouseOutOfRange(mainLocation)
     if (dryRun == False):
         sleep = round(random.uniform(0, 1), 10)
-        time.sleep(sleep)
+        # time.sleep(sleep)
         print("Clicking")
-        pyautogui.leftClick(
-            mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
+        # pyautogui.leftClick(
+        #     mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
         if (repeatedWord != ""):
+            if (random.randint(1, 10) > 4):
+                writeSleepEnter('m af')
             if (random.randint(1, 10) > 7):
-                badCommand(repeatedWord)
-            print("Giving command: " + repeatedWord)
+                altCommand(repeatedWord)
             writeSleepEnter(repeatedWord)
 
 
-def badCommand(currentCommand):
+def altCommand(currentCommand):
     sleep = round(random.uniform(0, 1), 10)
     fastActions = [
         'm train magic',
         'm train ranged',
-        'm train shared'
+        'm train shared',
         'st vannaka',  # 40 cmb
-        # 'st konar', # 75 cmb
+        'st konar',  # 75 cmb
     ]
 
-    medActions = [
-        'm af',
-        'm clue elite',
-        'm clue hard',
-        'm clue master',
-        'm clue medium',
-    ]
-
-    slowActions = [
-        'as',
-        'chop mahogany logs',  # 50 wc
-        'fish swordfish',  # 50
-        'mine coal',  # 30 mining
-        'mine pure essence',  # 30 mining
-    ]
-    if (random.randint(1, 100) > 60):
+    # slowActions = [
+    #     'as',
+    #     'chop mahogany logs',  # 50 wc
+    #     'fish swordfish',  # 50
+    #     'mine coal',  # 30 mining
+    #     'mine pure essence',  # 30 mining
+    # ]
+    if (random.randint(1, 100) > 1):
         writeSleepEnter(
             fastActions[random.randint(0, int(len(fastActions)-1))])
         sleepRandom(2, 4)
 
-    if (random.randint(1, 100) > 50):
-        writeSleepEnter(slowActions[random.randint(0, int(len(medActions)-1))])
-        sleepRandom(13*60, 16*60)
-
-    if (random.randint(1, 100) > 75):
-        writeSleepEnter(
-            slowActions[random.randint(0, int(len(slowActions)-1))])
-        sleepRandom(33*60, 37*60)
-    elif (random.randint(1, 100) > 75):
-        writeSleepEnter(currentCommand)
-        sleepRandom(33*60, 37*60)
-    sleepRandom(2, 4)
+    # if (random.randint(1, 100) > 1):
+    #     writeSleepEnter(
+    #         slowActions[random.randint(0, int(len(slowActions)-1))])
+    #     sleepRandom(33*60, 37*60)
+    # elif (random.randint(1, 100) > 1):
+    #     writeSleepEnter(currentCommand)
+    #     sleepRandom(33*60, 37*60)
+    # sleepRandom(2, 4)
 
 
 def writeSleepEnter(typedString):
+    print("Giving command: " + typedString)
     pyautogui.write("+" + typedString)
     time.sleep(round(random.uniform(0, 1), 10))
     pyautogui.press('enter')
@@ -88,13 +78,13 @@ def sleepRandom(smallInt, largeInt):
     totalTime = totalTime + sleep
     if (dryRun == False):
         print(formatHumanTimeString(sleep))
-        time.sleep(sleep)
+        # time.sleep(sleep)
 
 
 def mouseOutOfRange(mainLoc):
     current = pyautogui.position()
     if (current[0] >= mainLoc[0]+7 or current[0] <= mainLoc[0]-7):
-        pyautogui.moveTo(mainLoc[0], mainLoc[1], random.uniform(0.3, 0.7))
+        # pyautogui.moveTo(mainLoc[0], mainLoc[1], random.uniform(0.3, 0.7))
         sleepRandom(random.uniform(0.4, 0.6), random.uniform(0.6, 0.8))
         current = pyautogui.position()
 
@@ -109,10 +99,12 @@ def performClick(mainLocation, repeatedWord=""):
     current_time_hour = int(datetime.now().strftime("%H"))
     smallTime = random.uniform(32*60, 32.5*60)
     largeTime = random.uniform(32.6*60, 35*60)
+    # late night
     if (current_time_hour >= earliestDaysHour and current_time_hour < latestDaysHour):
         smallTime = random.uniform(33*60, 60*60)
         largeTime = random.uniform(70*60, 200*60)
 
+    # during the day
     if (current_time_hour < earliestDaysHour or current_time_hour >= latestDaysHour):
         if (random.randint(1, 10) > 9):
             largeTime = random.uniform(34.1*60, 39.9*60)
@@ -158,30 +150,45 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
     return clickLocations(mainLocation, repeatedWords, iterations, wordCount)
 
 
-while True == True:
-    repeatedWords = [
-        # 'as',
-        # 'chop mahogany logs',  # 50 wc
-        # 'chop maple logs',  # 45 wc
-        # 'chop willow logs',  # 30 wc
-        # 'fish swordfish',  # 50
-        # 'k barrows',
-        # 'k chaos druid',
-        # 'k green dragon',
-        # 'laps canifis rooftop course',  # 40 agility
-        # 'laps falador rooftop course',  # 50 agility
-        # 'laps seers\' village rooftop course',  # 60 agility
-        # 'mine coal',  # 30 mining
-        # 'mine gem rock',  # 40 mining
-        # 'mine iron',  # 15 mining
-        # 'mine pure essence',  # 30 mining
-        # 'pickpicket Male H.A.M. member',  # 20 Thieving
-        # 'pickpicket master farmer',  # 38 Thieving
-        'q',
-    ]
-    wordCount = len(repeatedWords)
-    iterations = int(round(720 / (int(wordCount) * 30), 0))
-
+# while True == True:
+repeatedWords = [
+    'as',
+    # 'bf mithril bar', 'bf gold bar',
+    # 'chop mahogany logs',  # 50 wc
+    # 'chop maple logs',  # 45 wc
+    # 'chop willow logs',  # 30 wc
+    # 'fish monkfish',  'cook monkfish',  # 62
+    # 'fish raw karambwan', 'cook karambwan',  # 65
+    # 'fish raw shark', 'cook shark',  # 65
+    # 'fish swordfish', 'cook swordfish',  # 50
+    # 'k barrows',
+    # 'k chaos druid',
+    # 'k dagannoth prime', 'k dagannoth rex', 'k dagannoth supreme',
+    # 'k green dragon', 'k blue dragon',
+    # 'k lizardman shaman',
+    # 'k sarachnis', 'k vorkath', 'zulrah',
+    # 'laps canifis rooftop course',  # 40 agility
+    # 'laps falador rooftop course',  # 50 agility
+    # 'laps seers\' village rooftop course',  # 60 agility
+    # 'mine coal', 'mine coal', 'mine coal', 'mine coal',  # 30 mining
+    # 'mine gem rock',  # 40 mining
+    # 'mine gold', 'mine mithril',
+    # 'mine pure essence',  # 30 mining
+    # 'offer big bones',
+    # 'offer dagannoth bones',
+    # 'offer dragon bones',
+    # 'pickpicket master farmer',  # 38 thieving
+    # 'q',
+    # 'sawmill mahogany logs',
+    # 'tithefarm',
+]
+wordCount = len(repeatedWords)
+print(wordCount)
+iterations = int(round(720 / (int(wordCount) * 30), 0))
+print(iterations)
+# quit()
+while (True == True):
+    # for foo in range(0, iterations+5000):
     if (type(iterations) == str):
         iterations = int(iterations)
     if (iterations <= 0):
@@ -199,4 +206,4 @@ while True == True:
     # sleepRandom(32*60, 40*60)
     running = run(mainLocation, repeatedWords, iterations, int(wordCount))
     print("\nTotal Time: " + formatHumanTimeString((iterations*averageTime)))
-    quit()
+    # quit()

@@ -4,6 +4,7 @@ from datetime import datetime
 import pyautogui
 import random
 from inspect import currentframe, getframeinfo
+import re
 
 # foo = input("Hover over alternative window")
 # altWindowXY = pyautogui.position()
@@ -28,16 +29,25 @@ def performLeftClick(mainLocation, repeatedWord=""):
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m af')
                 sleepRandom(2, 4)
+
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m clue elite')
                 sleepRandom(2, 4)
                 writeSleepEnter('+m af')
                 sleepRandom(2, 4)
+
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m clue hard')
                 sleepRandom(2, 4)
                 writeSleepEnter('+m af')
                 sleepRandom(2, 4)
+
+            if (random.randint(1, 10) > 4):
+                writeSleepEnter('+m clue medium')
+                sleepRandom(2, 4)
+                writeSleepEnter('+m af')
+                sleepRandom(2, 4)
+
             if (random.randint(1, 10) > 7):
                 altCommand(repeatedWord)
                 time.sleep(round(random.uniform(5, 10), 10))
@@ -50,21 +60,21 @@ def altCommand(currentCommand):
         '+m train magic',
         '+m train ranged',
         '+m train shared',
-        '+st vannaka',  # 40 cmb
+        # '+st vannaka',  # 40 cmb
         '+st konar',  # 75 cmb
     ]
 
     # slowActions = [
-    #     '+as',
-    #     '+chop mahogany logs',  # 50 wc
-    #     '+fish swordfish',  # 50
-    #     '+mine coal',  # 30 mining
-    #     '+mine pure essence',  # 30 mining
+    # '+as',
+    # '+chop mahogany logs',  # 50 wc
+    # '+fish swordfish',  # 50
+    # '+mine coal',  # 30 mining
+    # '+mine pure essence',  # 30 mining
     # ]
     if (random.randint(1, 100) > 1):
         writeSleepEnter(
             fastActions[random.randint(0, int(len(fastActions)-1))])
-        sleepRandom(2, 4)
+        #sleepRandom(2, 4)
 
     # if (random.randint(1, 100) > 1):
     #     writeSleepEnter(
@@ -73,12 +83,35 @@ def altCommand(currentCommand):
     # elif (random.randint(1, 100) > 1):
     #     writeSleepEnter(currentCommand)
     #     sleepRandom(33*60, 37*60)
-    # sleepRandom(2, 4)
+    ## sleepRandom(2, 4)
 
 
 def writeSleepEnter(typedString):
+    pattern = re.compile("/[A-z]+")
+    results = pattern.search(typedString)
+    if (results == None):
+        writeSleepEnterSimple(typedString)
+    elif (results.group(0) != None):
+        typedString = re.split(pattern, typedString)
+        writeSleepEnterComplex(results.group(0), typedString[1])
+
+
+def writeSleepEnterSimple(typedString):
     print("Giving command: " + typedString)
     pyautogui.write(typedString)
+    time.sleep(round(random.uniform(0, 1), 10))
+    pyautogui.press('enter')
+
+
+def writeSleepEnterComplex(pretext, typedString):
+    print("Giving command: " + typedString)
+    pyautogui.write(pretext)
+    time.sleep(round(random.uniform(0, 1), 10))
+    pyautogui.press('tab')
+    time.sleep(round(random.uniform(3, 7), 10))
+    pyautogui.write(typedString)
+    time.sleep(round(random.uniform(7, 12), 10))
+    pyautogui.press('tab')
     time.sleep(round(random.uniform(0, 1), 10))
     pyautogui.press('enter')
 
@@ -175,12 +208,14 @@ while True == True:
         # '/k barrows',
         # '/k chaos druid',
         # '/k dagannoth prime', '/k dagannoth rex', '/k dagannoth supreme',
+        # '/k General Graardor', '/k Commander Zilyana', '/k Kree'arra',
         # '/k green dragon', '/k blue dragon',
         # '/k lizardman shaman',
         # '/k sarachnis', '/k vorkath', 'zulrah',
         # '+laps canifis rooftop course',  # 40 agility
         # '+laps falador rooftop course',  # 50 agility
         # '+laps seers\' village rooftop course',  # 60 agility
+        # '+laps pol',  # 60 agility
         # '+mine coal', '+mine coal', '+mine coal', '+mine coal',  # 30 mining
         # '+mine gem rock',  # 40 mining
         # '+mine gold', '+mine mithril',
@@ -188,10 +223,12 @@ while True == True:
         # '+offer big bones',
         # '+offer dagannoth bones',
         # '+offer dragon bones',
-        # 'pickpicket master farmer',  # 38 thieving
+        # '+pickpocket master farmer',  # 38 thieving
         # '/minion quest',
         # '+sawmill mahogany logs',
-        # 'tithefarm',
+        # '+tithefarm',
+        # '+hunt swamp lizard', #43 hunter
+        # '+hunt red salamander', #67 hunter
     ]
     wordCount = len(repeatedWords)
     print(wordCount)

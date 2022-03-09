@@ -26,7 +26,17 @@ def performLeftClick(mainLocation, repeatedWord=""):
             mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
         if (repeatedWord != ""):
             if (random.randint(1, 10) > 4):
-                writeSleepEnter('m af')
+                writeSleepEnter('+m af')
+                sleepRandom(2, 4)
+            if (random.randint(1, 10) > 4):
+                writeSleepEnter('+m clue elite')
+                sleepRandom(2, 4)
+                writeSleepEnter('+m af')
+                sleepRandom(2, 4)
+            if (random.randint(1, 10) > 4):
+                writeSleepEnter('+m clue hard')
+                sleepRandom(2, 4)
+                writeSleepEnter('+m af')
                 sleepRandom(2, 4)
             if (random.randint(1, 10) > 7):
                 altCommand(repeatedWord)
@@ -37,19 +47,19 @@ def performLeftClick(mainLocation, repeatedWord=""):
 def altCommand(currentCommand):
     sleep = round(random.uniform(0, 1), 10)
     fastActions = [
-        'm train magic',
-        'm train ranged',
-        'm train shared',
-        'st vannaka',  # 40 cmb
-        'st konar',  # 75 cmb
+        '+m train magic',
+        '+m train ranged',
+        '+m train shared',
+        '+st vannaka',  # 40 cmb
+        '+st konar',  # 75 cmb
     ]
 
     # slowActions = [
-    #     'as',
-    #     'chop mahogany logs',  # 50 wc
-    #     'fish swordfish',  # 50
-    #     'mine coal',  # 30 mining
-    #     'mine pure essence',  # 30 mining
+    #     '+as',
+    #     '+chop mahogany logs',  # 50 wc
+    #     '+fish swordfish',  # 50
+    #     '+mine coal',  # 30 mining
+    #     '+mine pure essence',  # 30 mining
     # ]
     if (random.randint(1, 100) > 1):
         writeSleepEnter(
@@ -68,7 +78,7 @@ def altCommand(currentCommand):
 
 def writeSleepEnter(typedString):
     print("Giving command: " + typedString)
-    pyautogui.write("+" + typedString)
+    pyautogui.write(typedString)
     time.sleep(round(random.uniform(0, 1), 10))
     pyautogui.press('enter')
 
@@ -153,34 +163,34 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
 
 while True == True:
     repeatedWords = [
-        'as',
-        # 'bf mithril bar', 'bf gold bar',
-        # 'chop mahogany logs',  # 50 wc
-        # 'chop maple logs',  # 45 wc
-        # 'chop willow logs',  # 30 wc
-        # 'fish monkfish',  'cook monkfish',  # 62
-        # 'fish raw karambwan', 'cook karambwan',  # 65
-        # 'fish raw shark', 'cook shark',  # 65
-        # 'fish swordfish', 'cook swordfish',  # 50
-        # 'k barrows',
-        # 'k chaos druid',
-        # 'k dagannoth prime', 'k dagannoth rex', 'k dagannoth supreme',
-        # 'k green dragon', 'k blue dragon',
-        # 'k lizardman shaman',
-        # 'k sarachnis', 'k vorkath', 'zulrah',
-        # 'laps canifis rooftop course',  # 40 agility
-        # 'laps falador rooftop course',  # 50 agility
-        # 'laps seers\' village rooftop course',  # 60 agility
-        # 'mine coal', 'mine coal', 'mine coal', 'mine coal',  # 30 mining
-        # 'mine gem rock',  # 40 mining
-        # 'mine gold', 'mine mithril',
-        # 'mine pure essence',  # 30 mining
-        # 'offer big bones',
-        # 'offer dagannoth bones',
-        # 'offer dragon bones',
+        '+as',
+        # '+bf mithril bar', '+bf gold bar',
+        # '+chop mahogany logs',  # 50 wc
+        # '+chop maple logs',  # 45 wc
+        # '+chop willow logs',  # 30 wc
+        # '+fish monkfish',  'cook monkfish',  # 62
+        # '+fish raw karambwan', 'cook karambwan',  # 65
+        # '+fish raw shark', 'cook shark',  # 65
+        # '+fish swordfish', 'cook swordfish',  # 50
+        # '/k barrows',
+        # '/k chaos druid',
+        # '/k dagannoth prime', '/k dagannoth rex', '/k dagannoth supreme',
+        # '/k green dragon', '/k blue dragon',
+        # '/k lizardman shaman',
+        # '/k sarachnis', '/k vorkath', 'zulrah',
+        # '+laps canifis rooftop course',  # 40 agility
+        # '+laps falador rooftop course',  # 50 agility
+        # '+laps seers\' village rooftop course',  # 60 agility
+        # '+mine coal', '+mine coal', '+mine coal', '+mine coal',  # 30 mining
+        # '+mine gem rock',  # 40 mining
+        # '+mine gold', '+mine mithril',
+        # '+mine pure essence',  # 30 mining
+        # '+offer big bones',
+        # '+offer dagannoth bones',
+        # '+offer dragon bones',
         # 'pickpicket master farmer',  # 38 thieving
-        # 'q',
-        # 'sawmill mahogany logs',
+        # '/minion quest',
+        # '+sawmill mahogany logs',
         # 'tithefarm',
     ]
     wordCount = len(repeatedWords)

@@ -28,25 +28,25 @@ def performLeftClick(mainLocation, repeatedWord=""):
         if (repeatedWord != ""):
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m af')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
 
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m clue elite')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
                 writeSleepEnter('+m af')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
 
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m clue hard')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
                 writeSleepEnter('+m af')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
 
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m clue medium')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
                 writeSleepEnter('+m af')
-                sleepRandom(2, 4)
+                sleepRandom(4*60, 10*60)
 
             if (random.randint(1, 10) > 7):
                 altCommand(repeatedWord)
@@ -74,7 +74,7 @@ def altCommand(currentCommand):
     if (random.randint(1, 100) > 1):
         writeSleepEnter(
             fastActions[random.randint(0, int(len(fastActions)-1))])
-        #sleepRandom(2, 4)
+        #sleepRandom(4*60, 10*60)
 
     # if (random.randint(1, 100) > 1):
     #     writeSleepEnter(
@@ -83,7 +83,7 @@ def altCommand(currentCommand):
     # elif (random.randint(1, 100) > 1):
     #     writeSleepEnter(currentCommand)
     #     sleepRandom(33*60, 37*60)
-    ## sleepRandom(2, 4)
+    ## sleepRandom(4*60, 10*60)
 
 
 def writeSleepEnter(typedString):

@@ -28,7 +28,10 @@ def performLeftClick(mainLocation, repeatedWord=""):
         if (repeatedWord != ""):
             if (random.randint(1, 10) > 4):
                 writeSleepEnter('+m af')
-                # sleepRandom(4/10, 10/10)
+                sleepRandom(4*60, 10*60)
+            if (random.randint(1, 10) > 6):
+                writeSleepEnter('+st konar')
+                sleepRandom(5, 12)
 
             for i in range(0, 10):
                 altCommand(repeatedWord)
@@ -38,14 +41,11 @@ def performLeftClick(mainLocation, repeatedWord=""):
 
 
 def altCommand(currentCommand):
-    # time.sleep(round(random.uniform(5, 10), 10))
-    # time.sleep(round(random.uniform(1, 3), 10))
+    time.sleep(round(random.uniform(5, 10), 10))
     fastActions = [
         '+m train magic',
         '+m train ranged',
         '+m train shared',
-        # '+st vannaka',  # 40 cmb
-        '+st konar',  # 75 cmb
     ]
 
     slowActions = [
@@ -54,15 +54,15 @@ def altCommand(currentCommand):
         '+m clue elite',  # 50
         '+m af',  # 50
     ]
-    if (random.randint(1, 100) > 7):
+    if (random.randint(1, 100) > 75):
         writeSleepEnter(
             fastActions[random.randint(0, int(len(fastActions)-1))])
-        # sleepRandom(2, 5)
+        sleepRandom(2, 5)
 
-    if (random.randint(1, 100) > 9):
+    if (random.randint(1, 100) > 75):
         writeSleepEnter(
-            slowActions[random.randint(0, int(len(fastActions)-1))])
-        # sleepRandom(4/10, 10/10)
+            slowActions[random.randint(0, int(len(slowActions)-1))])
+        sleepRandom(4*60, 10*60)
 
 
 def writeSleepEnter(typedString):
@@ -121,18 +121,18 @@ def performClick(mainLocation, repeatedWord=""):
     global earliestDaysHour
     now = datetime.now()
     current_time_hour = int(datetime.now().strftime("%H"))
-    smallTime = random.uniform(32/10, 32.5/10)
-    largeTime = random.uniform(32.6/10, 35/10)
+    smallTime = random.uniform(32*60, 32.5*60)
+    largeTime = random.uniform(32.6*60, 35*60)
     # late night
     if (current_time_hour >= earliestDaysHour and current_time_hour < latestDaysHour):
-        smallTime = random.uniform(33/10, 60/10)
-        largeTime = random.uniform(70/10, 200/10)
+        smallTime = random.uniform(33*60, 60*60)
+        largeTime = random.uniform(70*60, 200*60)
 
     if (current_time_hour < earliestDaysHour or current_time_hour >= latestDaysHour):
         if (random.randint(1, 10) > 9):
-            largeTime = random.uniform(34.1/10, 39.9/10)
+            largeTime = random.uniform(34.1*60, 39.9*60)
         elif (random.randint(1, 10) > 9):
-            largeTime = random.uniform(36/10, 42/10)
+            largeTime = random.uniform(36*60, 42*60)
 
     mainLocation = mouseOutOfRange(mainLocation)
     performLeftClick(mainLocation, repeatedWord)
@@ -231,7 +231,7 @@ while True == True:
         averageTimeLeftStr = formatHumanTimeString(totalTime/total)
         print("\n\nAverage Time: " + str(averageTimeLeftStr))
         dryRun = False
-        # sleepRandom(32/10, 40/10)
+        # sleepRandom(32*60, 40*60)
         running = run(mainLocation, repeatedWords, iterations, int(wordCount))
         print("\nTotal Time: " + formatHumanTimeString((iterations*averageTime)))
     quit()

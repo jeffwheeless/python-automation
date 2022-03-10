@@ -50,15 +50,13 @@ def altCommand(currentCommand):
         '+m clue medium',
         '+m clue hard',  # 50 wc
         '+m clue elite',  # 50
-        '+mine coal',  # 30 mining
-        '+mine pure essence',  # 30 mining
     ]
-    if (random.randint(1, 100) > 3):
+    if (random.randint(1, 100) > 7):
         writeSleepEnter(
             fastActions[random.randint(0, int(len(fastActions)-1))])
         sleepRandom(2, 5)
 
-    if (random.randint(1, 100) > 6):
+    if (random.randint(1, 100) > 9):
         writeSleepEnter(
             slowActions[random.randint(0, int(len(fastActions)-1))])
         sleepRandom(4*60, 10*60)
@@ -173,10 +171,12 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
 
 
 while True == True:
-    repeatedWords = [        # '+as',
+    repeatedWords = [
+        # '+as',
         # '+bf mithril bar', '+bf gold bar',
         # '+chop mahogany logs',  # 50 wc
         # '+chop maple logs',  # 45 wc
+        # '+chop teak logs',  # 45 wc
         # '+chop willow logs',  # 30 wc
         # '+fish monkfish', '+fish monkfish',  'cook monkfish',  # 62
         # '+fish raw karambwan', 'cook karambwan',  # 65
@@ -201,7 +201,7 @@ while True == True:
         # '/k barrows',
         # '/k chaos druid',
         # '/k dagannoth prime', '/k dagannoth rex', '/k dagannoth supreme',
-        # '/k General Graardor', '/k Commander Zilyana', '/k Kree'arra',
+        # '/k General Graardor', '/k Commander Zilyana', '/k Kree/'arra',
         # '/k green dragon', '/k blue dragon',
         # '/k lizardman shaman',
         # '/k sarachnis', '/k vorkath', 'zulrah',

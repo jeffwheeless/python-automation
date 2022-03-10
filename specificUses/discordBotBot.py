@@ -30,32 +30,14 @@ def performLeftClick(mainLocation, repeatedWord=""):
                 writeSleepEnter('+m af')
                 sleepRandom(4*60, 10*60)
 
-            if (random.randint(1, 10) > 4):
-                writeSleepEnter('+m clue elite')
-                sleepRandom(4*60, 10*60)
-                writeSleepEnter('+m af')
-                sleepRandom(4*60, 10*60)
-
-            if (random.randint(1, 10) > 4):
-                writeSleepEnter('+m clue hard')
-                sleepRandom(4*60, 10*60)
-                writeSleepEnter('+m af')
-                sleepRandom(4*60, 10*60)
-
-            if (random.randint(1, 10) > 4):
-                writeSleepEnter('+m clue medium')
-                sleepRandom(4*60, 10*60)
-                writeSleepEnter('+m af')
-                sleepRandom(4*60, 10*60)
-
-            if (random.randint(1, 10) > 7):
+            for i in range(0, 4):
                 altCommand(repeatedWord)
-                time.sleep(round(random.uniform(5, 10), 10))
+
             writeSleepEnter(repeatedWord)
 
 
 def altCommand(currentCommand):
-    sleep = round(random.uniform(0, 1), 10)
+    time.sleep(round(random.uniform(5, 10), 10))
     fastActions = [
         '+m train magic',
         '+m train ranged',
@@ -64,26 +46,22 @@ def altCommand(currentCommand):
         '+st konar',  # 75 cmb
     ]
 
-    # slowActions = [
-    # '+as',
-    # '+chop mahogany logs',  # 50 wc
-    # '+fish swordfish',  # 50
-    # '+mine coal',  # 30 mining
-    # '+mine pure essence',  # 30 mining
-    # ]
-    if (random.randint(1, 100) > 1):
+    slowActions = [
+        '+m clue medium',
+        '+m clue hard',  # 50 wc
+        '+m clue elite',  # 50
+        '+mine coal',  # 30 mining
+        '+mine pure essence',  # 30 mining
+    ]
+    if (random.randint(1, 100) > 3):
         writeSleepEnter(
             fastActions[random.randint(0, int(len(fastActions)-1))])
-        #sleepRandom(4*60, 10*60)
+        sleepRandom(2, 5)
 
-    # if (random.randint(1, 100) > 1):
-    #     writeSleepEnter(
-    #         slowActions[random.randint(0, int(len(slowActions)-1))])
-    #     sleepRandom(33*60, 37*60)
-    # elif (random.randint(1, 100) > 1):
-    #     writeSleepEnter(currentCommand)
-    #     sleepRandom(33*60, 37*60)
-    ## sleepRandom(4*60, 10*60)
+    if (random.randint(1, 100) > 6):
+        writeSleepEnter(
+            slowActions[random.randint(0, int(len(fastActions)-1))])
+        sleepRandom(4*60, 10*60)
 
 
 def writeSleepEnter(typedString):
@@ -195,28 +173,22 @@ def run(mainLocation, repeatedWords, iterations, wordCount):
 
 
 while True == True:
-    repeatedWords = [
-        '+as',
+    repeatedWords = [        # '+as',
         # '+bf mithril bar', '+bf gold bar',
         # '+chop mahogany logs',  # 50 wc
         # '+chop maple logs',  # 45 wc
         # '+chop willow logs',  # 30 wc
-        # '+fish monkfish',  'cook monkfish',  # 62
+        # '+fish monkfish', '+fish monkfish',  'cook monkfish',  # 62
         # '+fish raw karambwan', 'cook karambwan',  # 65
         # '+fish raw shark', 'cook shark',  # 65
         # '+fish swordfish', 'cook swordfish',  # 50
-        # '/k barrows',
-        # '/k chaos druid',
-        # '/k dagannoth prime', '/k dagannoth rex', '/k dagannoth supreme',
-        # '/k General Graardor', '/k Commander Zilyana', '/k Kree'arra',
-        # '/k green dragon', '/k blue dragon',
-        # '/k lizardman shaman',
-        # '/k sarachnis', '/k vorkath', 'zulrah',
+        # '+hunt red salamander', #67 hunter
+        # '+hunt swamp lizard', #43 hunter
         # '+laps canifis rooftop course',  # 40 agility
         # '+laps falador rooftop course',  # 50 agility
-        # '+laps seers\' village rooftop course',  # 60 agility
         # '+laps pol',  # 60 agility
-        # '+mine coal', '+mine coal', '+mine coal', '+mine coal',  # 30 mining
+        # '+laps seers\' village rooftop course',  # 60 agility
+        # '+mine coal', '+mine coal',  # 30 mining
         # '+mine gem rock',  # 40 mining
         # '+mine gold', '+mine mithril',
         # '+mine pure essence',  # 30 mining
@@ -224,11 +196,16 @@ while True == True:
         # '+offer dagannoth bones',
         # '+offer dragon bones',
         # '+pickpocket master farmer',  # 38 thieving
-        # '/minion quest',
-        # '+sawmill mahogany logs',
+        # '+sawmill mahogany',
         # '+tithefarm',
-        # '+hunt swamp lizard', #43 hunter
-        # '+hunt red salamander', #67 hunter
+        # '/k barrows',
+        # '/k chaos druid',
+        # '/k dagannoth prime', '/k dagannoth rex', '/k dagannoth supreme',
+        # '/k General Graardor', '/k Commander Zilyana', '/k Kree'arra',
+        # '/k green dragon', '/k blue dragon',
+        # '/k lizardman shaman',
+        # '/k sarachnis', '/k vorkath', 'zulrah',
+        # '/minion quest',
     ]
     wordCount = len(repeatedWords)
     print(wordCount)

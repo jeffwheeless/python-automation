@@ -23,6 +23,16 @@ def performLeftClick(mainLocation):
         print("Clicking")
         pyautogui.leftClick(
             mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
+        sleep = round(random.uniform(0, 1), 10)
+        time.sleep(sleep)
+        print("Clicking")
+        pyautogui.leftClick(
+            mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
+        sleep = round(random.uniform(0, 1), 10)
+        time.sleep(sleep)
+        print("Clicking")
+        pyautogui.leftClick(
+            mainLocation[0], mainLocation[1], 0, random.uniform(0.3, 0.7))
 
 
 def sleepRandom(smallInt, largeInt):

@@ -12,12 +12,18 @@ totalTime = 0.0
 averageTime = 0.0
 total = 0
 dryRun = True
+runTimeStamped = 0
+totalTimeStamped = 0
+longestRun = 0
+shortestRun = 100
+averageTimeStamped = 7.4180
 
 
 def performLeftClick(mainLocation):
     global dryRun
     if (dryRun == False):
         print("Clicking at " + str(mainLocation))
+        # sleepRandom(0.3, 0.7)  # remove if clicking
         pyautogui.leftClick(None, None, 0, random.uniform(0.3, 0.7))
 
 
@@ -32,10 +38,17 @@ def sleepRandom(smallInt, largeInt):
     if (dryRun == False):
         print(sleep)
 
-    if (random.randint(1, 1000) > 965):
+    if (random.randint(1, 1000) > 825):
         sleepRandom(0, 1)
-    elif (random.randint(1, 1000) > 975):
+
+    if (random.randint(1, 1000) > 925):
         sleepRandom(1, 2)
+
+    if (random.randint(1, 1000) > 960):
+        sleepRandom(1, 3)
+
+    # if (random.randint(1, 1000) > 980):
+    #     sleepRandom(1, 25)
 
     if (dryRun == False):
         time.sleep(sleep)
@@ -44,15 +57,15 @@ def sleepRandom(smallInt, largeInt):
 def mouseOutOfRange(mainLoc):
     current = pyautogui.position()
     if (current[0] >= mainLoc[0]+4 or current[0] <= mainLoc[0]-4):
-        # foo = input("Move out of zone, get close and hit enter")
+        foo = input("Move out of zone, get close and hit enter")
         pyautogui.moveTo(
             mainLoc[0] + random.randint(-3, 3),
             mainLoc[1] + random.randint(-3, 3),
             random.uniform(0.3, 0.7)
         )
         sleepRandom(
-            random.uniform(0.4, 0.6)-(0.3/2),
-            random.uniform(0.6, 0.8) + (0.3/2)
+            random.uniform(0.4, 0.6),
+            random.uniform(0.6, 0.8)
         )
         current = pyautogui.position()
 
@@ -61,42 +74,58 @@ def mouseOutOfRange(mainLoc):
 
 def castSpell(current, mainLocation):
     sleepRandom(
-        random.uniform(0.3, 0.4)-(0.3/2),
-        random.uniform(0.8, 1) + (0.3/2)
+        random.uniform(0.3, 0.4),
+        random.uniform(0.8, 1)
     )
     mainLocation = mouseOutOfRange(mainLocation)
     performLeftClick(mainLocation)
     sleepRandom(
-        random.uniform(0.7, 1)-(0.3/2),
-        random.uniform(1, 1.5) + (0.3/2)
+        random.uniform(0.7, 1),
+        random.uniform(1, 1.5)
     )
     mainLocation = mouseOutOfRange(mainLocation)
     performLeftClick(mainLocation)
+
+
+def formatTimeLeft(timeLeft):
+    # timeLeft = float(timeLeft)
+    if (timeLeft > 60):
+        timeLeft = round(timeLeft/60, 2)
+        timeLeftMin = str(timeLeft).split('.')[0]
+        timeLeftSec = (int(str(timeLeft).split('.')[1]) * 60) / 100
+        if (timeLeftSec < 10):
+            timeLeftSec = "0" + str(timeLeftSec)
+        timeLeft = timeLeftMin + ":" + str(timeLeftSec)
+    else:
+        timeLeft = str(round(timeLeft, 0)) + " sec"
+
+    return timeLeft
 
 
 def clickLocations(mainLocation, item, pixelColorItem, iterations):
     global total, averageTime
     global dryRun
+    global runTimeStamped
+    global totalTimeStamped
+    global averageTimeStamped
+    global longestRun
+    global shortestRun
     for i in range(0, iterations):
         if (dryRun == True):
             total = total + 1
             pixelColorCurrentItem = pixelColorItem
             castSpell(pyautogui.position(), mainLocation)
         elif (dryRun == False):
+            startTime = time.time()
             print("\n==== Run: " + str(i + 1) +
                   " of " + str(iterations) + " ==== " + str(iterations - (i + 1)) + " left =====")
-            timeLeft = averageTime * (iterations - i)
-            if (timeLeft > 60):
-                timeLeft = round(timeLeft/60, 2)
-                timeLeftMin = str(timeLeft).split('.')[0]
-                timeLeftSec = (int(str(timeLeft).split('.')[1]) * 60) / 100
-                if (timeLeftSec < 10):
-                    timeLeftSec = "0" + str(timeLeftSec)
-                timeLeft = timeLeftMin + ":" + str(timeLeftSec)
-            else:
-                timeLeft = str(round(timeLeft, 0)) + " sec"
-
-            print("======== Time Left: " + timeLeft + " ========")
+            # timeLeft = averageTime * (iterations - i)
+            # timeLeft = formatTimeLeft(timeLeft)
+            # print("======== Time Left: " + timeLeft + " ========")
+            foo = averageTimeStamped*(iterations - i)
+            foo = formatTimeLeft(foo)
+            print("======== Time Left: " +
+                  str(foo) + " ========")
             mouseOutOfRange(mainLocation)
             current = pyautogui.position()
             frameinfo = getframeinfo(currentframe())
@@ -110,7 +139,8 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
             ).getcolors()
 
             if (
-                str(pixelColorCurrentItem) == str(pixelColorItem)
+                True == True
+                # str(pixelColorCurrentItem) == str(pixelColorItem)
             ):
                 castSpell(current, mainLocation)
             else:
@@ -136,6 +166,21 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
                         continue
                     else:
                         return False
+            runTimeStamped = (time.time()-startTime)
+            totalTimeStamped = totalTimeStamped + runTimeStamped
+            averageTimeStamped = totalTimeStamped/(i+1)
+            if (runTimeStamped > longestRun):
+                longestRun = runTimeStamped
+            if (runTimeStamped < shortestRun):
+                shortestRun = runTimeStamped
+            print("Iteration took: " + str(runTimeStamped) + "s")
+            # print("totalTimeStamped " + str(totalTimeStamped))
+            print("longestRun " + str(longestRun))
+            print("shortestRun " + str(shortestRun))
+            print("averageTimeStamped " + str(averageTimeStamped))
+            guess = ((averageTime)*2)+.5
+            print("Guess: " + str(guess))
+            print("averageTime " + str(averageTime))
 
     return True
 
@@ -170,7 +215,7 @@ while True == True:
     # if (itemCount < 100):
     #     dryRunItemCount = itemCount*10
 
-    placeHolder = input("Ready?")
+    # placeHolder = input("Ready?")
     mouseOutOfRange(mainLocation)
     print("Running dry run test to assess total time")
     success = clickLocations(

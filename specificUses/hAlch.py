@@ -111,7 +111,8 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
     global longestRun
     global shortestRun
     for i in range(0, iterations):
-        if (dryRun == True):
+        total = total + 1
+        if (False == True and dryRun == True):
             total = total + 1
             pixelColorCurrentItem = pixelColorItem
             castSpell(pyautogui.position(), mainLocation)
@@ -167,20 +168,25 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
                     else:
                         return False
             runTimeStamped = (time.time()-startTime)
-            totalTimeStamped = totalTimeStamped + runTimeStamped
-            averageTimeStamped = totalTimeStamped/(i+1)
+            if (runTimeStamped > (averageTimeStamped*15)):
+                runTimeStamped = longestRun
+
             if (runTimeStamped > longestRun):
                 longestRun = runTimeStamped
+
             if (runTimeStamped < shortestRun):
                 shortestRun = runTimeStamped
+            totalTimeStamped = totalTimeStamped + runTimeStamped
+            averageTimeStamped = totalTimeStamped/total
+            print("Total: " + str(total))
             print("Iteration took: " + str(runTimeStamped) + "s")
-            # print("totalTimeStamped " + str(totalTimeStamped))
+            print("totalTimeStamped " + str(totalTimeStamped))
             print("longestRun " + str(longestRun))
             print("shortestRun " + str(shortestRun))
             print("averageTimeStamped " + str(averageTimeStamped))
-            guess = ((averageTime)*2)+.5
-            print("Guess: " + str(guess))
-            print("averageTime " + str(averageTime))
+            # guess = ((averageTime)*2)+.5
+            # print("Guess: " + str(guess))
+            # print("averageTime " + str(averageTime))
 
     return True
 
@@ -192,10 +198,10 @@ def run(mainLocation, item, pixelColorItem, itemCount):
 while True == True:
     # run(mainLocation, item, pixelColorItem, itemCount)
     itemCount = input("Hover over item location, how many are there? ")
+    if (itemCount == "" or itemCount == "0"):
+        itemCount = random.randint(250, 999)
     if (type(itemCount) == str):
         itemCount = int(itemCount)
-    if (itemCount <= 0):
-        itemCount = 140
 
     # intention is to make two diff locations and mouse move
     mainLocation = pyautogui.position()
@@ -218,10 +224,10 @@ while True == True:
     # placeHolder = input("Ready?")
     mouseOutOfRange(mainLocation)
     print("Running dry run test to assess total time")
-    success = clickLocations(
-        mainLocation, item, pixelColorItem, dryRunItemCount)
-    averageTime = totalTime/total
-    print("\n\nAverage Time: " + str(averageTime))
+    # success = clickLocations(
+    #     mainLocation, item, pixelColorItem, dryRunItemCount)
+    # averageTime = totalTime/total
+    # print("\n\nAverage Time: " + str(averageTime))
     dryRun = False
     print("Spell" + str(mainLocation))
     print("Item" + str(item))

@@ -178,12 +178,15 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
                 shortestRun = runTimeStamped
             totalTimeStamped = totalTimeStamped + runTimeStamped
             averageTimeStamped = totalTimeStamped/total
-            print("Total: " + str(total))
+            # print("Total: " + str(total))
             print("Iteration took: " + str(runTimeStamped) + "s")
-            print("totalTimeStamped " + str(totalTimeStamped))
-            print("longestRun " + str(longestRun))
-            print("shortestRun " + str(shortestRun))
-            print("averageTimeStamped " + str(averageTimeStamped))
+            # print("totalTimeStamped " + str(totalTimeStamped))
+            print("Range " + str(shortestRun) + " thru " + str(longestRun))
+            # print("longestRun " + str(longestRun))
+            # print("shortestRun " + str(shortestRun))
+            print("AverageTimeStamped = TotalTimeStamped  / Total")
+            print(str(averageTimeStamped) + " = " +
+                  str(totalTimeStamped) + " / " + str(total))
             # guess = ((averageTime)*2)+.5
             # print("Guess: " + str(guess))
             # print("averageTime " + str(averageTime))

@@ -37,6 +37,39 @@ def sleepRandom(smallInt, largeInt):
     # time.sleep(random.uniform(smallInt, largeInt))
 
 
+def runMainSimple(x, loc1, loc2, loc3):
+    sleepRandom(0.5, 0.9)
+    # sleepRandom(0.2, 0.3)
+    # sleepRandom(0.05, 0.1)
+    # pyautogui.moveTo(
+    #     loc2[0],
+    #     loc2[1],
+    #     random.uniform(0.03, 0.06)
+    # )
+    # sleepRandom(0.05, 0.1)
+    # performLeftClick(loc2)
+    # sleepRandom(0.1, 0.2)
+    # sleepRandom(0.2, 0.4)
+    # performRightClick(loc2)
+    # sleepRandom(0.2, 0.4)
+    # # sleepRandom(0.05, 0.1)
+    # performLeftClick(loc3)
+    # sleepRandom(0.05, 0.1)
+    pyautogui.keyDown('ctrl')
+    sleepRandom(0.05, 0.1)
+    pyautogui.press('s')
+    sleepRandom(0.05, 0.1)
+    pyautogui.keyUp('ctrl')
+    sleepRandom(0.2, 0.3)
+    pyautogui.press('enter')
+    sleepRandom(0.5, 0.7)
+    pyautogui.keyDown('ctrl')
+    sleepRandom(0.05, 0.1)
+    pyautogui.press('w')
+    sleepRandom(0.05, 0.1)
+    pyautogui.keyUp('ctrl')
+
+
 def runMain(x, loc1, loc2, loc3, prefix, locA, locB):
     # if (int(x) > 0 and int(x) % 4 == 0):
     #     sleepRandom(30, 60)
@@ -136,8 +169,8 @@ def runMain(x, loc1, loc2, loc3, prefix, locA, locB):
 
 # foo = input("Mouse over header position ")
 # locA = pyautogui.position()
-foo = input("Mouse over inspect position ")
-locB = pyautogui.position()
+# foo = input("Mouse over inspect position ")
+# locB = pyautogui.position()
 # foo = input("Mouse over text position ")
 # loc1 = pyautogui.position()
 # foo = input("Mouse over item position ")
@@ -148,10 +181,14 @@ locB = pyautogui.position()
 # loc3 = pyautogui.position()
 
 locA = [2901, 884]
-# locB = [2980, 1235]
-loc1 = [4515, 1686]
-loc2 = [3044, 1118]
-loc3 = [3085, 1342]
+locB = [2980, 1235]
+# loc1 = [4515, 1686]
+# loc2 = [3044, 1118]
+# loc3 = [3085, 1342]
+
+loc1 = [2989, 818]
+loc2 = [2989, 818]
+loc3 = [3013, 861]
 print(loc1)
 print(loc2)
 print(loc3)
@@ -169,80 +206,82 @@ while (True == True):
     runs = input("\n\nhow many runs? ")
     runs = int(runs)
     oldprefix = prefix
+    performLeftClick(loc2)
     # prefix = input("prefix words: ")
     # if (prefix == ""):
     #     prefix = oldprefix
     #     print("Applying previously done prefix")
     if (runs == ""):
         runs = 1
-    pyautogui.keyDown('alt')
-    sleepRandom(0.1, 0.2)
-    pyautogui.press('tab')
-    sleepRandom(0.1, 0.2)
-    pyautogui.keyUp('alt')
-    sleepRandom(0.1, 0.2)
+    # pyautogui.keyDown('alt')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.press('tab')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.keyUp('alt')
+    # sleepRandom(0.1, 0.2)
 
-    pyautogui.keyDown('ctrl')
-    sleepRandom(0.1, 0.2)
-    pyautogui.keyDown('shift')
-    sleepRandom(0.1, 0.2)
-    pyautogui.press('tab')
-    sleepRandom(0.1, 0.2)
-    pyautogui.keyUp('ctrl')
-    sleepRandom(0.1, 0.2)
-    pyautogui.keyUp('shift')
+    # pyautogui.keyDown('ctrl')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.keyDown('shift')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.press('tab')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.keyUp('ctrl')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.keyUp('shift')
 
-    sleepRandom(0.1, 0.2)
-    pyautogui.keyDown('home')
-    sleepRandom(1, 1.7)
-    pyautogui.keyUp('home')
-    sleepRandom(0.5, 0.7)
-    performRightClick(locA)
-    sleepRandom(0.5, 0.7)
-    performLeftClick(locB)
-    sleepRandom(2, 2.5)
-    pyautogui.keyDown('alt')
-    sleepRandom(0.1, 0.2)
-    pyautogui.press('tab')
-    sleepRandom(0.1, 0.2)
-    pyautogui.press('tab')
-    sleepRandom(0.1, 0.2)
-    pyautogui.keyUp('alt')
-    sleepRandom(0.1, 0.2)
-    pyautogui.moveTo(
-        loc1[0],
-        loc1[1],
-        random.uniform(0.05, 0.2)
-    )
-    foo = input("Mouse over text position ")
-    loc1 = pyautogui.position()
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.keyDown('home')
+    # sleepRandom(1, 1.7)
+    # pyautogui.keyUp('home')
+    # sleepRandom(0.5, 0.7)
+    # performRightClick(locA)
+    # sleepRandom(0.5, 0.7)
+    # performLeftClick(locB)
+    # sleepRandom(2, 2.5)
+    # pyautogui.keyDown('alt')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.press('tab')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.press('tab')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.keyUp('alt')
+    # sleepRandom(0.1, 0.2)
+    # pyautogui.moveTo(
+    #     loc1[0],
+    #     loc1[1],
+    #     random.uniform(0.05, 0.2)
+    # )
+    # foo = input("Mouse over text position ")
+    # loc1 = pyautogui.position()
     # performLeftClick(loc1)
     # sleepRandom(0.05, 0.07)
-    performLeftClick(loc1)
-    sleepRandom(0.05, 0.07)
-    performLeftClick(loc1)
-    sleepRandom(0.5, 0.7)
-    pyautogui.keyDown('ctrl')
-    sleepRandom(0.03, 0.06)
-    pyautogui.press('c')
-    sleepRandom(0.03, 0.06)
-    pyautogui.keyUp('ctrl')
-    sleepRandom(0.5, 0.7)
-    performLeftClick(locA)
-    sleepRandom(0.5, 0.7)
-    pyautogui.keyDown('ctrl')
-    sleepRandom(0.05, 0.1)
-    pyautogui.press('w')
-    sleepRandom(0.05, 0.1)
-    pyautogui.keyUp('ctrl')
-    sleepRandom(0.5, 0.7)
-    # foo = 100/0
+    # performLeftClick(loc1)
+    # sleepRandom(0.05, 0.07)
+    # performLeftClick(loc1)
+    # sleepRandom(0.5, 0.7)
+    # pyautogui.keyDown('ctrl')
+    # sleepRandom(0.03, 0.06)
+    # pyautogui.press('c')
+    # sleepRandom(0.03, 0.06)
+    # pyautogui.keyUp('ctrl')
+    # sleepRandom(0.5, 0.7)
+    # performLeftClick(locA)
+    # sleepRandom(0.5, 0.7)
+    # pyautogui.keyDown('ctrl')
+    # sleepRandom(0.05, 0.1)
+    # pyautogui.press('w')
+    # sleepRandom(0.05, 0.1)
+    # pyautogui.keyUp('ctrl')
+    # sleepRandom(0.5, 0.7)
+    # # foo = 100/0
 
     print("Run Time estimated: " + str(averageTime*runs))
     startTimeTotal = time.time()
     for x in range(0, runs):
         startTime = time.time()
-        runMain(x, loc1, loc2, loc3, prefix, locA, locB)
+        runMainSimple(x, loc1, loc2, loc3)
+        # runMain(x, loc1, loc2, loc3, prefix, locA, locB)
         runTime = (time.time()-startTime)
         totalTime = totalTime + runTime
         print("Run #" + str(x+1) + " took " + str(runTime))
@@ -254,11 +293,11 @@ while (True == True):
     runTimeTotal = (time.time()-startTimeTotal)
     totalTimeTotal = totalTimeTotal + runTimeTotal
 
-    # pyautogui.keyDown('alt')
-    # sleepRandom(0.1, 0.2)
-    # pyautogui.press('tab')
-    # sleepRandom(0.1, 0.2)
-    # pyautogui.keyUp('alt')
+    pyautogui.keyDown('alt')
+    sleepRandom(0.1, 0.2)
+    pyautogui.press('tab')
+    sleepRandom(0.1, 0.2)
+    pyautogui.keyUp('alt')
     total = total + runs
     print("Range: " + str(shortestRun) + " - " + str(longestRun))
     print("total runs: " + str(total))

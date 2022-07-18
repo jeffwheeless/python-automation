@@ -39,11 +39,12 @@ def sleepRandom(smallInt, largeInt):
 locationRuns = 5
 loc = []
 
-# loc.append([3422, 1325, '', 5, 3])
-# loc.append([2753, 1230, '', 5, 1])
-# loc.append([2165, 1012, '', 8, 1])
-# loc.append([2218, 1557, '', 20, 8])
-# loc.append([3345, 1077, '', 8, 85])
+
+# loc.append([3420, 1326, '', 4, 8])
+# loc.append([2751, 1123, '', 3, 2])
+# loc.append([2193, 1086, '', 4, 1])
+# loc.append([2218, 1555, '', 10, 9])
+# loc.append([3209, 1004, '', 4, 85])
 
 locationRuns = len(loc)
 
@@ -122,7 +123,7 @@ while (True == True):
             averageTimeStamped = totalTimeStamped/total
             print("Iteration took: " + str(runTimeStamped) + "s")
 
-        sleepRandom(0.5, 3)
+        # sleepRandom(0.5, 3)
         print("Average Time Stamped took: " + str(averageTimeStamped) + "s\n")
 
     startAt = 0

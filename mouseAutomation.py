@@ -120,7 +120,7 @@ def mouseMove(x1, y1, x2, y2):
         x1 <= x2+40 and x1 >= x2-40 and
         y1 <= y2+40 and y1 >= y2-40
     ):
-        print("Small distance detected, moving quicker")
+        # print("Small distance detected, moving quicker")
         pyautogui.moveTo(x2, y2)  # , 0.17)
     else:
         smallerX = x1

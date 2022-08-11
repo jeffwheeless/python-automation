@@ -6,6 +6,7 @@ import time
 from scipy import interpolate
 import math
 from mouseAutomation import *
+from inventory import *
 
 verbose = 'F'
 total = 0
@@ -36,8 +37,8 @@ def sleepRandom(smallInt, largeInt):
         if (random.randint(1, 1000) > round(960-largeInt)):
             sleepRandom(1, 3)
 
-        if (random.randint(1, 1000) > round(990-largeInt)):
-            sleepRandom(1, 20)
+        # if (random.randint(1, 1000) > round(990-largeInt)):
+        #     sleepRandom(1, 20)
 
 
 def variantSleep(variance, timer):
@@ -56,14 +57,12 @@ def variantSleep(variance, timer):
 
 
 loc = []
-loc.append([2826, 1413, '', 4, 1])
-loc.append([2753, 1325, 'escape', 5, 1])
-loc.append([2766, 1330, 'space', 20, 1])
-loc.append([2961, 1170, '', 20, 60])
+loc.append([0, 0, 'clickinv', 1, 1])
+# loc.append([3527, 1404, '', 1, 2])
 
 locationRuns = len(loc)
 
-verbose = input("\nRun program verbosly? (y/n)")
+verbose = input("\nRun program verbosly? (y/n) ")
 print("\nPercision for sleep timer:")
 variance = int(
     input("0) none  1) 0.5/1.5  2) 0.8/1.2  3) 0.95/1.05\nChoice: "))
@@ -85,6 +84,9 @@ while (True == True):
     for x in range(0, runs):
         # print("loop number:" + str(x) + " of " + str(runs))
         for temp in range(startAt, locationRuns):
+            waitTime = loc[temp][4]
+            if (x == 0 and temp == 0):
+                waitTime = 1
             startTime = time.time()
             total = total + 1
             timeLeft = round(averageTimeStamped *
@@ -103,23 +105,24 @@ while (True == True):
                                loc[temp][1]+loc[temp][3]),
             ]
 
-            if (random.randint(0, 1) == 0):
-                current = pyautogui.position()
-                mouseMove(current[0], current[1], modloc[0], modloc[1])
-                variantSleep(variance, loc[temp][4])
-                mouseOutOfRange(modloc)
-                performLeftClick(pyautogui.position())
-            else:
-                if (loc[temp][4] == 0):
-                    sleepRandom(0.05, 0.1)
+            if (loc[temp][1] != 0 and loc[temp][1] != 0):
+                if (random.randint(0, 1) == 0):
+                    current = pyautogui.position()
+                    mouseMove(current[0], current[1], modloc[0], modloc[1])
+                    variantSleep(variance, waitTime)
+                    mouseOutOfRange(modloc)
+                    performLeftClick(pyautogui.position())
                 else:
-                    sleepRandom(loc[temp][4]-0.9, loc[temp][4]+0.5)
+                    if (waitTime == 0):
+                        sleepRandom(0.05, 0.1)
+                    else:
+                        sleepRandom(waitTime-0.9, waitTime+0.5)
 
-                current = pyautogui.position()
-                mouseMove(current[0], current[1], modloc[0], modloc[1])
-                sleepRandom(0.1, 0.5)
-                mouseOutOfRange(modloc)
-                performLeftClick(pyautogui.position())
+                    current = pyautogui.position()
+                    mouseMove(current[0], current[1], modloc[0], modloc[1])
+                    sleepRandom(0.1, 0.5)
+                    mouseOutOfRange(modloc)
+                    performLeftClick(pyautogui.position())
 
             if (loc[temp][2] != ''):
                 sleepRandom(0.5, 0.9)
@@ -130,13 +133,16 @@ while (True == True):
                     sleepRandom(0.1, 0.2)
                     pyautogui.keyUp('alt')
                     pass
+                elif (loc[temp][2] == 'clickinv'):
+                    clickInventory([0, 26])
+                    pass
 
                 if (verbose.lower() == "y" or verbose.lower() == "yes"):
                     print("Pressing key: " + str(loc[temp][2]))
 
                 pyautogui.press(loc[temp][2])
 
-            if (loc[temp][4] == 0):
+            if (waitTime == 0):
                 sleepRandom(0.05, 0.1)
             else:
                 sleepRandom(0.1, 0.5)

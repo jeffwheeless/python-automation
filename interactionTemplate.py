@@ -5,6 +5,12 @@ import numpy as np
 import time
 from scipy import interpolate
 import math
+
+import sys
+import os
+import pathlib
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/modules')
+from configHelper import *
 from mouseAutomation import *
 from inventory import *
 
@@ -82,7 +88,6 @@ while (True == True):
     runs = setNumberInputToDefaultIfNone(input("How many runs: "), 0)
     print("Expected Run Time: " + str(averageTimeStamped*locationRuns*runs))
     for x in range(0, runs):
-        # print("loop number:" + str(x) + " of " + str(runs))
         for temp in range(0, locationRuns):
             waitTime = location[temp][4]
             if (x == 0 and temp == 0):

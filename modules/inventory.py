@@ -1,13 +1,16 @@
 import pyautogui
 import random
 import time
-import numpy as np
 import time
-from scipy import interpolate
-import math
 from mouseAutomation import *
-import helper
 import json
+
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/modules')
+import configHelper
+import mouseAutomation
 
 
 def sleepRandom(smallInt, largeInt):
@@ -27,7 +30,7 @@ def sleepRandom(smallInt, largeInt):
 
 
 def clickInventory(skipItemNumberArray=[]):
-    config = helper.read_config()
+    config = configHelper.read_config()
     invLocs = []
     inventoryLocsConfig = config.items('InventoryLocs')
     for temp in range(0, 28):

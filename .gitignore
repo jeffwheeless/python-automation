@@ -1,0 +1,9 @@
+**/*.pyc
+**/__pycache__*
+__pycache__
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.txt
+.vscode
+**Download.py

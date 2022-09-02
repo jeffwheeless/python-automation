@@ -1,7 +1,7 @@
 from pynput.mouse import Listener
 import logging
 
-logging.basicConfig(filename="mouse_log.txt",
+logging.basicConfig(filename="logs/mouse_log.txt",
                     level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
 

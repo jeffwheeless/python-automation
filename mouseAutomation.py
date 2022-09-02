@@ -32,15 +32,7 @@ def point_dist(x1, y1, x2, y2):
 
 
 def sleepRandom(smallInt, largeInt):
-    # global totalTime
-    sleep = random.uniform(smallInt, largeInt)
-    if (sleep > 10):
-        print("Long sleep of: " + str(sleep))
-    # totalTime = totalTime + sleep
-    # sleep = 60 + sleep
-    # print(sleep)
-    time.sleep(sleep)
-
+    time.sleep(random.uniform(smallInt, largeInt))
     if (random.randint(1, 1000) > 925):
         sleepRandom(0, 1)
 
@@ -104,7 +96,7 @@ def mouseMoveSmooth(x1, x2, y1, y2):
             _pause=False, duration=random.uniform(0.03, 0.09)
         )
         # pyautogui.dragTo(*point, _pause=False)
-        duration = random.uniform(0.1, 0.3)
+        duration = random.uniform(0.05, 0.25)
         timeout = duration / len(points[0])
         time.sleep(timeout)
 
@@ -114,14 +106,13 @@ def mouseMove(x1, y1, x2, y2):
         x1 <= x2+20 and x1 >= x2-20 and
         y1 <= y2+20 and y1 >= y2-20
     ):
-        print("Super Small distance detected, not moving")
-        # pyautogui.moveTo(x2, y2, 0.17)
+        print("Not moving: [" + str(x1) + ", " + str(y1) + "] to [" + str(x2) + ", " + str(y2) + "]")
     elif (
-        x1 <= x2+40 and x1 >= x2-40 and
-        y1 <= y2+40 and y1 >= y2-40
+        x1 <= x2+50 and x1 >= x2-50 and
+        y1 <= y2+50 and y1 >= y2-50
     ):
-        # print("Small distance detected, moving quicker")
-        pyautogui.moveTo(x2, y2)  # , 0.17)
+        print("Quickly moving: [" + str(x1) + ", " + str(y1) + "] to [" + str(x2) + ", " + str(y2) + "]")
+        pyautogui.moveTo(x2, y2)
     else:
         smallerX = x1
         xDiff = x2-x1
@@ -240,3 +231,15 @@ def moveWaitClick(x, y, speed=0.1):
     sleepRandom(0.3, 0.6)
     mouseOutOfRange([x, y])
     performLeftClick(pyautogui.position())
+
+
+def modifyLocationMove(x, y, locationVariance):
+    modifiedLocation = [
+        random.randint(x-locationVariance, x+locationVariance),
+            random.randint(y-locationVariance, y+locationVariance),
+    ]
+    current = pyautogui.position()
+    mouseMove(current[0], current[1],
+              modifiedLocation[0], modifiedLocation[1])
+
+    return modifiedLocation

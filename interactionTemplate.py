@@ -6,13 +6,8 @@ import time
 from scipy import interpolate
 import math
 
-import sys
-import os
-import pathlib
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/modules')
-from configHelper import *
-from mouseAutomation import *
-from inventory import *
+from modules.mouseAutomation import MouseAutomation
+from modules.inventory import Inventory
 
 total = 0
 totalTimeStamped = 0
@@ -67,9 +62,10 @@ def setNumberInputToDefaultIfNone(userInput, defaultNumber = False):
         return defaultNumber
     
 location = []
-location.append([1511, 720, '', 5, 1])
-location.append([1972, 945, '', 5, 0])
-location.append([1940, 1329, '', 5, 1])
+location.append([731, 393, '', 8, 31.5])
+location.append([1376, 454, '', 8, 31.5])
+location.append([790, 412, '', 8, 31.5])
+location.append([257, 689, '', 10, 31.5])
 
 locationRuns = len(location)
 
@@ -106,12 +102,12 @@ while (True == True):
             if (location[temp][1] != 0 and location[temp][1] != 0):
                 if (random.randint(0, 10) >= 8 and locationRuns > 2):
                     randomlocation = random.randint(0, locationRuns-1)
-                    modifyLocationMove(location[randomlocation][0], location[randomlocation][1], 30)
+                    MouseAutomation.modifyLocationMove(location[randomlocation][0], location[randomlocation][1], 30)
 
-                modifiedLocation = modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
+                modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
                 variantSleep(variance, waitTime)
-                mouseOutOfRange(modifiedLocation)
-                performLeftClick(pyautogui.position())
+                MouseAutomation.mouseOutOfRange(modifiedLocation)
+                MouseAutomation.performLeftClick(pyautogui.position())
 
             if (location[temp][2] != ''):
                 sleepRandom(0.5, 0.9)
@@ -123,7 +119,7 @@ while (True == True):
                     pyautogui.keyUp('alt')
                     pass
                 elif (location[temp][2] == 'clickinv'):
-                    clickInventory([])
+                    Inventory.clickInventory([])
                     pass
 
                 if (verbose.lower() == "y" or verbose.lower() == "yes"):

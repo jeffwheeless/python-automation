@@ -1,17 +1,18 @@
 import pyautogui
 import random
 import time
-from mouseAutomation import *
-from inventory import *
 from pynput import mouse
 from pynput import keyboard
+
+from modules.mouseAutomation import MouseAutomation
+from modules.configHelper import ConfigHelper
+from modules.inventory import Inventory
 
 loc = [3370, 1325, '', 5, 30]
 lock = False
 
 
 def sleepRandom(smallInt, largeInt):
-    global verbose
     sleep = random.uniform(smallInt, largeInt)
     if (sleep > 10):
         print("Long sleep of: " + str(sleep))
@@ -87,11 +88,11 @@ def on_press(key):
                                loc[1]+loc[3]),
             ]
             current = pyautogui.position()
-            performLeftClick(pyautogui.position())
+            MouseAutomation.performLeftClick(pyautogui.position())
             pyautogui.moveTo(modloc[0], modloc[1])
             # mouseMove(current[0], current[1], modloc[0], modloc[1])
             # sleepRandom(0.01, 0.05)
-            performLeftClick(pyautogui.position())
+            MouseAutomation.performLeftClick(pyautogui.position())
             # sleepRandom(0.01, 0.05)
 
             modlocCurrent = [

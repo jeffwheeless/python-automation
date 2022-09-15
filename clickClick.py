@@ -8,8 +8,18 @@ from modules.mouseAutomation import MouseAutomation
 from modules.configHelper import ConfigHelper
 from modules.inventory import Inventory
 
-loc = [3370, 1325, '', 5, 30]
+
+x = []
+y = []
+
+y.append([1058, 405, '', 8, 31.5])
+x.append([1236, 582, '', 8, 31.5])
+y.append([1057, 876, '', 8, 31.5])
+x.append([913, 635, '', 8, 31.5])
+loc = [1479, 916, '', 5, 30]
 lock = False
+total = 0
+totalTimeStamped = 0
 
 
 def sleepRandom(smallInt, largeInt):
@@ -74,32 +84,53 @@ def on_scroll(x, y, dx, dy):
 def on_press(key):
     global loc
     global lock
+    global total, totalTimeStamped
+    startTime = 0
     if key == keyboard.Key.up:
         current = pyautogui.position()
         loc = [current[0], current[1], loc[2], loc[3]]
         print("Setting New Location")
 
     if key == keyboard.Key.down:
+        startTime = time.time()
         if (lock == False):
-            modloc = [
-                random.randint(loc[0]-loc[3],
-                               loc[0]+loc[3]),
-                random.randint(loc[1]-loc[3],
-                               loc[1]+loc[3]),
-            ]
             current = pyautogui.position()
-            MouseAutomation.performLeftClick(pyautogui.position())
-            pyautogui.moveTo(modloc[0], modloc[1])
-            # mouseMove(current[0], current[1], modloc[0], modloc[1])
+            pyautogui.leftClick(current[0], current[1])
+            locationDetermine = random.randint(1, 4)
+            
+            # modloc = [
+            #     random.randint(current[0]-y[1][3], current[0]+y[1][3]),
+            #     random.randint(y[1][1]-y[1][3], y[1][1]+y[1][3]),
+            # ]
+            if locationDetermine == 1:
+                modloc = [
+                    random.randint(x[0][0]-x[0][3], x[0][0]+x[0][3]),
+                    random.randint(current[1]-x[0][3], current[1]+x[0][3]),
+                ]
+            elif locationDetermine == 2:
+                modloc = [
+                    random.randint(x[1][0]-x[1][3], x[1][0]+x[1][3]),
+                    random.randint(current[1]-x[1][3], current[1]+x[1][3]),
+                ]
+            elif locationDetermine == 3:
+                modloc = [
+                    random.randint(current[0]-y[0][3], current[0]+y[0][3]),
+                    random.randint(y[0][1]-y[0][3], y[0][1]+y[0][3]),
+                ]
+            elif locationDetermine == 4:
+                modloc = [
+                    random.randint(current[0]-y[1][3], current[0]+y[1][3]),
+                    random.randint(y[1][1]-y[1][3], y[1][1]+y[1][3]),
+                ]
+            # pyautogui.moveTo()
+            # mouseMove(current[0], current[1], modloc[0], m0odloc[1])
             # sleepRandom(0.01, 0.05)
-            MouseAutomation.performLeftClick(pyautogui.position())
+            pyautogui.leftClick(modloc[0], modloc[1])
             # sleepRandom(0.01, 0.05)
 
             modlocCurrent = [
-                random.randint(current[0]-5,
-                               current[0]+5),
-                random.randint(current[1]-5,
-                               current[1]+5),
+                random.randint(current[0]-5, current[0]+5),
+                random.randint(current[1]-5, current[1]+5),
             ]
             pyautogui.moveTo(modlocCurrent[0], modlocCurrent[1])
             # mouseMove(modloc[0], modloc[1], current[0], current[1])
@@ -118,6 +149,13 @@ def on_press(key):
         # self.keys.append(k)  # store it in global-like variable
     # print('Key pressed: ' + k)
     # return False  # stop listener; remove this if wan
+    
+    if (startTime != 0): 
+        total = total + 1
+        runTimeStamped = (time.time()-startTime)
+        totalTimeStamped = totalTimeStamped + runTimeStamped
+        averageTimeStamped = totalTimeStamped/total
+        print("Iteration took: " + str(runTimeStamped) + "s   \t| Average Time Stamped took: " + str(averageTimeStamped) + "s")
 
 
 listener = keyboard.Listener(on_press=on_press)

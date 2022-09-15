@@ -25,4 +25,4 @@ for temp in range(0, locationRuns):
         loc.append([current[0], current[1], extraKey,
                     int(distVariation), int(timeVariation)])
         print(loc[temp])
-        f.write("loc.append(" + str(loc[temp]) + ")\n")
+        f.write("location.append(" + str(loc[temp]) + ")\n")

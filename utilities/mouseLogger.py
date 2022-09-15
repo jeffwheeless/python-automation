@@ -14,4 +14,5 @@ for temp in range(0, locationRuns):
         current = pyautogui.position()
         loc.append([current[0], current[1]])
         print(loc[temp])
-        f.write(str(loc[temp]))
+        # f.write(str(loc[temp]))
+        f.write("loc.append(" + str(loc[temp]) + ")\n")

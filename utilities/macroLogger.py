@@ -1,12 +1,7 @@
 import pyautogui
-import sys
-import os
+from modules.configHelper import ConfigHelper
 
-parentDir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append(parentDir + '/modules')
-import configHelper
-
-config = configHelper.read_config()
+config = ConfigHelper.read_config()
 locationRuns = input("How many run locations: ")
 locationRuns = int(locationRuns)
 loc = []

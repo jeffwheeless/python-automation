@@ -118,16 +118,16 @@ def on_press(key):
                 closestAxis = 'y'
             
             
-            if closestAxis == 'y':
-                modloc = [
-                    modifyNumber(current[0], closestY[3]),
-                    modifyNumber(closestY[1], closestY[3]),
-                ]
-            elif closestAxis == 'x':
-                modloc = [
-                    modifyNumber(closestX[0], closestX[3]),
-                    modifyNumber(current[1], closestX[3]),
-                ]
+            # if closestAxis == 'y':
+            #     modloc = [
+            #         modifyNumber(current[0], closestY[3]),
+            #         modifyNumber(closestY[1], closestY[3]),
+            #     ]
+            # elif closestAxis == 'x':
+            modloc = [
+                modifyNumber(closestX[0], closestX[3]),
+                modifyNumber(current[1], closestX[3]),
+            ]
             time.sleep(random.random()*.1)
             pyautogui.leftClick(modloc[0], modloc[1], _pause=False)
             time.sleep(random.random()*.1)

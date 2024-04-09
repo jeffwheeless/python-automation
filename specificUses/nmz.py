@@ -59,11 +59,11 @@ def sleepRandom(smallInt, largeInt):
 
     if (sleep >= 60):
         maxClick = random.randint(1, int((sleep/2)/10))
-        for i in range(0, maxClick):
+        for i in range(0, 4):
             performLeftClick(pyautogui.position())
     elif (random.randint(1, 1000) > 960):
         maxClick = random.randint(1, 2)
-        for i in range(0, maxClick):
+        for i in range(0, 4):
             performLeftClick(pyautogui.position())
 
 

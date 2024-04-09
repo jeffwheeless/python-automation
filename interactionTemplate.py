@@ -17,23 +17,32 @@ def sleepRandom(smallInt, largeInt):
     sleep = random.uniform(smallInt, largeInt)
     if (sleep > 10):
         print("Long sleep of: " + str(sleep))
+        # if (random.randint(1, 1000) > 950):
+        #     sleepRandom(0, 20)
     if (verbose.lower() == "y" or verbose.lower() == "yes"):
         print(sleep)
 
     time.sleep(sleep)
 
-    if (random.randint(1, 1000) > 900):
+    if (random.randint(1, 1000) > 950):
         sleepRandom(0, 0.5)
+    if (random.randint(1, 1000) > 975):
+        sleepRandom(0, 1)
+    # if (random.randint(1, 1000) > 995):
+    #     sleepRandom(0, 5)
+    # if (random.randint(1, 1000) > 990):
+    #     print("-- Long Break --")
+    #     sleepRandom(1, 15)
 
-    if (sleep > 0.5):
-        if (random.randint(1, 1000) > round(925-largeInt)):
-            sleepRandom(1, 2)
+    # if (sleep > 0.5):
+    #     if (random.randint(1, 1000) > round(925-largeInt)):
+    #         sleepRandom(1, 2)
 
-        if (random.randint(1, 1000) > round(960-largeInt)):
-            sleepRandom(1, 3)
+    #     if (random.randint(1, 1000) > round(960-largeInt)):
+    #         sleepRandom(1, 3)
 
-        # if (random.randint(1, 1000) > round(990-largeInt)):
-        #     sleepRandom(1, 20)
+    #     if (random.randint(1, 1000) > round(990-largeInt)):
+    #         sleepRandom(1, 20)
 
 
 def variantSleep(variance, timer):
@@ -61,11 +70,71 @@ def setNumberInputToDefaultIfNone(userInput, defaultNumber = False):
                         
         return defaultNumber
     
+def doClick(side = 'leftClick'):
+    if (side != 'rightClick'):
+        MouseAutomation.performLeftClick(pyautogui.position())
+    else:
+        MouseAutomation.performRightClick(pyautogui.position())
+        
+def prettyTime(seconds, preString = ''):
+    return (preString +
+             str(int((seconds) // 60)) + ":" +
+             ("0" if ((seconds) % 60) < 10 else "") +
+             str(round((seconds) % 60, 5)))
+        
+    
 location = []
-location.append([731, 393, '', 8, 31.5])
-location.append([1376, 454, '', 8, 31.5])
-location.append([790, 412, '', 8, 31.5])
-location.append([257, 689, '', 10, 31.5])
+inputCheck = input('Click 1')
+mousePointer = pyautogui.position()
+location.append([mousePointer[0], mousePointer[1], '', 5, 12])
+inputCheck = input('Click 2')
+mousePointer = pyautogui.position()
+location.append([mousePointer[0], mousePointer[1], 'space', 5, 1])
+# inputCheck = input('Click 3')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 5, 12])
+# inputCheck = input('Click 4')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], 'space', 5, 1])
+# inputCheck = input('Click 5')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 5, 1])
+# inputCheck = input('Click 6')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 5, 1])
+# inputCheck = input('Click 7')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 5, 1])
+# inputCheck = input('Click 8')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 5, 2])
+# inputCheck = input('Click 9')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], 'space', 7, 10])
+# inputCheck = input('Click 10')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 7, 2])
+# inputCheck = input('Click 11')
+# mousePointer = pyautogui.position()
+# location.append([mousePointer[0], mousePointer[1], '', 7, 2])
+print(str(location))
+# location = [
+#     [283, 879, '', 6, 1],
+#     [357, 882, 'escape', 5, 1],
+#     [528, 847, '', 6, 1],
+#     [593, 848, 'space', 7, 1],
+#     [626, 1153, '', 7, 32],
+#     [746, 1001, '', 7, 1]
+# ]
+
+# print(str(location))
+# location = [[816, 892, '', 5, 29], [820, 797, '', 5, 29], [1002, 604, '', 5, 29], [627, 131, '', 5, 8]]
+# location.append([1645, 592, '', 2, 1])
+# location.append([171, 1117, '', 2, 2])
+# location.append([587, 979, '', 2, 0])
+# location.append([0, 0, 'escape', 1, 0])
+
+print(str(location))
 
 locationRuns = len(location)
 
@@ -77,40 +146,106 @@ for temp in range(0, locationRuns):
 
 total = 0
 totalTimeStamped = 0    
+shortestTime = 5000000
+longestTime = 0
 verbose = 'n'  # input("\nRun program verbosly? (y/n) ")
 print("\nPercision for sleep timer:\n0) none  1) 0.90/1.10  2) 0.75/1.25  3) 0.5/1.5")
 variance = setNumberInputToDefaultIfNone(input("Choice: "), 0)
+singleRunTime = 0
+# breakEvent = 
+for val in location:
+    singleRunTime += val[4]
+    
 while (True == True):
     runs = setNumberInputToDefaultIfNone(input("How many runs: "), 0)
     print("Expected Run Time: " + str(averageTimeStamped*locationRuns*runs))
+    evenClick = False;
     for x in range(0, runs):
+        startTime = time.time()
+        total = total + 1
+        
+        # breakTimeClock = 
+        # if ((singleRunTime * runs) > 440):
+            # variantSleep(variance, waitTime/2)
+            
         for temp in range(0, locationRuns):
             waitTime = location[temp][4]
             if (x == 0 and temp == 0):
                 waitTime = 0
-            startTime = time.time()
-            total = total + 1
+            startTimeIteration = time.time()
             timeLeft = round(averageTimeStamped *
                              ((locationRuns*runs)-((x+1)*(temp+1))))
-            totalTimeLeft = ("Total Time: " +
-                             str(int((timeLeft) // 60)) + ":" +
-                             ("0" if ((timeLeft) % 60) < 10 else "") +
-                             str(round((timeLeft) % 60, 5)))
-            print("\n" + str(location[temp]) + " || " + "Item #" + str(temp+1) + " of " + str(
-                locationRuns) + " || loop:" + str(x+1) + " of " + str(runs) + " || " + totalTimeLeft)
+            totalTimeLeft = prettyTime(timeLeft, "Total Time: ") #("Total Time: " +
+                            #  str(int((timeLeft) // 60)) + ":" +
+                            #  ("0" if ((timeLeft) % 60) < 10 else "") +
+                            #  str(round((timeLeft) % 60, 5)))
+            # print("\nTotal:" + str(x+1) + " of " + str(runs) + " || " + str(location[temp]) + " || " + "Item #" + str(temp+1) + " of " + str(
+            #     locationRuns) + " || " + totalTimeLeft)
 
             if (location[temp][1] != 0 and location[temp][1] != 0):
                 if (random.randint(0, 10) >= 8 and locationRuns > 2):
                     randomlocation = random.randint(0, locationRuns-1)
-                    MouseAutomation.modifyLocationMove(location[randomlocation][0], location[randomlocation][1], 30)
-
-                modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
-                variantSleep(variance, waitTime)
-                MouseAutomation.mouseOutOfRange(modifiedLocation)
-                MouseAutomation.performLeftClick(pyautogui.position())
+                    if (location[randomlocation][1] != 0 and location[randomlocation][1] != 0):
+                        MouseAutomation.modifyLocationMove(location[randomlocation][0], location[randomlocation][1], 30)
+                        
+                
+                if (random.randint(1, 100) < 75):
+                    variantSleep(variance, waitTime)
+                    modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
+                else:
+                    sleepRandom(0.01, 0.1)
+                    modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
+                    variantSleep(variance, waitTime)
+                sleepRandom(0.01, 0.1)
+                MouseAutomation.mouseOutOfRange(modifiedLocation, True)
+                doClick(location[temp][2])
+                
+                # if (random.randint(1, 1000) > 980):
+                #     print("-- Long Break --")
+                #     sleepRandom(5, 120)
+                
+                # # very specific can remove this
+                # if (temp == 0 or temp == 2):
+                #     variantSleep(variance, 0.8)
+                #     lowerLocation = pyautogui.position()
+                #     # lowerLocation[0] = int(lowerLocation[0]) + 45
+                #     # lowerLocation[1] = int(lowerLocation[1]) + 45
+                #     foo = random.randint(67, 73)
+                #     print(str(foo))
+                #     modifiedLocation = MouseAutomation.modifyLocationMove(lowerLocation[0] + random.randint(-20, 20), lowerLocation[1] + foo, location[temp][3], False)
+                #     MouseAutomation.mouseOutOfRange(modifiedLocation)
+                #     doClick('leftClick')
+                #     # variantSleep(variance, 10)
+                
+                # if (random.randint(1, 1000) > 900):
+                #     variantSleep(variance, waitTime)
+                #     modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
+                #     MouseAutomation.mouseOutOfRange(modifiedLocation)
+                #     doClick(location[temp][2])
+                #     evenClick = False;
+                #     variantSleep(variance, waitTime/2)
+                #     # MouseAutomation.mouseOutOfRange(modifiedLocation)
+                #     MouseAutomation.performLeftClick(pyautogui.position())
+                #     doClick(location[temp][2])
+                # else:
+                #     sleep = random.uniform(0.5, 4)
+                #     time.sleep(sleep)
+                #     doClick(location[temp][2])
+                
+                # if (random.randint(1, 1000) > 250 and evenClick == True):
+                #     evenClick = False;
+                #     variantSleep(variance, waitTime/2)
+                #     # MouseAutomation.mouseOutOfRange(modifiedLocation)
+                #     MouseAutomation.performLeftClick(pyautogui.position())
+                
+                # if (random.randint(1, 1000) > 910 and evenClick == False):
+                #     evenClick = True;
+                #     variantSleep(variance, waitTime/2)
+                #     # MouseAutomation.mouseOutOfRange(modifiedLocation)
+                #     MouseAutomation.performLeftClick(pyautogui.position())
 
             if (location[temp][2] != ''):
-                sleepRandom(0.5, 0.9)
+                sleepRandom(0.5, 1.5)
                 if (location[temp][2] == "alttab"):
                     pyautogui.keyDown('alt')
                     sleepRandom(0.1, 0.2)
@@ -127,16 +262,34 @@ while (True == True):
 
                 pyautogui.press(location[temp][2])
 
-            if (waitTime == 0):
-                variantSleep(variance, waitTime)
-            else:
-                variantSleep(variance, 0.5)
+            # if (waitTime == 0):
+            #     variantSleep(variance, waitTime)
+            # else:
+            #     variantSleep(variance, 0.5)
+            
+            runTimeStampedIteration = (time.time()-startTimeIteration)
+            print("Iteration took: " + str(round(runTimeStampedIteration, 7)) + ' seconds')
 
-            runTimeStamped = (time.time()-startTime)
-            totalTimeStamped = totalTimeStamped + runTimeStamped
-            averageTimeStamped = totalTimeStamped/total
-            print("Iteration took: " + str(runTimeStamped) + "s")
+        # if (x > 1):
+        runTimeStamped = (time.time()-startTime)
+        print("Loop took: " + str(round(runTimeStamped, 7)))
+        totalTimeStamped = totalTimeStamped + runTimeStamped
+        averageTimeStamped = totalTimeStamped/(total)
+        if (runTimeStamped > longestTime):
+            longestTime = runTimeStamped
+        
+        if (runTimeStamped < shortestTime):
+            shortestTime = runTimeStamped
+                    
+        
+        print("\nTotal:" + str(x+1) + " of " + str(runs) + " || " + str(location[temp]) + " || " + totalTimeLeft)
 
-        print("\nAverage Time Stamped took: " + str(averageTimeStamped) + "s\n")
+        # print("Average Time Stamped took: " + str(averageTimeStamped) + "s\n")
+        if (totalTimeStamped > 0):
+            print(
+                prettyTime(round(shortestTime,5), "Shortest: ") + " -- " +
+                prettyTime(round(averageTimeStamped, 5), "Average: ") + " -- " +
+                prettyTime(round(longestTime,5), "Longest: ")
+                )
 
     print("\n\n----------------------")

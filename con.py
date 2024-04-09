@@ -1,0 +1,268 @@
+import datetime
+import time
+import pyautogui
+import random
+from inspect import currentframe, getframeinfo
+import re
+import os
+
+from modules.mouseAutomation import MouseAutomation
+
+# foo = input("Hover over alternative window")
+# altWindowXY = pyautogui.position()
+totalTime = 0.0
+averageTime = 0.0
+total = 0
+dryRun = True
+runTimeStamped = 0
+totalTimeStamped = 0
+longestRun = 0
+shortestRun = 100
+averageTimeStamped = 7.4180
+
+
+def performLeftClick(mainLocation):
+    global dryRun
+    if (dryRun == False):
+        print("Clicking at " + str(mainLocation))
+        # sleepRandom(0.3, 0.7)  # remove if clicking
+        pyautogui.leftClick(None, None, 0, random.uniform(0.3, 0.7))
+
+
+def sleepRandom(smallInt, largeInt):
+    global totalTime
+    global dryRun
+    # global altWindowXY
+    sleep = round(random.uniform(smallInt, largeInt), 10)
+    # sleep = sleep + round(random.uniform(0.5, 1.2), 10) # enable if on virtual machine
+    totalTime = totalTime + sleep
+    # sleep = 60 + sleep
+    # if (dryRun == False):
+        # print(sleep)
+
+    if (random.randint(1, 1000) > 980):
+        sleepRandom(0, 1)
+
+    # # if (random.randint(1, 1000) > 960):
+    # #     sleepRandom(1, 2)
+
+    # if (random.randint(1, 1000) > 990):
+    #     sleepRandom(1, 3)
+
+    # if (random.randint(1, 1000) > 980):
+    #     sleepRandom(1, 25)
+
+    if (dryRun == False):
+        time.sleep(sleep)
+        # time.sleep(0.05)
+
+
+def mouseOutOfRange(mainLoc):
+    current = pyautogui.position()
+    if (current[0] >= mainLoc[0]+10 or current[0] <= mainLoc[0]-10):
+        foo = input("Move out of zone, get close and hit enter")
+        pyautogui.moveTo(
+            mainLoc[0] + random.randint(-3, 3),
+            mainLoc[1] + random.randint(-3, 3),
+            random.uniform(0.3, 0.7)
+        )
+        sleepRandom(
+            random.uniform(0.4, 0.6),
+            random.uniform(0.6, 0.8)
+        )
+        current = pyautogui.position()
+
+    return current
+
+
+def castSpell(current, mainLocation, item):
+    sleepRandom( random.uniform(0.3, 0.4), random.uniform(0.8, 1) )
+    mouseOutOfRange(mainLocation)
+    # performLeftClick(mainLocation)
+    
+    modifiedMainLocation = MouseAutomation.modifyLocationMove( mainLocation[0], mainLocation[1], 7, True )
+    sleepRandom( random.uniform(0.2, 0.25), random.uniform(0.5, 0.7) )
+    MouseAutomation.performRightClick(modifiedMainLocation)
+    # MouseAutomation.performLeftClick(modifiedMainLocation)
+    sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+    mouseOutOfRange(mainLocation)
+    
+    modifiedItemLocation = MouseAutomation.modifyLocationMove( modifiedMainLocation[0], modifiedMainLocation[1] + 65 + random.randint(-5, 5), 1, False )
+    MouseAutomation.performLeftClick(modifiedItemLocation)
+    sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+    
+    
+    if (random.randint(1, 1000) > 100):
+        pyautogui.press('1')
+        sleepRandom( random.uniform(0.2, 0.5), random.uniform(0.9, 1.1) )
+    else:
+        pyautogui.press('2')
+        print('pressed wrong button')
+        sleepRandom( random.uniform(0.2, 0.25), random.uniform(0.5, 0.7) )
+        modifiedMainLocation = MouseAutomation.modifyLocationMove( mainLocation[0], mainLocation[1], 7, True )
+        sleepRandom( random.uniform(0.2, 0.25), random.uniform(0.5, 0.7) )
+        MouseAutomation.performRightClick(modifiedMainLocation)
+        # MouseAutomation.performLeftClick(modifiedMainLocation)
+        sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+        mouseOutOfRange(mainLocation)
+        modifiedItemLocation = MouseAutomation.modifyLocationMove( modifiedMainLocation[0], modifiedMainLocation[1] + 65 + random.randint(-5, 5), 1, False )
+        MouseAutomation.performLeftClick(modifiedItemLocation)
+        sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+        pyautogui.press('1')
+        sleepRandom( random.uniform(0.2, 0.5), random.uniform(0.9, 1.1) )
+    
+    modifiedMainLocation = MouseAutomation.modifyLocationMove( mainLocation[0], mainLocation[1], 7, True )
+    sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+    MouseAutomation.performRightClick(modifiedMainLocation)
+    # MouseAutomation.performLeftClick(modifiedMainLocation)
+    sleepRandom( random.uniform(0.2, 0.25), random.uniform(0.5, 0.7) )
+    
+    modifiedLocation = MouseAutomation.modifyLocationMove( modifiedMainLocation[0], modifiedMainLocation[1] + 45 + random.randint(-5, 5), 1, False )
+    MouseAutomation.performLeftClick(modifiedLocation)
+    sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+    
+    if (random.randint(1, 1000) > 100):
+        pyautogui.press('3')
+        sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+    else:
+        pyautogui.press('1')
+        print('pressed wrong button')
+        pyautogui.press('3')
+        sleepRandom( random.uniform(0.7, 1), random.uniform(1, 1.5) )
+
+
+def formatTimeLeft(timeLeft):
+    # timeLeft = float(timeLeft)
+    if (timeLeft > 60):
+        timeLeft = round(timeLeft/60, 2)
+        timeLeftMin = str(timeLeft).split('.')[0]
+        timeLeftSec = (int(str(timeLeft).split('.')[1]) * 60) / 100
+        if (timeLeftSec < 10):
+            timeLeftSec = "0" + str(timeLeftSec)
+        timeLeft = timeLeftMin + ":" + str(timeLeftSec)
+    else:
+        timeLeft = str(round(timeLeft, 0)) + " sec"
+
+    return timeLeft
+
+
+def clickLocations(mainLocation, item, pixelColorItem, iterations):
+    global total, averageTime
+    global dryRun
+    global runTimeStamped
+    global totalTimeStamped
+    global averageTimeStamped
+    global longestRun
+    global shortestRun
+    # pyautogui.press('escape')
+    for i in range(0, iterations):
+        mainLocationTemp = mainLocation
+        total = total + 1
+        if (False == True and dryRun == True):
+            total = total + 1
+            pixelColorCurrentItem = 10 #pixelColorItem
+            castSpell(pyautogui.position(), mainLocationTemp, item)
+        elif (dryRun == False):
+            startTime = time.time()
+            print("\n==== Run: " + str(i + 1) +
+                  " of " + str(iterations) + " ==== " + str(iterations - (i + 1)) + " left =====")
+            # timeLeft = averageTime * (iterations - i)
+            # timeLeft = formatTimeLeft(timeLeft)
+            # print("======== Time Left: " + timeLeft + " ========")
+            foo = averageTimeStamped*(iterations - i)
+            foo = formatTimeLeft(foo)
+            print("======== Time Left: " +
+                  str(foo) + " ========")
+            mouseOutOfRange(mainLocationTemp)
+            current = pyautogui.position()
+            # frameinfo = getframeinfo(currentframe())
+            # fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
+            pixelColorCurrentItem = 10 #pyautogui.screenshot(
+            #     imageFilename=".screenshot" + fileName +
+            #     str(frameinfo.lineno) + ".png",
+            #     region=(
+            #         item[0], item[1], 10, 10
+            #     )
+            # ).getcolors()
+            castSpell(current, mainLocationTemp, item)
+            runTimeStamped = (time.time()-startTime)
+            if (runTimeStamped > (averageTimeStamped*15)):
+                runTimeStamped = longestRun
+
+            if (runTimeStamped > longestRun):
+                longestRun = runTimeStamped
+
+            if (runTimeStamped < shortestRun):
+                shortestRun = runTimeStamped
+            totalTimeStamped = totalTimeStamped + runTimeStamped
+            averageTimeStamped = totalTimeStamped/total
+            # print("Total: " + str(total))
+            print("Iteration took: " + str(runTimeStamped) + "s")
+            # print("totalTimeStamped " + str(totalTimeStamped))
+            print("Range " + str(shortestRun) + " thru " + str(longestRun))
+            # print("longestRun " + str(longestRun))
+            # print("shortestRun " + str(shortestRun))
+            print("AverageTimeStamped = TotalTimeStamped  / Total")
+            print(str(averageTimeStamped) + " = " +
+                  str(totalTimeStamped) + " / " + str(total))
+            # guess = ((averageTime)*2)+.5
+            # print("Guess: " + str(guess))
+            # print("averageTime " + str(averageTime))
+
+    pyautogui.press('q')
+    input2 = input("Left Click? ")
+    return True
+
+
+def run(mainLocation, item, pixelColorItem, itemCount):
+    return clickLocations(mainLocation, item, pixelColorItem, itemCount)
+
+
+while True == True:
+    # run(mainLocation, item, pixelColorItem, itemCount)
+    itemCount = 8 #input("Hover over item location, how many are there? ")
+    if (itemCount == "" or itemCount == "0"):
+        itemCount = random.randint(250, 999)
+    if (type(itemCount) == str):
+        itemCount = int(itemCount)
+
+    # input2 = input("Left Click? ")
+    mainLocation = [2734, 891] #pyautogui.position()
+    # mainLocation = pyautogui.position()
+    print("Spell" + str(mainLocation))
+    # pyautogui.moveTo(mainLocation[0], mainLocation[1])
+    # input2 = input("Left Click? ")
+    item = [2706, 901] #pyautogui.position()
+    # item = pyautogui.position()
+    # frameinfo = getframeinfo(currentframe())
+    # fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
+    dt = datetime.datetime.now()
+    dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+    pixelColorItem = 10 #pyautogui.screenshot(
+    #     imageFilename=".screenshot" +
+    #     str(fileName) + str(frameinfo.lineno) + ".png",
+    #     region=(item[0], item[1], 10, 10)
+    # ).getcolors()
+
+    dryRun = True
+    dryRunItemCount = 1000
+    # if (itemCount < 100):
+    #     dryRunItemCount = itemCount*10
+
+    # placeHolder = input("Ready?")
+    print("Running dry run test to assess total time")
+    # success = clickLocations(
+    #     mainLocation, item, pixelColorItem, dryRunItemCount)
+    # averageTime = totalTime/total
+    # print("\n\nAverage Time: " + str(averageTime))
+    dryRun = False
+    print("Spell" + str(mainLocation))
+    print("Item" + str(item))
+    modifiedMainLocation = MouseAutomation.modifyLocationMove(
+        mainLocation[0],
+        mainLocation[1],
+        3,
+        True
+    )
+    mouseOutOfRange(modifiedMainLocation)
+    running = run(modifiedMainLocation, item, pixelColorItem, itemCount)

@@ -10,20 +10,22 @@ cp = random.randint(3, 5)  # Number of control points. Must be at least 2.
 
 class MouseAutomation:
     def performLeftClick(xy):
+        # print('click')
         pyautogui.leftClick(
             xy[0],  # None,
-            xy[1]  # ,  # None,
+            xy[1],  # ,  # None,
             # 0,
-            # random.uniform(0.3, 0.7)
+            random.uniform(0.01, 0.09)
         )
 
 
     def performRightClick(xy):
+        # print('click')
         pyautogui.rightClick(
             xy[0],  # None,
-            xy[1]  # ,  # None,
+            xy[1],  # ,  # None,
             # 0,
-            # random.uniform(0.3, 0.7)
+            random.uniform(0.01, 0.2)
         )
 
 
@@ -93,27 +95,29 @@ class MouseAutomation:
             # pyautogui.leftClick(*point)
             pyautogui.moveTo(
                 *point,
-                _pause=False, duration=random.uniform(0.03, 0.09)
+                _pause=False, duration=random.uniform(0.001, 0.09)
             )
             # pyautogui.dragTo(*point, _pause=False)
             duration = random.uniform(0.05, 0.25)
-            timeout = duration / len(points[0])
+            timeout = (duration / len(points[0])) / random.randint(1, 3)
+            # print(str(timeout))
             time.sleep(timeout)
 
 
     def mouseMove(x1, y1, x2, y2):
         if (
-            x1 <= x2+20 and x1 >= x2-20 and
-            y1 <= y2+20 and y1 >= y2-20
+            x1 <= x2+15 and x1 >= x2-15 and
+            y1 <= y2+15 and y1 >= y2-15
         ):
             print("Not moving: [" + str(x1) + ", " + str(y1) + "] to [" + str(x2) + ", " + str(y2) + "]")
         elif (
-            x1 <= x2+50 and x1 >= x2-50 and
-            y1 <= y2+50 and y1 >= y2-50
+            x1 <= x2+10 and x1 >= x2-10 and
+            y1 <= y2+10 and y1 >= y2-10
         ):
             print("Quickly moving: [" + str(x1) + ", " + str(y1) + "] to [" + str(x2) + ", " + str(y2) + "]")
             pyautogui.moveTo(x2, y2)
         else:
+        # if (True == True):
             smallerX = x1
             xDiff = x2-x1
             smallerY = y1
@@ -201,11 +205,12 @@ class MouseAutomation:
             # sleepRandom(0.7, 1.2) #sleepRandom(1, 1.5)
 
 
-    def mouseOutOfRange(mainLoc):
+    def mouseOutOfRange(mainLoc, force = False):
         current = pyautogui.position()
-        if (current[0] >= mainLoc[0]+20 or current[0] <= mainLoc[0]-20):
+        if (current[0] >= mainLoc[0]+45 or current[0] <= mainLoc[0]-45):
             print(str(mainLoc) + " is not close to current loc of " + str(current))
-            foo = input("Move out of zone, get close and hit enter")
+            if (force == False):
+                foo = input("Move out of zone, get close and hit enter")
             pyautogui.moveTo(
                 mainLoc[0] + random.randint(-3, 3),
                 mainLoc[1] + random.randint(-3, 3), random.uniform(0.3, 0.7)
@@ -228,14 +233,21 @@ class MouseAutomation:
         MouseAutomation.performLeftClick(pyautogui.position())
 
 
-    def modifyLocationMove(x, y, locationVariance):
+    def modifyLocationMove(x, y, locationVariance, vary = True):
+        # print(x)
+        # print(y)
+        # print(locationVariance)
         modifiedLocation = [
             random.randint(x-locationVariance, x+locationVariance),
-                random.randint(y-locationVariance, y+locationVariance),
+            random.randint(y-locationVariance, y+locationVariance),
         ]
         current = pyautogui.position()
-        MouseAutomation.mouseMove(current[0], current[1],
+        # print(str(modifiedLocation))
+        if (vary is True):
+            MouseAutomation.mouseMove(current[0], current[1],
                 modifiedLocation[0], modifiedLocation[1])
+        else:
+            pyautogui.moveTo(modifiedLocation[0], modifiedLocation[1])
 
         return modifiedLocation
     

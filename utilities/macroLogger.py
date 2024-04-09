@@ -1,7 +1,7 @@
 import pyautogui
-from modules.configHelper import ConfigHelper
+# from modules.configHelper import ConfigHelper
 
-config = ConfigHelper.read_config()
+# config = ConfigHelper.read_config()
 locationRuns = input("How many run locations: ")
 locationRuns = int(locationRuns)
 loc = []
@@ -16,11 +16,13 @@ for temp in range(0, locationRuns):
         current = pyautogui.position()
         distVariation = input("Distance variation between clicks ")
         if (distVariation == ""):
-            distVariation = config['defaults']['distVariation']
+            # distVariation = config['defaults']['distVariation']
+            distVariation = 10
 
         timeVariation = input("Time between clicks ")
         if (timeVariation == ""):
-            timeVariation = config['defaults']['timeVariation']
+            # timeVariation = config['defaults']['timeVariation']
+            timeVariation = 5
 
         loc.append([current[0], current[1], extraKey,
                     int(distVariation), int(timeVariation)])

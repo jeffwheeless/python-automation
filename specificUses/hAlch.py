@@ -16,7 +16,7 @@ runTimeStamped = 0
 totalTimeStamped = 0
 longestRun = 0
 shortestRun = 100
-averageTimeStamped = 7.4180
+averageTimeStamped = 4.942100568860769
 
 
 def performLeftClick(mainLocation):
@@ -38,17 +38,20 @@ def sleepRandom(smallInt, largeInt):
     if (dryRun == False):
         print(sleep)
 
-    if (random.randint(1, 1000) > 825):
+    if (random.randint(1, 1000) > 800):
         sleepRandom(0, 1)
 
-    if (random.randint(1, 1000) > 925):
+    if (random.randint(1, 1000) > 900):
         sleepRandom(1, 2)
 
-    if (random.randint(1, 1000) > 960):
+    if (random.randint(1, 1000) > 940):
         sleepRandom(1, 3)
 
-    # if (random.randint(1, 1000) > 980):
-    #     sleepRandom(1, 25)
+    if (random.randint(1, 1000) > 950):
+        sleepRandom(1, 25)
+
+    if (random.randint(1, 10000) > 9999):
+        sleepRandom(1, 100)
 
     if (dryRun == False):
         time.sleep(sleep)
@@ -111,10 +114,11 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
     global longestRun
     global shortestRun
     for i in range(0, iterations):
+            
         total = total + 1
         if (False == True and dryRun == True):
             total = total + 1
-            pixelColorCurrentItem = pixelColorItem
+            # pixelColorCurrentItem = pixelColorItem
             castSpell(pyautogui.position(), mainLocation)
         elif (dryRun == False):
             startTime = time.time()
@@ -129,44 +133,45 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
                   str(foo) + " ========")
             mouseOutOfRange(mainLocation)
             current = pyautogui.position()
-            frameinfo = getframeinfo(currentframe())
-            fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
-            pixelColorCurrentItem = pyautogui.screenshot(
-                imageFilename=".screenshot" + fileName +
-                str(frameinfo.lineno) + ".png",
-                region=(
-                    item[0], item[1], 10, 10
-                )
-            ).getcolors()
+            # frameinfo = getframeinfo(currentframe())
+            # fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
+            # pixelColorCurrentItem = pyautogui.screenshot(
+            #     imageFilename=".screenshot" + fileName +
+            #     str(frameinfo.lineno) + ".png",
+            #     region=(
+            #         item[0], item[1], 10, 10
+            #     )
+            # ).getcolors()
 
-            if (
-                True == True
-                # str(pixelColorCurrentItem) == str(pixelColorItem)
-            ):
-                castSpell(current, mainLocation)
-            else:
-                sleepRandom(1.3-(0.3/2), 2.7+(0.3/2))
-                frameinfo = getframeinfo(currentframe())
-                fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
-                pixelColorCurrentItem = pyautogui.screenshot(
-                    imageFilename=".screenshot" +
-                    str(fileName) + str(frameinfo.lineno) + ".png",
-                    region=(
-                        item[0], item[1], 10, 10
-                    )
-                ).getcolors()
-                if (
-                    str(pixelColorCurrentItem) != str(pixelColorItem)
-                ):
-                    print("wrong color return false")
-                    print(str(pixelColorCurrentItem) +
-                          " != " + str(pixelColorItem))
+            # if (
+            #     True == True
+            #     # str(pixelColorCurrentItem) == str(pixelColorItem)
+            # ):
+                # castSpell(current, mainLocation)
+            castSpell(current, mainLocation)
+            # else:
+            #     sleepRandom(1.3-(0.3/2), 2.7+(0.3/2))
+            #     frameinfo = getframeinfo(currentframe())
+            #     fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
+                # pixelColorCurrentItem = pyautogui.screenshot(
+                #     imageFilename=".screenshot" +
+                #     str(fileName) + str(frameinfo.lineno) + ".png",
+                #     region=(
+                #         item[0], item[1], 10, 10
+                #     )
+                # ).getcolors()
+                # if (
+                #     str(pixelColorCurrentItem) != str(pixelColorItem)
+                # ):
+                #     print("wrong color return false")
+                #     print(str(pixelColorCurrentItem) +
+                #           " != " + str(pixelColorItem))
 
-                    restart = input("continue (y|n)")
-                    if (restart == 'y' or restart == 'Y'):
-                        continue
-                    else:
-                        return False
+                #     restart = input("continue (y|n)")
+                #     if (restart == 'y' or restart == 'Y'):
+                #         continue
+                #     else:
+                #         return False
             runTimeStamped = (time.time()-startTime)
             if (runTimeStamped > (averageTimeStamped*15)):
                 runTimeStamped = longestRun
@@ -190,6 +195,19 @@ def clickLocations(mainLocation, item, pixelColorItem, iterations):
             # guess = ((averageTime)*2)+.5
             # print("Guess: " + str(guess))
             # print("averageTime " + str(averageTime))
+        # if (random.randint(1, 1000) > 980):
+        #     pyautogui.keyDown("shift")
+        #     pyautogui.press("tab")
+        #     pyautogui.keyUp("shift")
+        #     sleepRandom(
+        #         random.uniform(10, 12),
+        #         random.uniform(20, 30)
+        #     )
+        #     pyautogui.press("escape")
+        #     sleepRandom(
+        #         random.uniform(2, 2.5),
+        #         random.uniform(4, 6)
+        #     )
 
     return True
 
@@ -213,11 +231,12 @@ while True == True:
     fileName = re.sub(r'[^A-z]', r'', str(frameinfo.filename))
     dt = datetime.datetime.now()
     dt = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute)
-    pixelColorItem = pyautogui.screenshot(
-        imageFilename=".screenshot" +
-        str(fileName) + str(frameinfo.lineno) + ".png",
-        region=(item[0], item[1], 10, 10)
-    ).getcolors()
+    pixelColorItem = False
+    # pixelColorItem = pyautogui.screenshot(
+    #     imageFilename=".screenshot" +
+    #     str(fileName) + str(frameinfo.lineno) + ".png",
+    #     region=(item[0], item[1], 10, 10)
+    # ).getcolors()
 
     dryRun = True
     dryRunItemCount = 1000

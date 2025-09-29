@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-automation"
+version = "0.1.0"
+description = "Intentionally inefficient automation bot platform"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "UNLICENSED"}
+authors = [
+  {name = "Jeff Wheeless"}
+]
+dependencies = [
+  "pyautogui>=0.9.54",
+  "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "ruff>=0.4",
+  "black>=23.0",
+]
+
+[project.scripts]
+python-automation = "python_automation.cli.main:main"

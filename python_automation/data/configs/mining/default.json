@@ -1,0 +1,17 @@
+{
+  "variance": 1,
+  "bags_per_run": 9,
+  "rocks_per_cycle": 3,
+  "shuffle_probability": 0.35,
+  "random_move_probability": 0.5,
+  "ore_spots": [
+    {"x": 988, "y": 617, "wait": 1.0, "move_radius": 6.0, "double_click_chance": 0.25},
+    {"x": 780, "y": 893, "wait": 5.0, "move_radius": 5.0, "double_click_chance": 0.3},
+    {"x": 650, "y": 1037, "wait": 4.0, "move_radius": 4.0, "double_click_chance": 0.25}
+  ],
+  "route_steps": [
+    {"x": 988, "y": 617, "action": "", "move_radius": 6.0, "wait": 1.0},
+    {"x": 780, "y": 893, "action": "", "move_radius": 5.0, "wait": 5.0},
+    {"x": 650, "y": 1037, "action": "", "move_radius": 4.0, "wait": 4.0}
+  ]
+}

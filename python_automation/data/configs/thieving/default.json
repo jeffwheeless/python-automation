@@ -1,0 +1,11 @@
+{
+  "variance": 1,
+  "bonus_progress_increment": 0.3,
+  "bonus_trigger_base": 98.0,
+  "targets": [
+    {"x": 3198, "y": 1030, "action": "", "wait": 0.3, "move_radius": 5.0}
+  ],
+  "bonus_actions": [
+    {"x": 3315, "y": 1067, "action": "", "wait": 4.0, "move_radius": 5.0}
+  ]
+}

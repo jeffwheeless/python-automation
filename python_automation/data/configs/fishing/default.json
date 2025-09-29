@@ -1,0 +1,10 @@
+{
+  "variance": 1,
+  "locations": [
+    {"x": 1060, "y": 382, "action": "", "wait": 5.0, "move_radius": 2},
+    {"x": 736, "y": 617, "action": "", "wait": 4.7, "move_radius": 5},
+    {"x": 1203, "y": 387, "action": "", "wait": 60.0, "move_radius": 5},
+    {"x": 1286, "y": 251, "action": "", "wait": 8.0, "move_radius": 5},
+    {"x": 1061, "y": 429, "action": "escape", "wait": 4.0, "move_radius": 4}
+  ]
+}

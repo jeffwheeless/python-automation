@@ -1,0 +1,84 @@
+{
+  "iterations": 0,
+  "variance": 1,
+  "post_combine_wait": 50,
+  "max_inventory_attempts": 15,
+  "inventory_check": {
+    "x": 3465,
+    "y": 1045,
+    "r": 0,
+    "g": 255,
+    "b": 192,
+    "tolerance": 10
+  },
+  "bank_sequence": [
+    {"x": 2872, "y": 460, "action": "", "wait": 8, "move_radius": 45},
+    {"x": 2576, "y": 742, "action": "", "wait": 8, "move_radius": 45}
+  ],
+  "combine_sequence": [
+    {"x": 3511, "y": 962, "action": "", "wait": 5, "move_radius": 1},
+    {"x": 3462, "y": 964, "action": "3", "wait": 5, "move_radius": 1}
+  ],
+  "inventory_patterns": [
+    [
+      {"x": 3366, "y": 835, "wait": 5, "move_radius": 0.5},
+      {"x": 3414, "y": 834, "wait": 5, "move_radius": 0.5},
+      {"x": 3465, "y": 837, "wait": 5, "move_radius": 0.5},
+      {"x": 3464, "y": 877, "wait": 5, "move_radius": 0.5},
+      {"x": 3414, "y": 877, "wait": 5, "move_radius": 0.5},
+      {"x": 3365, "y": 877, "wait": 5, "move_radius": 0.5},
+      {"x": 3367, "y": 921, "wait": 5, "move_radius": 0.5},
+      {"x": 3416, "y": 917, "wait": 5, "move_radius": 0.5},
+      {"x": 3463, "y": 920, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 964, "wait": 5, "move_radius": 0.5},
+      {"x": 3415, "y": 961, "wait": 5, "move_radius": 0.5},
+      {"x": 3366, "y": 960, "wait": 5, "move_radius": 0.5},
+      {"x": 3366, "y": 1002, "wait": 5, "move_radius": 0.5},
+      {"x": 3418, "y": 1003, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 1001, "wait": 5, "move_radius": 0.5},
+      {"x": 3465, "y": 918, "wait": 5, "move_radius": 0.5},
+      {"x": 3414, "y": 1043, "wait": 5, "move_radius": 0.5},
+      {"x": 3367, "y": 1044, "wait": 5, "move_radius": 0.5}
+    ],
+    [
+      {"x": 3366, "y": 836, "wait": 5, "move_radius": 0.5},
+      {"x": 3417, "y": 834, "wait": 5, "move_radius": 0.5},
+      {"x": 3415, "y": 880, "wait": 5, "move_radius": 0.5},
+      {"x": 3366, "y": 880, "wait": 5, "move_radius": 0.5},
+      {"x": 3365, "y": 919, "wait": 5, "move_radius": 0.5},
+      {"x": 3422, "y": 923, "wait": 5, "move_radius": 0.5},
+      {"x": 3419, "y": 962, "wait": 5, "move_radius": 0.5},
+      {"x": 3368, "y": 967, "wait": 5, "move_radius": 0.5},
+      {"x": 3368, "y": 1001, "wait": 5, "move_radius": 0.5},
+      {"x": 3421, "y": 1004, "wait": 5, "move_radius": 0.5},
+      {"x": 3414, "y": 1049, "wait": 5, "move_radius": 0.5},
+      {"x": 3368, "y": 1044, "wait": 5, "move_radius": 0.5},
+      {"x": 3466, "y": 1046, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 1004, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 957, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 918, "wait": 5, "move_radius": 0.5},
+      {"x": 3466, "y": 876, "wait": 5, "move_radius": 0.5},
+      {"x": 3460, "y": 837, "wait": 5, "move_radius": 0.5}
+    ],
+    [
+      {"x": 3370, "y": 1042, "wait": 5, "move_radius": 0.5},
+      {"x": 3421, "y": 1044, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 1042, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 999, "wait": 5, "move_radius": 0.5},
+      {"x": 3416, "y": 1001, "wait": 5, "move_radius": 0.5},
+      {"x": 3364, "y": 1001, "wait": 5, "move_radius": 0.5},
+      {"x": 3367, "y": 957, "wait": 5, "move_radius": 0.5},
+      {"x": 3417, "y": 961, "wait": 5, "move_radius": 0.5},
+      {"x": 3467, "y": 962, "wait": 5, "move_radius": 0.5},
+      {"x": 3466, "y": 919, "wait": 5, "move_radius": 0.5},
+      {"x": 3420, "y": 919, "wait": 5, "move_radius": 0.5},
+      {"x": 3365, "y": 914, "wait": 5, "move_radius": 0.5},
+      {"x": 3368, "y": 876, "wait": 5, "move_radius": 0.5},
+      {"x": 3368, "y": 830, "wait": 5, "move_radius": 0.5},
+      {"x": 3423, "y": 837, "wait": 5, "move_radius": 0.5},
+      {"x": 3423, "y": 878, "wait": 5, "move_radius": 0.5},
+      {"x": 3464, "y": 877, "wait": 5, "move_radius": 0.5},
+      {"x": 3464, "y": 835, "wait": 5, "move_radius": 0.5}
+    ]
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "iterations": 1,
+  "locations": [
+    {"x": 1890, "y": 721, "action": "", "wait": 0.9122617244720459, "move_radius": 6},
+    {"x": 1899, "y": 632, "action": "", "wait": 1.034623146057129, "move_radius": 6},
+    {"x": 0, "y": 0, "action": "space", "wait": 14.5885329246521, "move_radius": 0}
+  ]
+}

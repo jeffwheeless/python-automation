@@ -24,10 +24,10 @@ def sleepRandom(smallInt, largeInt):
 
     time.sleep(sleep)
 
-    if (random.randint(1, 1000) > 950):
-        sleepRandom(0, 0.5)
-    if (random.randint(1, 1000) > 975):
-        sleepRandom(0, 1)
+    # if (random.randint(1, 1000) > 950):
+    #     sleepRandom(0, 0.5)
+    # if (random.randint(1, 1000) > 975):
+    #     sleepRandom(0, 1)
     # if (random.randint(1, 1000) > 995):
     #     sleepRandom(0, 5)
     # if (random.randint(1, 1000) > 990):
@@ -86,10 +86,10 @@ def prettyTime(seconds, preString = ''):
 location = []
 inputCheck = input('Click 1')
 mousePointer = pyautogui.position()
-location.append([mousePointer[0], mousePointer[1], '', 5, 12])
+location.append([mousePointer[0], mousePointer[1], '', 1, 0.5])
 inputCheck = input('Click 2')
 mousePointer = pyautogui.position()
-location.append([mousePointer[0], mousePointer[1], 'space', 5, 1])
+location.append([mousePointer[0], mousePointer[1], '', 1, 0.5])
 # inputCheck = input('Click 3')
 # mousePointer = pyautogui.position()
 # location.append([mousePointer[0], mousePointer[1], '', 5, 12])
@@ -149,8 +149,8 @@ totalTimeStamped = 0
 shortestTime = 5000000
 longestTime = 0
 verbose = 'n'  # input("\nRun program verbosly? (y/n) ")
-print("\nPercision for sleep timer:\n0) none  1) 0.90/1.10  2) 0.75/1.25  3) 0.5/1.5")
-variance = setNumberInputToDefaultIfNone(input("Choice: "), 0)
+# print("\nPercision for sleep timer:\n0) none  1) 0.90/1.10  2) 0.75/1.25  3) 0.5/1.5")
+variance = 0 #setNumberInputToDefaultIfNone(input("Choice: "), 0)
 singleRunTime = 0
 # breakEvent = 
 for val in location:
@@ -183,22 +183,27 @@ while (True == True):
             #     locationRuns) + " || " + totalTimeLeft)
 
             if (location[temp][1] != 0 and location[temp][1] != 0):
-                if (random.randint(0, 10) >= 8 and locationRuns > 2):
-                    randomlocation = random.randint(0, locationRuns-1)
-                    if (location[randomlocation][1] != 0 and location[randomlocation][1] != 0):
-                        MouseAutomation.modifyLocationMove(location[randomlocation][0], location[randomlocation][1], 30)
+
+                sleepRandom(0.5, 1)
+                pyautogui.click(location[0][0],location[0][1])
+                sleepRandom(0.5, 1)
+                pyautogui.click(location[1][0],location[1][1])
+                # if (random.randint(0, 10) >= 8 and locationRuns > 2):
+                #     randomlocation = random.randint(0, locationRuns-1)
+                #     if (location[randomlocation][1] != 0 and location[randomlocation][1] != 0):
+                #         MouseAutomation.modifyLocationMove(location[randomlocation][0], location[randomlocation][1], 30)
                         
                 
-                if (random.randint(1, 100) < 75):
-                    variantSleep(variance, waitTime)
-                    modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
-                else:
-                    sleepRandom(0.01, 0.1)
-                    modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
-                    variantSleep(variance, waitTime)
-                sleepRandom(0.01, 0.1)
-                MouseAutomation.mouseOutOfRange(modifiedLocation, True)
-                doClick(location[temp][2])
+                # if (random.randint(1, 100) < 75):
+                #     variantSleep(variance, waitTime)
+                #     modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
+                # else:
+                #     sleepRandom(0.01, 0.1)
+                #     modifiedLocation = MouseAutomation.modifyLocationMove(location[temp][0], location[temp][1], location[temp][3])
+                #     variantSleep(variance, waitTime)
+                # sleepRandom(0.01, 0.1)
+                # MouseAutomation.mouseOutOfRange(modifiedLocation, True)
+                # doClick(location[temp][2])
                 
                 # if (random.randint(1, 1000) > 980):
                 #     print("-- Long Break --")

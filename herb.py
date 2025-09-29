@@ -30,7 +30,7 @@ def sleepRandom(smallInt, largeInt):
         sleepRandom(0, 1)
     if (random.randint(1, 1000) > 975):
         sleepRandom(0, 5)
-    if (largeInt > 15 and random.randint(1, 1000) > 990):
+    if (largeInt > 15 and random.randint(1, 1000) > 980):
         print("-- Long Break --")
         sleepRandom(5, 60)
 
@@ -73,16 +73,16 @@ location = []
 # sleep move click press
 # inputCheck = input('Click 1')
 # mousePointer = pyautogui.position()
-# location.append([mousePointer[0], mousePointer[1], '', 5, 12])
+# location.append([mousePointer[0], mousePointer[1], 'escape', 5, 1])
 # inputCheck = input('Click 2')
 # mousePointer = pyautogui.position()
-# location.append([mousePointer[0], mousePointer[1], 'escape', 5, 1.5])
+# location.append([mousePointer[0], mousePointer[1], '', 5, 1])
 # inputCheck = input('Click 3')
 # mousePointer = pyautogui.position()
-# location.append([mousePointer[0], mousePointer[1], '', 5, 1])
+# location.append([mousePointer[0], mousePointer[1], 'space', 5, 1])
 # inputCheck = input('Click 4')
 # mousePointer = pyautogui.position()
-# location.append([mousePointer[0], mousePointer[1], 'space', 5, 1])
+# location.append([mousePointer[0], mousePointer[1], '', 5, 48])
 # inputCheck = input('Click 5')
 # mousePointer = pyautogui.position()
 # location.append([mousePointer[0], mousePointer[1], '', 5, 1])
@@ -108,17 +108,20 @@ location = []
 # mousePointer = pyautogui.position()
 # location.append([mousePointer[0], mousePointer[1], '', 7, 2])
 print(str(location))
-# location = [
-#     [283, 879, '', 6, 1],
-#     [357, 882, 'escape', 5, 1],
-#     [528, 847, '', 6, 1],
-#     [593, 848, 'space', 7, 1],
-#     [626, 1153, '', 7, 32],
-#     [746, 1001, '', 7, 1]
-# ]
+location = [
+   [906, 480, '', 6, 3.2064292430877686],
+    [909, 542, 'escape', 6, 1.7801831722259521],
+    # [1010, 96, '', 5, 5.746614694595337],
+    [1221, 683, '', 6, 3.0743093490600586],
+    [1224, 680, '', 6, 20.15414264678955],
+    [1270, 679, 'space', 6, 1.6380235290527344],
+    # [548, 1261, 'space', 5, 3.1564643383026123],
+    [782, 771, '', 10, 24], #bank
+    [1137, 482, '', 6, 2.4022897243499756]
+]
 
 # location = [[3078, 640, '', 8, 6], [2891, 818, '', 5, 1.5], [2856, 595, '', 5, 1], [2853, 670, 'escape', 5, 1], [3234, 712, '', 5, 1], [3313, 926, '', 5, 15], [3401, 929, 'space', 7, 1]]
-location = [[2813, 661, 'escape', 5, 1], [2901, 531, '', 5, 1.5], [3174, 673, '', 8, 30], [2840, 962, '', 5, 1]] #clean them
+# location = [[2813, 661, 'escape', 5, 1], [2901, 531, '', 5, 1.5], [3174, 673, '', 8, 30], [2840, 962, '', 5, 1]] #clean them
 # location = [[2754, 662, '', 5, 1], [2813, 661, 'escape', 5, 1], [2954, 662, '', 5, 1.5], [3007, 665, 'space', 5, 1], [3174, 673, '', 8, 8], [2840, 962, '', 5, 1]]
 # location.append([1645, 592, '', 2, 1])
 # location.append([171, 1117, '', 2, 2])
